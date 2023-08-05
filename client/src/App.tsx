@@ -1,18 +1,23 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./app/routes/index.routes";
+
+import Container from './Container';
 
 import Header from "./app/components/header/header";
+
+import Index from "./app/routes/index.routes";
+import Auth from "./app/routes/auth.routes";
 
 function App() {
 
   return (
     <BrowserRouter>
       <Header />
-      <div className="container">
+      <Container>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/auth" element={<Auth />} />
         </Routes>
-      </div>
+      </Container>
     </BrowserRouter>
   )
 }

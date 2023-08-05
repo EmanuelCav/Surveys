@@ -1,4 +1,6 @@
 @import url('./app/styles/header.css');
+@import url('./app/styles/app.css');
+@import url('./app/styles/form.css');
 
 :root {
   --main-color: #f64
@@ -17,6 +19,5 @@ body {
 }
 
 .container {
-  padding: 32px 44px;
-  margin-top: 76px;
+  padding: 12px;
 }
