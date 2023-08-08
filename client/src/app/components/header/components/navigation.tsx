@@ -1,10 +1,19 @@
+import { useNavigate } from 'react-router-dom';
+
 import Logo from "./components/logo"
 
 const Navigation = () => {
+
+    const navigate = useNavigate()
+
+    const redirectSurveys = () => {
+        navigate('/surveys')
+    }
+
     return (
         <div className="container-navigation">
-            <Logo />
-            <p className="option-list-header">Popular</p>
+            <Logo navigate={navigate} />
+            <p className="option-list-header" onClick={redirectSurveys}>Popular</p>
             <p className="option-list-header">About</p>
         </div>
     )
