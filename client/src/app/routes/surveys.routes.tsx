@@ -5,22 +5,27 @@ import { surveysApi } from '../server/api/surveys.api';
 import { surveysAction } from '../server/features/surveys.features';
 
 import { ISurvey } from "../interfaces/Survey";
-import { IReducer } from '../interfaces/Reducer';
+import { IReducerSurvey } from '../interfaces/Reducer';
 
 const Surveys = () => {
 
-  const { surveys } = useSelector((state: IReducer) => state)
+  const { surveys } = useSelector((state: IReducerSurvey) => state)
   const dispatch = useDispatch()
 
   const getData = async () => {
-    const { data } = await surveysApi()
-    dispatch(surveysAction(data.data))
+
+    try {
+      const { data } = await surveysApi()
+      dispatch(surveysAction(data.data))
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
     getData()
   }, [dispatch])
-  
+
 
   return (
     <div>

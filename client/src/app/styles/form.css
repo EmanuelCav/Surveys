@@ -79,3 +79,14 @@
 .auth-text-account-form:active {
     color: var(--main-color);
 }
+
+.contain-password-input {
+    position: relative;
+}
+.eye-password {
+    position: absolute;
+    top: 25%;
+    left: 92%;
+    font-size: 24px;
+    cursor: pointer;
+}
