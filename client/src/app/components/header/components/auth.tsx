@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const Auth = () => {
+const Auth = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
   const navigate = useNavigate()
 
@@ -10,8 +10,15 @@ const Auth = () => {
 
   return (
     <div className="container-auth">
-      <p className="option-auth-header" onClick={redirectAuth}>Login</p>
-      <p className="option-list-header">Help</p>
+      {
+        isLoggedIn ? <>
+          <p className="option-list-header" style={{ margin: "0 30px" }}>My recommendations</p>
+          <p className="option-list-header">Profile</p>
+        </> : <>
+          <p className="option-auth-header" onClick={redirectAuth}>Login</p>
+          <p className="option-list-header">Help</p>
+        </>
+      }
     </div>
   )
 }

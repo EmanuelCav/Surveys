@@ -1,10 +1,16 @@
 import { useEffect } from "react";
+import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { IReducerUser } from "../../interfaces/Reducer";
+
 import Auth from "./components/auth"
 import Navigation from "./components/navigation"
 
-import { useLocation } from 'react-router-dom';
 
 const Header = () => {
+
+  const { isLoggedIn } = useSelector((state: IReducerUser) => state)
 
   const location = useLocation()
 
@@ -16,8 +22,8 @@ const Header = () => {
       {
         location.pathname !== "/auth" &&
         <div className="container-header">
-          <Navigation />
-          <Auth />
+          <Navigation isLoggedIn={isLoggedIn} />
+          <Auth isLoggedIn={isLoggedIn} />
         </div>
       }
     </>
