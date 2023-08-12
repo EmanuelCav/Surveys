@@ -1,5 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 
+import { IComment } from "../../interface/Survey";
+
 const { ObjectId } = Types
 
 const commentSchema = new Schema({
@@ -31,4 +33,4 @@ const commentSchema = new Schema({
     versionKey: false
 })
 
-export default model('Comment', commentSchema)
+export default model<IComment>('Comment', commentSchema)

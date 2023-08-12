@@ -3,8 +3,9 @@ import { Document, ObjectId } from 'mongoose'
 export interface ISurvey extends Document {
     _id: string;
     title: string;
-    recomendations: ObjectId[];
-    options: ObjectId[]
+    recommendations: ObjectId[];
+    options: ObjectId[];
+    comments: ObjectId[];
     user: ObjectId;
     created_at: NativeDate;
     updated_at: NativeDate;

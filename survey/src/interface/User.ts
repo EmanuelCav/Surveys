@@ -7,6 +7,7 @@ export interface IUser extends Document {
     gender: string;
     password: string;
     followers: ObjectId[];
+    following: ObjectId[];
     created_at: NativeDate;
     updated_at: NativeDate;
 }

@@ -161,6 +161,14 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
 
         if (user.followers.find((id) => id == req.user)) {
 
+            await User.findByIdAndUpdate(req.user, {
+                $pull: {
+                    following: id
+                }
+            }, {
+                new: true
+            })
+
             userFollowed = await User.findByIdAndUpdate(id, {
                 $pull: {
                     followers: req.user
@@ -170,6 +178,15 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
             })
 
         } else {
+
+            await User.findByIdAndUpdate(req.user, {
+                $push: {
+                    following: id
+                }
+            }, {
+                new: true
+            })
+
 
             userFollowed = await User.findByIdAndUpdate(id, {
                 $push: {

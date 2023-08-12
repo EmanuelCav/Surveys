@@ -69,7 +69,7 @@ export const removeOption = async (req: Request, res: Response): Promise<Respons
             })
         }
 
-        if(survey?.user != req.user) {
+        if(survey.user != req.user) {
             return res.status(401).json({
                 message: "You cannot remove an option"
             })

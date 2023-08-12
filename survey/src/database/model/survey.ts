@@ -1,5 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 
+import { ISurvey } from "../../interface/Survey";
+
 const { ObjectId } = Types
 
 const surveySchema = new Schema({
@@ -31,4 +33,4 @@ const surveySchema = new Schema({
     versionKey: false
 })
 
-export default model('Survey', surveySchema)
+export default model<ISurvey>('Survey', surveySchema)

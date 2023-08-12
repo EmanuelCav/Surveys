@@ -1,5 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 
+import { IUser } from "../../interface/User";
+
 const { ObjectId } = Types
 
 const userSchema = new Schema({
@@ -29,6 +31,10 @@ const userSchema = new Schema({
     followers: [{
         type: ObjectId,
         ref: 'User'
+    }],
+    following: [{
+        type: ObjectId,
+        ref: 'User'
     }]
 
 }, {
@@ -36,4 +42,4 @@ const userSchema = new Schema({
     versionKey: false
 })
 
-export default model('User', userSchema)
+export default model<IUser>('User', userSchema)
