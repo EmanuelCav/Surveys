@@ -1,0 +1,61 @@
+
+.container-surveys {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+}
+.contain-surveys-list {
+    width: 66%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.card-survey {
+    width: 252px;
+    padding: 16px;
+    border-radius: 7px;
+    margin: 20px;
+    word-wrap: break-word;
+    -ms-word-wrap: break-word;
+    border: 2px solid var(--main-color);
+    cursor: pointer;
+}
+.card-survey:hover {
+    box-shadow: 0px 0px 2px 1px inset var(--main-color);
+}
+.card-survey:active {
+    box-shadow: none;
+}
+.title-survey-list {
+    font-size: 24px;
+}
+.option-survey-list {
+    font-size: 16px;
+    margin: 6px;
+}
+.recommendations-survey-list {
+    color: var(--main-color);
+    margin: 4px;
+}
+
+/* RECOMMENDATIONS */
+
+.contain-recommendations-list {
+    border: 1px solid var(--main-color);
+    display: flex;
+    flex-direction: column;
+    margin-left: 18px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.header-recommendation {
+    font-size: 22px;
+    color: var(--main-color);
+    margin-top: 18px;
+}

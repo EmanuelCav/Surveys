@@ -1,6 +1,7 @@
 @import url('./app/styles/header.css');
 @import url('./app/styles/app.css');
 @import url('./app/styles/form.css');
+@import url('./app/styles/survey.css');
 
 :root {
   --main-color: #f64

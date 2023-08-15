@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { surveysApi } from '../server/api/surveys.api';
 import { surveysAction } from '../server/features/surveys.features';
 
-import { ISurvey } from "../interfaces/Survey";
 import { IReducerSurvey } from '../interfaces/Reducer';
+
+import List from "../components/surveys/list";
+import Recommendations from "../components/surveys/recommendations";
 
 const Surveys = () => {
 
@@ -28,12 +30,9 @@ const Surveys = () => {
 
 
   return (
-    <div>
-      {
-        surveys.surveys.map((survey: ISurvey) => {
-          return <p>{survey.title}</p>
-        })
-      }
+    <div className="container-surveys">
+      <List surveys={surveys.surveys} />
+      <Recommendations surveys={surveys.surveys} />
     </div>
   )
 }
