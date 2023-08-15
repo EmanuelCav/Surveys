@@ -84,3 +84,28 @@
 .icon-card {
     width: 240px;
 }
+
+/* NOT FOUND */
+
+.not-fount-container {
+    position: absolute;
+    top: 76px;
+    left: 0;
+    height: calc(100vh - 76px);
+    width: 100%;
+}
+.container-message-not-found {
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 33%;
+}

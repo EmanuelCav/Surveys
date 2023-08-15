@@ -14,6 +14,9 @@ import Profile from "./app/routes/profile.routes";
 
 import { store } from "./app/server/store";
 
+import PrivateRoute from "./app/helper/privateRoute";
+import NotFountPage from "./app/routes/notfound.routes";
+
 function App() {
 
   return (
@@ -25,9 +28,12 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/surveys" element={<Surveys />} />
-            <Route path="/surveys/create" element={<Create />} />
             <Route path="/surveys/:id" element={<Survey />} />
+            <Route path="/surveys/create" element={<PrivateRoute />}>
+              <Route path="/surveys/create" element={<Create />} />
+            </Route>
             <Route path="/profile/:id" element={<Profile />} />
+            <Route path="*" element={<NotFountPage />} />
           </Routes>
         </Container>
       </Provider>
