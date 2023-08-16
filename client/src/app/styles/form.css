@@ -90,3 +90,13 @@
     font-size: 24px;
     cursor: pointer;
 }
+
+/* CREATE */
+
+.contaner-create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 76px - 24px);
+    width: 100%;
+}

@@ -5,21 +5,21 @@ import { useSelector } from 'react-redux';
 import Login from "../components/auth/login"
 import Register from '../components/auth/register';
 
-import { IReducerUser } from "../interfaces/Reducer";
+import { IReducer } from '../interfaces/Reducer';
 
 const Auth = () => {
 
   const [isLogin, setIsLogin] = useState<boolean>(true)
 
-  const { isLoggedIn } = useSelector((state: IReducerUser) => state)
+  const { user } = useSelector((state: IReducer) => state)
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (user.isLoggedIn) {
       navigate('/surveys')
     }
-  }, [])
+  }, [user.isLoggedIn])
 
 
   return (

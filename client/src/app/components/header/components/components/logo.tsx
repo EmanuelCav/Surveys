@@ -1,15 +1,17 @@
-import { NavigateFunction } from "react-router-dom"
+import { logoHeaderType } from "../../../../types/index.types"
 
-const Logo = ({ navigate }: {navigate: NavigateFunction}) => {
+const Logo = ({ navigate, isLoggedIn }: logoHeaderType) => {
 
   const redirectIndex = () => {
-    navigate('/')
+    if (!isLoggedIn) {
+      navigate('/')
+    }
   }
 
   return (
-    <div className="container-logo-header" onClick={redirectIndex}>
-        <img src="/survey.png" alt="survet_logo" className="image-logo-header" />
-        <h1 className="text-logo-header">Surveys</h1>
+    <div className="container-logo-header" onClick={redirectIndex} style={isLoggedIn ? { cursor: 'default' } : { cursor: 'pointer' }}>
+      <img src="/survey.png" alt="survet_logo" className="image-logo-header" />
+      <h1 className="text-logo-header">Surveys</h1>
     </div>
   )
 }

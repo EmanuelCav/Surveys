@@ -1,10 +1,7 @@
+import { userType } from "../types/auth.types";
 import { surveyType } from "../types/survey.types";
 
-export interface IReducerSurvey {
+export interface IReducer {
     surveys: surveyType;
-}
-
-export interface IReducerUser {
-    user: object;
-    isLoggedIn: boolean;
+    user: userType
 }

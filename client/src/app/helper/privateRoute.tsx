@@ -1,15 +1,15 @@
 import { Outlet, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import { IReducerUser } from '../interfaces/Reducer';
+import { IReducer } from '../interfaces/Reducer';
 
 const PrivateRoute = () => {
 
-    const { isLoggedIn } = useSelector((state: IReducerUser) => state)
+    const { user } = useSelector((state: IReducer) => state)
 
     return (
         <>
             {
-                isLoggedIn ? <Outlet /> : <Navigate to="/auth" />
+                user.isLoggedIn ? <Outlet /> : <Navigate to="/auth" />
             }
         </>
     )

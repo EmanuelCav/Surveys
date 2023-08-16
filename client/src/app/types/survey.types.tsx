@@ -1,4 +1,6 @@
+import { ISurvey } from "../interfaces/Survey";
+
 export type surveyType = {
-    surveys: any[];
+    surveys: ISurvey[];
     survey: object;
 }

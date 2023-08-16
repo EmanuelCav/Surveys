@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { surveysApi } from '../server/api/surveys.api';
 import { surveysAction } from '../server/features/surveys.features';
 
-import { IReducerSurvey } from '../interfaces/Reducer';
+import { IReducer } from '../interfaces/Reducer';
 
 import List from "../components/surveys/list";
 import Recommendations from "../components/surveys/recommendations";
 
 const Surveys = () => {
 
-  const { surveys } = useSelector((state: IReducerSurvey) => state)
+  const { surveys } = useSelector((state: IReducer) => state)
   const dispatch = useDispatch()
 
   const getData = async () => {

@@ -12,7 +12,7 @@ const Navigation = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
     return (
         <div className="container-navigation">
-            <Logo navigate={navigate} />
+            <Logo navigate={navigate} isLoggedIn={isLoggedIn} />
             <p className="option-list-header" onClick={redirectSurveys}>{isLoggedIn ? "Surveys" : "Popular"}</p>
             <p className="option-list-header">{isLoggedIn ? "Users" : "About"}</p>
         </div>

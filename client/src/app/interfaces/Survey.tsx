@@ -13,3 +13,7 @@ export interface ISurvey {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface ICreateSurvey {
+    title: string;
+}
