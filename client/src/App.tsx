@@ -28,9 +28,11 @@ function App() {
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/surveys" element={<Surveys />} />
-            <Route path="/surveys/:id" element={<Survey />} />
             <Route path="/surveys/create" element={<PrivateRoute />}>
               <Route path="/surveys/create" element={<Create />} />
+            </Route>
+            <Route path="/surveys/:id" element={<PrivateRoute />}>
+              <Route path="/surveys/:id" element={<Survey />} />
             </Route>
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="*" element={<NotFountPage />} />

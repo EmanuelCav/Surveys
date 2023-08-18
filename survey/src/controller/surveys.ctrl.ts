@@ -62,6 +62,7 @@ export const survey = async (req: Request, res: Response): Promise<Response> => 
                 path: 'comments',
                 populate: { path: 'comments' }
             })
+            .populate("user")
 
         if (!showSurvey) {
             return res.status(400).json({
@@ -69,11 +70,7 @@ export const survey = async (req: Request, res: Response): Promise<Response> => 
             })
         }
 
-        return res.status(200).json({
-            data: showSurvey,
-            comments: showSurvey.comments.length,
-            message: "Get survey"
-        })
+        return res.status(200).json(showSurvey)
 
     } catch (error) {
         throw (error);

@@ -25,3 +25,11 @@ export const createOptionApi = async (optionData: ICreateOption, id: string, tok
         }
     })
 }
+
+export const getSurveyApi = async (id: string, token: string) => {
+    return await api.get(`/surveys/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

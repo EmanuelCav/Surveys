@@ -1,3 +1,5 @@
+import { IUser } from "./User";
+
 export interface ICounterSurvey {
     surveys: ISurvey[];
     survey: object;
@@ -9,7 +11,7 @@ export interface ISurvey {
     options: IOption[];
     recommendations: string[]
     comments: any[];
-    user: string;
+    user: IUser;
     createdAt: string;
     updatedAt: string;
 }

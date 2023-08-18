@@ -2,5 +2,5 @@ import { ISurvey } from "../interfaces/Survey";
 
 export type surveyType = {
     surveys: ISurvey[];
-    survey: object;
+    survey: ISurvey;
 }
