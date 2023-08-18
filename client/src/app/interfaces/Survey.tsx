@@ -1,12 +1,12 @@
 export interface ICounterSurvey {
-    surveys: object[];
+    surveys: ISurvey[];
     survey: object;
 }
 
 export interface ISurvey {
     _id: string;
     title: string;
-    options: any[];
+    options: IOption[];
     recommendations: string[]
     comments: any[];
     user: string;
@@ -14,6 +14,18 @@ export interface ISurvey {
     updatedAt: string;
 }
 
+export interface IOption {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    name: string;
+    votes: string[];
+}
+
 export interface ICreateSurvey {
     title: string;
+}
+
+export interface ICreateOption {
+    name: string;
 }

@@ -100,3 +100,15 @@
     height: calc(100vh - 76px - 24px);
     width: 100%;
 }
+.container-add-option {
+    cursor: pointer;
+}
+.container-add-option:hover {
+    outline: 1px solid var(--main-color);
+}
+.container-add-option:active {
+    outline: none
+}
+.add-option-icon {
+    color: var(--main-color);
+}
