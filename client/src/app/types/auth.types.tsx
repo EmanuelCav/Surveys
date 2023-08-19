@@ -4,6 +4,7 @@ import { IUser } from "../interfaces/User";
 export type userType = {
     user: userReducerType;
     isLoggedIn: boolean;
+    profile: IUser;
 }
 export type isAccountType = {
     typeAuth: string;
@@ -18,6 +19,10 @@ export type isLoginType = {
 export type genderType = {
     gender: string;
     handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
+}
+export type profileType = {
+    user: IUser;
+    loggedUser: IUser;
 }
 
 type userReducerType = {

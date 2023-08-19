@@ -1,6 +1,7 @@
 export interface ICounterUser {
     user: object;
     isLoggedIn: boolean;
+    profile: object;
 }
 
 export interface IUser {

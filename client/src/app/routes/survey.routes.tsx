@@ -18,8 +18,13 @@ const Survey = () => {
   const dispatch = useDispatch()
 
   const getData = async () => {
-    const { data } = await getSurveyApi(params.id as string, user.user.token)
-    dispatch(getSurveyAction(data))
+
+    try {
+      const { data } = await getSurveyApi(params.id as string, user.user.token)
+      dispatch(getSurveyAction(data))
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {

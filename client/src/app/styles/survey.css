@@ -1,16 +1,16 @@
 
 .container-surveys {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: start;
     flex-wrap: wrap;
 }
 .contain-surveys-list {
-    width: 66%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+    flex: 1;
 }
 .card-survey {
     width: 252px;
@@ -43,6 +43,10 @@
 /* RECOMMENDATIONS */
 
 .contain-recommendations-list {
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 4;
     border: 1px solid var(--main-color);
     display: flex;
     flex-direction: column;
@@ -51,7 +55,11 @@
     justify-content: space-evenly;
     align-items: center;
     height: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
+    padding: 7px;
+    margin-top: 76px;
+    height: calc(100vh - 76px);
+    background: #fdb;
 }
 
 .header-recommendation {

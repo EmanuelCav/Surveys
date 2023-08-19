@@ -19,3 +19,11 @@ export const registerApi = async (userData: IRegister) => {
         }
     })
 }
+
+export const getUserApi = async (id: string, token: string) => {
+    return await api.get(`/users/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

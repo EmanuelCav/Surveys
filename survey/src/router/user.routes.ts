@@ -9,11 +9,11 @@ import auth from '../middleware/auth'
 
 const router = Router()
 
-router.get('/users', userCtrl.users)
-router.get('/users/:id', userCtrl.user)
+router.get('/users', auth, userCtrl.users)
+router.get('/users/:id', auth, userCtrl.user)
 router.post('/register', registerValid, userCtrl.register)
 router.post('/login', loginValid, userCtrl.login)
-router.delete('/users/:id', userCtrl.removeUser)
+router.delete('/users/:id', auth, userCtrl.removeUser)
 router.patch('/users/follow/:id', auth, userCtrl.followUser)
 
 export default router

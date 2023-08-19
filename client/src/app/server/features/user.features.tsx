@@ -5,7 +5,8 @@ import { ICounterUser, IUser } from "../../interfaces/User";
 
 const initialState: ICounterUser = {
     user: {},
-    isLoggedIn: false
+    isLoggedIn: false,
+    profile: {}
 }
 
 const counterSliceUser = createSlice({
@@ -19,10 +20,18 @@ const counterSliceUser = createSlice({
         registerAction: (state, action: PayloadAction<IUser>) => {
             state.user = action.payload
             state.isLoggedIn = false
+        },
+        logoutAction: (state) => {
+            state.user = {}
+            state.isLoggedIn = false
+            state.profile = {}
+        },
+        getUserAction: (state, action: PayloadAction<IUser>) => {
+            state.profile = action.payload
         }
     }
 })
 
-export const { loginAction, registerAction } = counterSliceUser.actions
+export const { loginAction, registerAction, logoutAction, getUserAction } = counterSliceUser.actions
 
 export default counterSliceUser.reducer
