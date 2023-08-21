@@ -23,11 +23,14 @@ export const counterSliceSurvey = createSlice({
         },
         getSurveyAction: (state, action: PayloadAction<ISurvey>) => {
             state.survey = action.payload
+        },
+        surveysProfileAction: (state, action: PayloadAction<ISurvey[]>) => {
+            state.surveys = action.payload
         }
     }
 })
 
-export const { surveysAction, createSurveyAction, createOptionAction, getSurveyAction } = counterSliceSurvey.actions
+export const { surveysAction, createSurveyAction, createOptionAction, getSurveyAction, surveysProfileAction } = counterSliceSurvey.actions
 
 export default counterSliceSurvey.reducer
 

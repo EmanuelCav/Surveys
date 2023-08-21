@@ -1,5 +1,7 @@
 import { ChangeEvent } from "react";
+
 import { IUser } from "../interfaces/User";
+import { ISurvey } from "../interfaces/Survey";
 
 export type userType = {
     user: userReducerType;
@@ -23,6 +25,7 @@ export type genderType = {
 export type profileType = {
     user: IUser;
     loggedUser: IUser;
+    surveys: ISurvey[];
 }
 
 type userReducerType = {

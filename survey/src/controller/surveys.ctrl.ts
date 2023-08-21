@@ -27,22 +27,20 @@ export const surveys = async (req: Request, res: Response): Promise<Response> =>
 
 }
 
-export const mySurveys = async (req: Request, res: Response): Promise<Response> => {
+export const surveysProfile = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
 
     try {
 
-        const showSurveys = await Survey.find({ user: req.user })
+        const showSurveys = await Survey.find({ user: id })
             .populate("options", "name votes")
             .populate({
                 path: 'comments',
                 populate: { path: 'comments' }
             })
 
-        return res.status(200).json({
-            posts: showSurveys.length,
-            data: showSurveys,
-            message: "Get user surveys"
-        })
+        return res.status(200).json(showSurveys)
 
     } catch (error) {
         throw (error);

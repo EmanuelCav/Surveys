@@ -33,3 +33,11 @@ export const getSurveyApi = async (id: string, token: string) => {
         }
     })
 }
+
+export const surveysProfileApi = async (id: string, token: string) => {
+    return await api.get(`/surveys/profile/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
