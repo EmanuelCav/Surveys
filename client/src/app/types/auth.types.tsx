@@ -7,6 +7,7 @@ export type userType = {
     user: userReducerType;
     isLoggedIn: boolean;
     profile: IUser;
+    users: IUser[];
 }
 export type isAccountType = {
     typeAuth: string;

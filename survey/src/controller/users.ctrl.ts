@@ -11,14 +11,11 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
     try {
 
         const showUsers = await User.find()
-        .select("-password")
-        .limit(5)
+            .select("-password")
 
-        return res.status(200).json({
-            users: showUsers.length,
-            data: showUsers,
-            message: "Get all users"
-        })
+        const usersFollowers = showUsers.sort((a, b) => b.followers.length - a.followers.length)
+
+        return res.status(200).json(usersFollowers)
 
     } catch (error) {
         throw (error);
@@ -33,7 +30,7 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
     try {
 
         const showUser = await User.findById(id)
-        .select("-password")
+            .select("-password")
 
         if (!showUser) {
             return res.status(400).json({

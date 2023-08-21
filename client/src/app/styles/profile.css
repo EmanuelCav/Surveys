@@ -57,3 +57,21 @@
     border: 1px solid var(--main-color);
     border-radius: 4px;
 }
+
+/* USERS */
+
+.container-users {
+    width: 100%;
+}
+
+.user-users {
+    border: 1px solid var(--main-color);
+    padding: 14px;
+    cursor: pointer;
+}
+.user-users:hover {
+    background: #fdb;
+}
+.user-users:active {
+    background: #fff;
+}
