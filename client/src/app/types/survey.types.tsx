@@ -10,3 +10,9 @@ export type getSurveyType = {
     survey: ISurvey;
     user: userReducerType;
 }
+
+export type removeSurveyType = {
+    survey: ISurvey;
+    user: userReducerType;
+    setIsRemove: (isRemove: boolean) => void;
+}

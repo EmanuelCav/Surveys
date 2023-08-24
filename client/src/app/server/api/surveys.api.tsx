@@ -42,6 +42,14 @@ export const surveysProfileApi = async (id: string, token: string) => {
     })
 }
 
+export const removeSurveyApi = async (id: string, token: string) => {
+    return await api.delete(`/surveys/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
 export const recommendSurveyApi = async (id: string, token: string) => {
     return await api.patch(`/surveys/recommend/${id}`, null, {
         headers: {
