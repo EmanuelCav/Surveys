@@ -41,3 +41,11 @@ export const surveysProfileApi = async (id: string, token: string) => {
         }
     })
 }
+
+export const recommendSurveyApi = async (id: string, token: string) => {
+    return await api.patch(`/surveys/recommend/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

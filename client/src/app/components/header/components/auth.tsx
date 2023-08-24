@@ -22,10 +22,9 @@ const Auth = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   }
 
   return (
-    <div className="container-auth">
+    <div className="container-auth-header">
       {
         isLoggedIn ? <>
-          <p className="option-list-header" style={{ margin: "0 30px" }}>My recommendations</p>
           <p className="option-list-header" style={{ margin: "0 30px" }} onClick={redirectProfile}>Profile</p>
           <p className="option-auth-header" onClick={redirectCreate}>Create Survey</p>
         </> : <>

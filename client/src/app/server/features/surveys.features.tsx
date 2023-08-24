@@ -26,11 +26,15 @@ export const counterSliceSurvey = createSlice({
         },
         surveysProfileAction: (state, action: PayloadAction<ISurvey[]>) => {
             state.surveys = action.payload
+        },
+        recommendSurveyAction: (state, action: PayloadAction<ISurvey>) => {
+            state.surveys = state.surveys.map((survey: ISurvey) => survey._id === action.payload._id ? action.payload : survey)
+            state.survey = action.payload
         }
     }
 })
 
-export const { surveysAction, createSurveyAction, createOptionAction, getSurveyAction, surveysProfileAction } = counterSliceSurvey.actions
+export const { surveysAction, createSurveyAction, createOptionAction, getSurveyAction, surveysProfileAction, recommendSurveyAction } = counterSliceSurvey.actions
 
 export default counterSliceSurvey.reducer
 

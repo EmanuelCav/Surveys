@@ -29,7 +29,7 @@ export type profileType = {
     surveys: ISurvey[];
 }
 
-type userReducerType = {
+export type userReducerType = {
     user: IUser;
     token: string;
 }

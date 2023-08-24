@@ -15,11 +15,7 @@ export const surveys = async (req: Request, res: Response): Promise<Response> =>
                 populate: { path: 'comments' }
             })
 
-        return res.status(200).json({
-            posts: showSurveys.length,
-            data: showSurveys,
-            message: "Get all surveys"
-        })
+        return res.status(200).json(showSurveys)
 
     } catch (error) {
         throw (error);

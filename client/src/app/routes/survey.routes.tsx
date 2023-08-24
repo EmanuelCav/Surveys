@@ -9,10 +9,12 @@ import { IReducer } from "../interfaces/Reducer";
 
 import SurveyInfo from "../components/surveys/get/surveyInfo";
 import Comments from "../components/surveys/get/comments";
+import { selector } from "../helper/selector";
 
 const Survey = () => {
 
-  const { user, surveys } = useSelector((state: IReducer) => state)
+  const user = useSelector((state: IReducer) => selector(state).user)
+  const surveys = useSelector((state: IReducer) => selector(state).surveys)
 
   const params = useParams()
   const dispatch = useDispatch()
@@ -35,7 +37,7 @@ const Survey = () => {
     <div className="container-getsurvey">
       {
         surveys.survey.user &&
-        <SurveyInfo survey={surveys.survey} />
+        <SurveyInfo survey={surveys.survey} user={user.user} />
       }
       <Comments />
     </div>

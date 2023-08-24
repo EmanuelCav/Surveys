@@ -18,7 +18,7 @@ const Surveys = () => {
 
     try {
       const { data } = await surveysApi()
-      dispatch(surveysAction(data.data))
+      dispatch(surveysAction(data))
     } catch (error) {
       console.log(error);
     }
@@ -27,7 +27,6 @@ const Surveys = () => {
   useEffect(() => {
     getData()
   }, [dispatch])
-
 
   return (
     <div className="container-surveys">

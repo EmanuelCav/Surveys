@@ -22,7 +22,7 @@
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
-    width: 66%;   
+    width: 60%;   
     height: 100%;
 }
 .image-logo-header {
@@ -51,11 +51,11 @@
 
 /* NAVIGATION AUTH */
 
-.container-auth {
+.container-auth-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 34%;
+    width: 40%;
 }
 .option-auth-header {
     font-size: 22px;
