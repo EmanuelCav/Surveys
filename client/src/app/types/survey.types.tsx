@@ -16,3 +16,4 @@ export type removeSurveyType = {
     user: userReducerType;
     setIsRemove: (isRemove: boolean) => void;
 }
+

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FormHeader from "../auth/components/formHeader"
 
 import { createSurveyApi } from "../../server/api/surveys.api";
-import { surveysAction } from "../../server/features/surveys.features";
+import { createSurveyAction, getSurveyAction } from "../../server/features/surveys.features";
 
 import { ICreateSurvey } from '../../interfaces/Survey';
 
@@ -28,7 +28,8 @@ const CreateSurvey = ({ setIsOptions }: { setIsOptions: (isOption: boolean) => v
 
         try {
             const { data } = await createSurveyApi(surveyData, user.user.token)
-            dispatch(surveysAction(data))
+            dispatch(createSurveyAction(data))
+            dispatch(getSurveyAction(data))
             setIsOptions(true)
         } catch (error) {
             console.log(error);

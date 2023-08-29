@@ -1,15 +1,55 @@
-import { useState, ChangeEvent, FC, useEffect } from "react";
+import { useState, ChangeEvent, FC, useEffect, FormEvent } from "react";
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import FormHeader from "../auth/components/formHeader"
 
-import { ICreateOption } from "../../interfaces/Survey";
+import { createOptionApi } from "../../server/api/surveys.api";
+import { createOptionAction } from "../../server/features/surveys.features";
 
-const CreateOption = () => {
+import { ICreateOption } from "../../interfaces/Survey";
+import { getSurveyType } from "../../types/survey.types";
+
+const CreateOption = ({ user, survey }: getSurveyType) => {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const initialState: ICreateOption[] = []
 
   const [optionData, setOptionData] = useState<ICreateOption[]>(initialState)
   const [inputs, setInputs] = useState<FC[]>([])
+
+  const InputElement = () => {
+    return (
+      <div className="separator">
+        <input type="text" id={`name${optionData.length + 1}`} className="input-form" placeholder="WRITE A SURVEY OPTION" onChange={handleChange} autoComplete="off" />
+      </div>
+    )
+  }
+
+  const addOption = () => {
+
+    if(optionData.length >= 6) {
+      return;
+    }
+
+    const newOption: ICreateOption = {
+      name: ""
+    }
+
+    setOptionData([...optionData, newOption])
+    setInputs([...inputs, InputElement])
+  }
+
+  const removeOption = () => {
+    let options = [...optionData]
+    let allInputs = [...inputs]
+    options.pop()
+    allInputs.pop()
+    setOptionData(options)
+    setInputs(allInputs)
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 
@@ -21,30 +61,33 @@ const CreateOption = () => {
 
   }
 
-  const InputElement = () => {
-    return (
-      <div className="separator">
-        <input type="text" className="input-form" placeholder="WRITE A SURVEY OPTION" onChange={handleChange} autoComplete="off" />
-      </div>
-    )
-  }
+  const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
 
-  const addOption = () => {
-    const newOption: ICreateOption = {
-      name: ""
+    if(optionData.length < 2) {
+      return;
     }
 
-    setOptionData([...optionData, newOption])
-    setInputs([...inputs, InputElement])
+    for (let i = 0; i < optionData.length; i++) {
+
+      const input = (document.getElementById(`name${i + 1}`) as HTMLInputElement).value
+
+      try {
+        const { data } = await createOptionApi({ name: input }, survey._id, user.token)
+        dispatch(createOptionAction(data))
+        navigate(`/profile/${user.user._id}`)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
   }
 
   useEffect(() => {
-    console.log(optionData);
-
   }, [optionData])
 
   return (
-    <form className="container-form-option">
+    <form className="container-form-option" onSubmit={handleSumbit}>
       <div className="separator">
         <FormHeader />
       </div>
@@ -60,6 +103,12 @@ const CreateOption = () => {
           Add an option
         </p>
       </div>
+      {
+        optionData.length > 0 &&
+        <div className="separator">
+          <p className="auth-text-account-form" onClick={removeOption}>Remove option</p>
+        </div>
+      }
       <div className="separator">
         <button className="button-form">
           CREATE SURVEY
