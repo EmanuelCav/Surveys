@@ -25,7 +25,7 @@ export type genderType = {
 }
 export type profileType = {
     user: IUser;
-    loggedUser: IUser;
+    loggedUser: userReducerType;
     surveys: ISurvey[];
 }
 

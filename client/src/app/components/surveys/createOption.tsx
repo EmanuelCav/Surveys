@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FC } from "react";
+import { useState, ChangeEvent, FC, useEffect } from "react";
 
 import FormHeader from "../auth/components/formHeader"
 
@@ -6,34 +6,45 @@ import { ICreateOption } from "../../interfaces/Survey";
 
 const CreateOption = () => {
 
-  const initialState: ICreateOption = {
-    name: ""
-  }
+  const initialState: ICreateOption[] = []
 
-  const [optionData, setOptionData] = useState(initialState)
+  const [optionData, setOptionData] = useState<ICreateOption[]>(initialState)
   const [inputs, setInputs] = useState<FC[]>([])
 
-  const { name } = optionData
-  
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setOptionData({ ...optionData, [name]: value })
+
+    let options = [...optionData]
+    let option = { ...optionData[optionData.length] }
+    option.name = e.target.value
+    options[optionData.length] = option
+    setOptionData(options)
+
   }
-  
+
   const InputElement = () => {
     return (
       <div className="separator">
-        <input type="text" name="name" className="input-form" placeholder="WRITE A SURVEY OPTION" value={name} onChange={handleChange} autoComplete="off" />
+        <input type="text" className="input-form" placeholder="WRITE A SURVEY OPTION" onChange={handleChange} autoComplete="off" />
       </div>
     )
   }
-  
+
   const addOption = () => {
+    const newOption: ICreateOption = {
+      name: ""
+    }
+
+    setOptionData([...optionData, newOption])
     setInputs([...inputs, InputElement])
   }
 
+  useEffect(() => {
+    console.log(optionData);
+
+  }, [optionData])
+
   return (
-    <form className="container-form-auth">
+    <form className="container-form-option">
       <div className="separator">
         <FormHeader />
       </div>

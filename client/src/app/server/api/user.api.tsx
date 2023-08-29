@@ -35,3 +35,11 @@ export const usersApi = async (token: string) => {
         }
     })
 }
+
+export const followApi = async (id: string, token: string) => {
+    return await api.patch(`/users/follow/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

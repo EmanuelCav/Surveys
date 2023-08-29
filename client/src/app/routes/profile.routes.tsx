@@ -45,15 +45,14 @@ const Profile = () => {
   useEffect(() => {
     getSurveys()
     getData()
-  }, [dispatch])
-
+  }, [dispatch, params.id])
 
   return (
     <div className="container-profile">
       {
         user.profile._id && (
           <>
-            <InfoProfile user={user.profile} loggedUser={user.user.user} surveys={surveys.surveys} />
+            <InfoProfile user={user.profile} loggedUser={user.user} surveys={surveys.surveys} />
             <SurveysProfile surveys={surveys.surveys} />
           </>
         )

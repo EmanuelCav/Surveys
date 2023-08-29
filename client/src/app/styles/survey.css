@@ -1,10 +1,10 @@
-
 .container-surveys {
     display: flex;
     justify-content: space-between;
     align-items: start;
     flex-wrap: wrap;
 }
+
 .contain-surveys-list {
     display: flex;
     justify-content: flex-start;
@@ -12,6 +12,7 @@
     flex-wrap: wrap;
     flex: 1;
 }
+
 .card-survey {
     width: 348px;
     padding: 16px;
@@ -22,19 +23,24 @@
     border: 2px solid var(--main-color);
     cursor: pointer;
 }
+
 .card-survey:hover {
     box-shadow: 0px 0px 2px 1px inset var(--main-color);
 }
+
 .card-survey:active {
     box-shadow: none;
 }
+
 .title-survey-list {
     font-size: 24px;
 }
+
 .option-survey-list {
     font-size: 16px;
     margin: 6px;
 }
+
 .recommendations-survey-list {
     color: var(--main-color);
     margin: 4px;
@@ -107,9 +113,11 @@
     align-items: center;
     cursor: pointer;
 }
+
 .container-icon-info:hover {
     color: var(--main-color);
 }
+
 .container-icon-info:active {
     color: #000;
 }
@@ -148,11 +156,11 @@
 }
 
 .contain-remove {
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    -webkit-transform: translate(-50%,-50%);
-    -o-transform: translate(-50%,-50%);
-    -moz-transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     position: absolute;
@@ -181,9 +189,11 @@
     color: var(--main-color);
     cursor: pointer;
 }
+
 .text-remove-p:hover {
     text-decoration: underline;
 }
+
 .text-remove-p:active {
     text-decoration: none;
 }

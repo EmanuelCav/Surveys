@@ -32,10 +32,13 @@ const counterSliceUser = createSlice({
         },
         usersAction: (state, action: PayloadAction<IUser[]>) => {
             state.users = action.payload
+        },
+        followAction: (state, action: PayloadAction<IUser>) => {
+            state.profile = action.payload
         }
     }
 })
 
-export const { loginAction, registerAction, logoutAction, getUserAction, usersAction } = counterSliceUser.actions
+export const { loginAction, registerAction, logoutAction, getUserAction, usersAction, followAction } = counterSliceUser.actions
 
 export default counterSliceUser.reducer

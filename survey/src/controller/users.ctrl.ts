@@ -10,7 +10,11 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const showUsers = await User.find()
+        const showUsers = await User.find({
+            _id: {
+                "$ne": req.user
+            }
+        })
             .select("-password")
 
         const usersFollowers = showUsers.sort((a, b) => b.followers.length - a.followers.length)
