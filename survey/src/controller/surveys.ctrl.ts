@@ -3,17 +3,22 @@ import { Request, Response } from "express";
 import Survey from '../database/model/survey';
 import Option from '../database/model/option'
 import Comment from '../database/model/comment'
+import User from '../database/model/user'
 
 export const surveys = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
         const showSurveys = await Survey.find()
+            .sort({
+                'recommendations': -1
+            })
             .populate("options", "name votes")
             .populate({
                 path: 'comments',
                 populate: { path: 'comments' }
             })
+            .limit(25)
 
         return res.status(200).json(showSurveys)
 
@@ -21,6 +26,21 @@ export const surveys = async (req: Request, res: Response): Promise<Response> =>
         throw (error);
     }
 
+}
+
+export const surveysFollow = async (req: Request, res: Response): Promise<Response> => {
+
+    try {
+
+        const user = await User.findById(req.user)
+
+        const surveys = await Survey.find({ user: user?.following })
+
+        return res.status(200).json(surveys)
+
+    } catch (error) {
+        throw error
+    }
 }
 
 export const surveysProfile = async (req: Request, res: Response): Promise<Response> => {
@@ -39,7 +59,7 @@ export const surveysProfile = async (req: Request, res: Response): Promise<Respo
         return res.status(200).json(showSurveys)
 
     } catch (error) {
-        throw (error);
+        throw error
     }
 
 }
@@ -148,12 +168,6 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
             })
         }
 
-        if (survey?.user == req.user) {
-            return res.status(401).json({
-                message: "You cannot recommend your own survey"
-            })
-        }
-
         var recommendedSurvey;
 
         if (survey.recommendations.find((id) => id == req.user)) {
@@ -164,7 +178,12 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
                 }
             }, {
                 new: true
-            })
+            }).populate("options", "name votes")
+                .populate({
+                    path: 'comments',
+                    populate: { path: 'comments' }
+                })
+                .populate("user")
 
         } else {
 
@@ -174,7 +193,12 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
                 }
             }, {
                 new: true
-            })
+            }).populate("options", "name votes")
+                .populate({
+                    path: 'comments',
+                    populate: { path: 'comments' }
+                })
+                .populate("user")
 
         }
 

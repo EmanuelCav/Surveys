@@ -9,6 +9,7 @@ import auth from '../middleware/auth'
 const router = Router()
 
 router.get('/surveys', surveysCtrl.surveys)
+router.get('/surveys/follow', auth, surveysCtrl.surveysFollow)
 router.get('/surveys/profile/:id', auth, surveysCtrl.surveysProfile)
 router.get('/surveys/:id', auth, surveysCtrl.survey)
 router.post('/surveys', auth, surveyValid, surveysCtrl.createSurvey)

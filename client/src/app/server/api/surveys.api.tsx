@@ -8,6 +8,14 @@ export const surveysApi = async () => {
     return await api.get('/surveys')
 }
 
+export const surveysFollowApi = async (token: string) => {
+    return await api.get('/surveys/follow', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
 export const createSurveyApi = async (surveyData: ICreateSurvey, token: string) => {
     return await api.post('/surveys', surveyData, {
         headers: {

@@ -14,7 +14,7 @@ const InfoSurvey = ({ survey, user }: getSurveyType) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const [isLiked, setIsLiked] = useState(false)
+    const [isLiked, setIsLiked] = useState<boolean>(false)
 
     const getData = async () => {
 

@@ -4,6 +4,7 @@ import { userReducerType } from "./auth.types";
 export type surveyType = {
     surveys: ISurvey[];
     survey: ISurvey;
+    follow: ISurvey[];
 }
 
 export type getSurveyType = {
@@ -16,4 +17,5 @@ export type removeSurveyType = {
     user: userReducerType;
     setIsRemove: (isRemove: boolean) => void;
 }
+
 
