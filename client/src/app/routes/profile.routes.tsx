@@ -53,7 +53,7 @@ const Profile = () => {
         user.profile._id && (
           <>
             <InfoProfile user={user.profile} loggedUser={user.user} surveys={surveys.surveys} />
-            <SurveysProfile surveys={surveys.surveys} />
+            <SurveysProfile surveys={surveys.surveys} user={user} />
           </>
         )
       }

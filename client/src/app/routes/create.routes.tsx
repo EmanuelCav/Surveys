@@ -21,7 +21,7 @@ const Create = () => {
   return (
     <div className="contaner-create" style={isOptions ? { height: '100%' } : { height: '100%' }}>
       {
-        isOptions ? <CreateSurvey setIsOptions={setIsOptions} /> : <CreateOption user={user.user} survey={surveys.survey} />
+        isOptions ? <CreateOption user={user.user} survey={surveys.survey} /> : <CreateSurvey setIsOptions={setIsOptions} />
       }
     </div>
   )

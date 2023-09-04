@@ -33,3 +33,8 @@ export type userReducerType = {
     user: IUser;
     token: string;
 }
+
+export type profileSurveyType = {
+    user: userType;
+    surveys: ISurvey[];
+}

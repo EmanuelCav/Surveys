@@ -104,3 +104,18 @@
 .user-users:active {
     background: #fff;
 }
+
+.start-profile {
+    color: var(--main-color);
+    font-size: 22px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.start-profile:hover {
+    text-decoration: underline;
+}
+
+.start-profile:active {
+    text-decoration: none;
+}
