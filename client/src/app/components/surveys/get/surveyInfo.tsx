@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 
 import ShowOption from "./components/showOptions"
@@ -10,11 +10,40 @@ import { getSurveyType } from "../../../types/survey.types";
 
 const SurveyInfo = ({ survey, user }: getSurveyType) => {
 
-  const [isRemove, setIsRemove] = useState(false)
+  const [isRemove, setIsRemove] = useState<boolean>(false)
+  const [isVoted, setIsVoted] = useState<boolean>(false)
+  const [totalVotes, setTotalVotes] = useState<number>(0)
 
   const removeSurvey = () => {
     setIsRemove(!isRemove)
   }
+
+  useEffect(() => {
+
+    for (let i = 0; i < survey.options.length; i++) {
+      survey.options[i].votes.find((userId) => {
+        if (userId === user.user._id) {
+          setIsVoted(true)
+          return
+        }
+      })
+    }
+
+  }, [isVoted])
+
+  useEffect(() => {
+
+    let total = 0
+
+    for (let i = 0; i < survey.options.length; i++) {
+      for (let j = 0; j < survey.options[i].votes.length; j++) {
+        total++
+      }
+    }
+
+    setTotalVotes(total)
+
+  }, [isVoted, totalVotes])
 
   return (
     <div className="container-survey-info">
@@ -25,12 +54,16 @@ const SurveyInfo = ({ survey, user }: getSurveyType) => {
       {
         user.user._id === survey.user._id && <AiOutlineDelete size={18} className="remove-icon" onClick={removeSurvey} />
       }
-      {
-        survey.options.map((option: IOption) => {
-          return <ShowOption option={option} key={option._id} />
-        })
-      }
+      <div className="container-options-survey">
+        {
+          survey.options.map((option: IOption) => {
+            return <ShowOption survey={survey} user={user} option={option}
+              isVoted={isVoted} setIsVoted={setIsVoted} totalVotes={totalVotes} key={option._id} />
+          })
+        }
+      </div>
       <InfoSurvey survey={survey} user={user} />
+      <p className="text-info-getsurvey" style={{ marginTop: '10px' }}>Votes: {totalVotes}</p>
     </div>
   )
 }

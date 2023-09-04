@@ -18,7 +18,7 @@ export const createOption = async (req: Request, res: Response): Promise<Respons
             })
         }
 
-        if(survey?.user != req.user) {
+        if (survey?.user != req.user) {
             return res.status(401).json({
                 message: "You cannot add an option"
             })
@@ -37,7 +37,7 @@ export const createOption = async (req: Request, res: Response): Promise<Respons
         }, {
             new: true
         })
-        .populate("options", "name votes")
+            .populate("options", "name votes")
 
         return res.status(200).json(surveyOption)
 
@@ -69,7 +69,7 @@ export const removeOption = async (req: Request, res: Response): Promise<Respons
             })
         }
 
-        if(survey.user != req.user) {
+        if (survey.user != req.user) {
             return res.status(401).json({
                 message: "You cannot remove an option"
             })
@@ -95,31 +95,45 @@ export const removeOption = async (req: Request, res: Response): Promise<Respons
 
 export const vote = async (req: Request, res: Response): Promise<Response> => {
 
-    const { id } = req.params
+    const { id, surveyId } = req.params
 
     try {
 
         const option = await Option.findById(id)
 
-        if(!option) {
+        if (!option) {
             return res.status(200).json({
                 message: "Option does not exists"
             })
         }
 
-        if(option.votes.find(id => id == req.user)) {
+        if (option.votes.find(id => id == req.user)) {
             return res.status(200).json({
                 message: "You have already vote"
             })
         }
 
-        const optionVoted = await Option.findByIdAndUpdate(id, {
+        await Option.findByIdAndUpdate(id, {
             $push: {
                 votes: req.user
             }
+        }, {
+            new: true
         })
 
-        return res.status(200).json(optionVoted)
+        const survey = await Survey.findById(surveyId)
+            .populate("options", "name votes")
+            .populate({
+                path: 'comments',
+                populate: { path: 'comments' }
+            })
+            .populate("user")
+
+        if (!survey) {
+            return res.status(400).json({ message: "Survey does not exists" })
+        }
+
+        return res.status(200).json(survey)
 
     } catch (error) {
         throw (error);
