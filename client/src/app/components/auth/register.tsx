@@ -24,10 +24,10 @@ const Register = ({ setIsLogin, isLogin }: { setIsLogin: any, isLogin: boolean }
         confirm: "",
     }
 
-    const [userData, setUserData] = useState(initialState)
+    const [userData, setUserData] = useState<IRegister>(initialState)
 
-    const [showPassword, setShowPassword] = useState(false)
-    const [showConfirm, setShowConfirm] = useState(false)
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [showConfirm, setShowConfirm] = useState<boolean>(false)
 
     const { username, email, gender, password, confirm } = userData
 

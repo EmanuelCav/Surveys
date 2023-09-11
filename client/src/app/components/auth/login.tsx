@@ -21,7 +21,7 @@ const Login = ({ setIsLogin, isLogin }: isLoginType) => {
         password: ""
     }
 
-    const [userData, setUserData] = useState(initialState)
+    const [userData, setUserData] = useState<ILogin>(initialState)
 
     const { email, password } = userData
 

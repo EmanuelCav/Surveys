@@ -4,9 +4,11 @@ import { useSelector } from "react-redux";
 
 import { IReducer } from "../../../interfaces/Reducer";
 
+import { selector } from '../../../helper/selector';
+
 const Auth = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
-  const { user } = useSelector((state: IReducer) => state)
+  const user = useSelector((state: IReducer) => selector(state).user)
 
   const navigate = useNavigate()
   const location = useLocation()

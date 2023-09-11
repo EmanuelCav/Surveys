@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
 
 import Container from './Container';
 
@@ -18,30 +20,34 @@ import { store } from "./app/server/store";
 import PrivateRoute from "./app/helper/privateRoute";
 import NotFountPage from "./app/routes/notfound.routes";
 
+const persistor = persistStore(store)
+
 function App() {
 
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <Header />
-        <Container>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/surveys" element={<Surveys />} />
-            <Route path="/surveys/create" element={<PrivateRoute />}>
-              <Route path="/surveys/create" element={<Create />} />
-            </Route>
-            <Route path="/surveys/:id" element={<PrivateRoute />}>
-              <Route path="/surveys/:id" element={<Survey />} />
-            </Route>
-            <Route path="/users" element={<PrivateRoute />}>
-              <Route path="/users" element={<Users />} />
-            </Route>
-            <Route path="/profile/:id" element={<Profile />} />
-            <Route path="*" element={<NotFountPage />} />
-          </Routes>
-        </Container>
+        <PersistGate loading={null} persistor={persistor}>
+          <Header />
+          <Container>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/surveys" element={<Surveys />} />
+              <Route path="/surveys/create" element={<PrivateRoute />}>
+                <Route path="/surveys/create" element={<Create />} />
+              </Route>
+              <Route path="/surveys/:id" element={<PrivateRoute />}>
+                <Route path="/surveys/:id" element={<Survey />} />
+              </Route>
+              <Route path="/users" element={<PrivateRoute />}>
+                <Route path="/users" element={<Users />} />
+              </Route>
+              <Route path="/profile/:id" element={<Profile />} />
+              <Route path="*" element={<NotFountPage />} />
+            </Routes>
+          </Container>
+        </PersistGate>
       </Provider>
     </BrowserRouter>
   )

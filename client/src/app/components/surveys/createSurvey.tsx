@@ -10,9 +10,11 @@ import { ICreateSurvey } from '../../interfaces/Survey';
 
 import { IReducer } from '../../interfaces/Reducer';
 
+import { selector } from '../../helper/selector';
+
 const CreateSurvey = ({ setIsOptions }: { setIsOptions: (isOption: boolean) => void }) => {
 
-    const { user } = useSelector((state: IReducer) => state)
+    const user = useSelector((state: IReducer) => selector(state).user)
 
     const dispatch = useDispatch()
 

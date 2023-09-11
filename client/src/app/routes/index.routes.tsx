@@ -1,24 +1,20 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
 
 import Data from "../components/index/data"
 import Start from "../components/index/start"
 
-import { IReducer } from "../interfaces/Reducer";
+import { isStorage } from "../helper/storage";
 
 const Index = () => {
-
-  const { user } = useSelector((state: IReducer) => state)
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (user.isLoggedIn) {
+    if (isStorage()) {
       navigate('/surveys')
     }
-  }, [user.isLoggedIn])
-
+  }, [])
 
   return (
     <div className="container-index">

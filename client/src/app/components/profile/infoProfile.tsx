@@ -12,7 +12,7 @@ const InfoProfile = ({ user, loggedUser, surveys }: profileType) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const [isFollowing, setIsFollowing] = useState(false)
+    const [isFollowing, setIsFollowing] = useState<boolean>(false)
 
     const logOut = () => {
         dispatch(logoutAction())

@@ -7,10 +7,11 @@ import { IReducer } from "../../interfaces/Reducer";
 import Auth from "./components/auth"
 import Navigation from "./components/navigation"
 
+import { selector } from "../../helper/selector";
 
 const Header = () => {
 
-  const { user } = useSelector((state: IReducer) => state)
+  const user = useSelector((state: IReducer) => selector(state).user)
 
   const location = useLocation()
 

@@ -13,7 +13,7 @@ const Create = () => {
   const user = useSelector((state: IReducer) => selector(state).user)
   const surveys = useSelector((state: IReducer) => selector(state).surveys)
 
-  const [isOptions, setIsOptions] = useState(false)
+  const [isOptions, setIsOptions] = useState<boolean>(false)
 
   useEffect(() => {
   }, [isOptions])
