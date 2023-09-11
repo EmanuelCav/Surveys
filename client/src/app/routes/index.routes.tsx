@@ -11,9 +11,13 @@ const Index = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (isStorage()) {
-      navigate('/surveys')
-    }
+
+    (async () => {
+      if (isStorage()) {
+        navigate('/surveys')
+      }
+    })()
+
   }, [])
 
   return (

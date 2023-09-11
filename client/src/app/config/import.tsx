@@ -1,0 +1,1 @@
+export const key_persist = import.meta.env.KEY_PERSIST

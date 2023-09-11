@@ -3,6 +3,8 @@ import { persistReducer } from "redux-persist";
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
 
+import { key_persist } from "../config/import";
+
 import surveyReducer from './features/surveys.features';
 import userReducer from './features/user.features';
 
@@ -12,7 +14,7 @@ const reducers = combineReducers({
 })
 
 const persistedReducer = persistReducer({
-    key: 'surveys-app-storage',
+    key: `${key_persist}`,
     version: 1,
     storage
 }, reducers)

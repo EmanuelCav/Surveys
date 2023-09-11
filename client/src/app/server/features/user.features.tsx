@@ -3,6 +3,8 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { ICounterUser, IUser } from "../../interfaces/User";
 
+import { key_persist } from "../../config/import";
+
 const initialState: ICounterUser = {
     user: {},
     isLoggedIn: false,
@@ -26,6 +28,7 @@ const counterSliceUser = createSlice({
             state.user = {}
             state.isLoggedIn = false
             state.profile = {}
+            localStorage.removeItem(`${key_persist}`)
         },
         getUserAction: (state, action: PayloadAction<IUser>) => {
             state.profile = action.payload

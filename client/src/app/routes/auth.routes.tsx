@@ -8,14 +8,18 @@ import { isStorage } from '../helper/storage';
 
 const Auth = () => {
 
-  const [isLogin, setIsLogin] = useState<boolean>(true)
-
   const navigate = useNavigate()
 
+  const [isLogin, setIsLogin] = useState<boolean>(true)
+
   useEffect(() => {
-    if (isStorage()) {
-      navigate('/surveys')
-    }
+
+    (async () => {
+      if (isStorage()) {
+        navigate('/surveys')
+      }
+    })()
+    
   }, [])
 
   return (
