@@ -65,10 +65,10 @@ const Register = ({ setIsLogin, isLogin }: { setIsLogin: any, isLogin: boolean }
                 <FormHeader />
             </div>
             <div className="separator">
-                <input type="text" name="username" className="input-form" placeholder="USERNAME" autoComplete="off" value={username} onChange={handleChange} />
+                <input type="text" name="username" className="input-form" placeholder="USERNAME" autoComplete="off" value={username} onChange={handleChange} maxLength={45} />
             </div>
             <div className="separator">
-                <input type="text" name="email" className="input-form" placeholder="EMAIL" autoComplete="off" value={email} onChange={handleChange} />
+                <input type="text" name="email" className="input-form" placeholder="EMAIL" autoComplete="off" value={email} onChange={handleChange} maxLength={50} />
             </div>
             <div className="separator">
                 <SelectGender gender={gender} handleChange={handleChange} />

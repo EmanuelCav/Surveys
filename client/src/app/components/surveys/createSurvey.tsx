@@ -53,7 +53,7 @@ const CreateSurvey = ({ setIsOptions }: { setIsOptions: (isOption: boolean) => v
                 <FormHeader />
             </div>
             <div className="separator">
-                <input type="text" name="title" className="input-form" placeholder="WRITE THE SURVEY TITLE" value={title} onChange={handleChange} />
+                <input type="text" name="title" className="input-form" placeholder="WRITE THE SURVEY TITLE" value={title} onChange={handleChange} maxLength={40} />
             </div>
             <div className="separator">
                 <button className="button-form">

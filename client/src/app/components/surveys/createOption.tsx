@@ -23,7 +23,7 @@ const CreateOption = ({ user, survey }: getSurveyType) => {
   const InputElement = () => {
     return (
       <div className="separator">
-        <input type="text" id={`name${optionData.length + 1}`} className="input-form" placeholder="WRITE A SURVEY OPTION" onChange={handleChange} autoComplete="off" />
+        <input type="text" id={`name${optionData.length + 1}`} className="input-form" placeholder="WRITE A SURVEY OPTION" onChange={handleChange} autoComplete="off" maxLength={75} />
       </div>
     )
   }
