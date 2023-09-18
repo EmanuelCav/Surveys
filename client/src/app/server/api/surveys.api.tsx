@@ -2,7 +2,9 @@ import axios from 'axios';
 
 import { ICreateOption, ICreateSurvey } from '../../interfaces/Survey';
 
-const api = axios.create({ baseURL: 'http://localhost:4000' })
+import { host } from '../../config/import';
+
+const api = axios.create({ baseURL: `${host}` })
 
 export const surveysApi = async () => {
     return await api.get('/surveys')

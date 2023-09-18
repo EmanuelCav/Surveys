@@ -6,6 +6,7 @@ import { persistStore } from 'redux-persist'
 import Container from './Container';
 
 import Header from "./app/components/header/header";
+import Loading from "./app/components/message/loading";
 
 import Index from "./app/routes/index.routes";
 import Auth from "./app/routes/auth.routes";
@@ -28,6 +29,7 @@ function App() {
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
+          <Loading />
           <Header />
           <Container>
             <Routes>

@@ -2,7 +2,9 @@ import axios from 'axios';
 
 import { ILogin, IRegister } from '../../interfaces/User';
 
-const api = axios.create({ baseURL: 'http://localhost:4000' })
+import { host } from '../../config/import';
+
+const api = axios.create({ baseURL: `${host}` })
 
 export const loginApi = async (userData: ILogin) => {
     return await api.post('/login', userData, {

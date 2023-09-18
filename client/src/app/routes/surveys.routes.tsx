@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { surveysApi, surveysFollowApi } from '../server/api/surveys.api';
 import { surveysAction, surveysFollowAction } from '../server/features/surveys.features';
+import { loadingAction } from "../server/features/response.features";
 
 import { IReducer } from '../interfaces/Reducer';
 
@@ -19,10 +20,18 @@ const Surveys = () => {
   const dispatch = useDispatch()
 
   const getData = async () => {
-
+    
     try {
+
       const { data } = await surveysApi()
+      
+      dispatch(loadingAction(true))
       dispatch(surveysAction(data))
+
+      setTimeout(() => {
+        dispatch(loadingAction(false))
+      }, 150)
+
     } catch (error) {
       console.log(error);
     }
@@ -31,8 +40,11 @@ const Surveys = () => {
   const getDataFollow = async () => {
 
     try {
+
       const { data } = await surveysFollowApi(user.user.token)
+
       dispatch(surveysFollowAction(data))
+
     } catch (error) {
       console.log(error);
     }
@@ -44,6 +56,7 @@ const Surveys = () => {
     if (user.isLoggedIn) {
       getDataFollow()
     }
+
   }, [dispatch])
 
   return (

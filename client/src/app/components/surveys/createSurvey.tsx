@@ -5,6 +5,7 @@ import FormHeader from "../auth/components/formHeader"
 
 import { createSurveyApi } from "../../server/api/surveys.api";
 import { createSurveyAction, getSurveyAction } from "../../server/features/surveys.features";
+import { loadingAction } from '../../server/features/response.features';
 
 import { ICreateSurvey } from '../../interfaces/Survey';
 
@@ -29,10 +30,20 @@ const CreateSurvey = ({ setIsOptions }: { setIsOptions: (isOption: boolean) => v
     const getData = async () => {
 
         try {
+
             const { data } = await createSurveyApi(surveyData, user.user.token)
+
+            dispatch(loadingAction(true))
+
             dispatch(createSurveyAction(data))
             dispatch(getSurveyAction(data))
+
+            setTimeout(() => {
+                dispatch(loadingAction(false))
+            }, 450)
+
             setIsOptions(true)
+
         } catch (error) {
             console.log(error);
         }

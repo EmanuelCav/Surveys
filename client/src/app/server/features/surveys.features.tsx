@@ -15,9 +15,11 @@ export const counterSliceSurvey = createSlice({
     reducers: {
         surveysAction: (state, action: PayloadAction<ISurvey[]>) => {
             state.surveys = action.payload
+            state.survey = {}
         },
         surveysFollowAction: (state, action: PayloadAction<ISurvey[]>) => {
             state.follow = action.payload
+            state.survey = {}
         },
         createSurveyAction: (state, action: PayloadAction<ISurvey>) => {
             state.surveys = [...state.surveys, action.payload]
@@ -30,6 +32,7 @@ export const counterSliceSurvey = createSlice({
         },
         surveysProfileAction: (state, action: PayloadAction<ISurvey[]>) => {
             state.surveys = action.payload
+            state.survey = {}
         },
         removeSurveyAction: (state, action: PayloadAction<ISurvey>) => {
             state.surveys = state.surveys.filter((survey: ISurvey) => survey._id !== action.payload._id)

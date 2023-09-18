@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { removeSurveyApi } from "../../../../server/api/surveys.api";
 import { removeSurveyAction } from "../../../../server/features/surveys.features";
+import { loadingAction } from "../../../../server/features/response.features";
 
 import { removeSurveyType } from "../../../../types/survey.types";
 
@@ -14,10 +15,20 @@ const Remove = ({ setIsRemove, survey, user }: removeSurveyType) => {
     const removeSurvey = async () => {
 
         try {
+
             await removeSurveyApi(survey._id, user.token)
+            
+            dispatch(loadingAction(true))
             dispatch(removeSurveyAction(survey))
+
+            setTimeout(() => {
+                dispatch(loadingAction(false))
+            }, 450)
+
             setIsRemove(false)
             navigate(`/profile/${user.user._id}`)
+            
+
         } catch (error) {
             console.log(error);
         }

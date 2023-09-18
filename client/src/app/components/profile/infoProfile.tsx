@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { followApi } from "../../server/api/user.api";
 import { logoutAction, followAction } from "../../server/features/user.features";
+import { loadingAction } from '../../server/features/response.features';
 
 import { profileType } from "../../types/auth.types"
 
@@ -15,7 +16,14 @@ const InfoProfile = ({ user, loggedUser, surveys }: profileType) => {
     const [isFollowing, setIsFollowing] = useState<boolean>(false)
 
     const logOut = () => {
+
+        dispatch(loadingAction(true))
         dispatch(logoutAction())
+
+        setTimeout(() => {
+            dispatch(loadingAction(false))
+        }, 450)
+
         navigate('/auth')
     }
 

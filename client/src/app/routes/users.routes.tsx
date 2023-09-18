@@ -5,6 +5,7 @@ import User from "../components/users/user";
 
 import { usersApi } from '../server/api/user.api'
 import { usersAction } from '../server/features/user.features'
+import { loadingAction } from "../server/features/response.features";
 
 import { IReducer } from "../interfaces/Reducer";
 import { IUser } from "../interfaces/User";
@@ -20,8 +21,16 @@ const Users = () => {
     const getData = async () => {
 
         try {
+
             const { data } = await usersApi(user.user.token)
+
+            dispatch(loadingAction(true))
             dispatch(usersAction(data))
+
+            setTimeout(() => {
+                dispatch(loadingAction(false))
+            }, 150)
+
         } catch (error) {
             console.log(error);
         }

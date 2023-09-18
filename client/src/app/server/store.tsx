@@ -3,18 +3,20 @@ import { persistReducer } from "redux-persist";
 import storage from 'redux-persist/lib/storage'
 import thunk from 'redux-thunk'
 
-import { key_persist } from "../config/import";
+import { key_name_persist } from "../config/import";
 
 import surveyReducer from './features/surveys.features';
 import userReducer from './features/user.features';
+import responseReducer from './features/response.features';
 
 const reducers = combineReducers({
     surveys: surveyReducer,
-    user: userReducer
+    user: userReducer,
+    response: responseReducer
 })
 
 const persistedReducer = persistReducer({
-    key: `${key_persist}`,
+    key: `${key_name_persist}`,
     version: 1,
     storage
 }, reducers)

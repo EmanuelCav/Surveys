@@ -7,6 +7,7 @@ import FormHeader from "./components/formHeader";
 
 import { loginApi } from "../../server/api/user.api";
 import { loginAction } from "../../server/features/user.features";
+import { loadingAction } from '../../server/features/response.features';
 
 import { isLoginType } from "../../types/auth.types";
 import { ILogin } from '../../interfaces/User';
@@ -28,9 +29,18 @@ const Login = ({ setIsLogin, isLogin }: isLoginType) => {
     const getData = async () => {
 
         try {
+
             const { data } = await loginApi(userData)
+
+            dispatch(loadingAction(true))
             dispatch(loginAction(data))
+
+            setTimeout(() => {
+                dispatch(loadingAction(false))
+            }, 400)
+
             navigate('/surveys')
+
         } catch (error) {
             console.log(error);
         }

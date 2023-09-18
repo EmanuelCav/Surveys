@@ -3,6 +3,7 @@
 @import url('./app/styles/form.css');
 @import url('./app/styles/survey.css');
 @import url('./app/styles/profile.css');
+@import url('./app/styles/response.css');
 
 :root {
   --main-color: #f64

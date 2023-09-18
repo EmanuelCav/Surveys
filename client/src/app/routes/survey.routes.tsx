@@ -4,11 +4,13 @@ import { useParams } from 'react-router-dom';
 
 import { getSurveyApi } from "../server/api/surveys.api";
 import { getSurveyAction } from "../server/features/surveys.features";
+import { loadingAction } from "../server/features/response.features";
 
 import { IReducer } from "../interfaces/Reducer";
 
 import SurveyInfo from "../components/surveys/get/surveyInfo";
 import Comments from "../components/surveys/get/comments";
+
 import { selector } from "../helper/selector";
 
 const Survey = () => {
@@ -22,8 +24,17 @@ const Survey = () => {
   const getData = async () => {
 
     try {
+
       const { data } = await getSurveyApi(params.id as string, user.user.token)
+
+      dispatch(loadingAction(true))
       dispatch(getSurveyAction(data))
+
+      setTimeout(() => {
+        dispatch(loadingAction(false))
+      }, 150)
+
+
     } catch (error) {
       console.log(error);
     }

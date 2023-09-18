@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 
 import { IReducer } from '../interfaces/Reducer';
 
+import { selector } from './selector';
+
 const PrivateRoute = () => {
 
-    const { user } = useSelector((state: IReducer) => state)
+    const user = useSelector((state: IReducer) => selector(state).user)
 
     return (
         <>

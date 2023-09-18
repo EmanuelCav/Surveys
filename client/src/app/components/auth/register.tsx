@@ -9,8 +9,8 @@ import SelectGender from "./components/selectGender"
 import { IRegister } from "../../interfaces/User";
 
 import { registerApi } from "../../server/api/user.api";
-
 import { registerAction } from "../../server/features/user.features";
+import { loadingAction } from "../../server/features/response.features";
 
 const Register = ({ setIsLogin, isLogin }: { setIsLogin: any, isLogin: boolean }) => {
 
@@ -41,9 +41,18 @@ const Register = ({ setIsLogin, isLogin }: { setIsLogin: any, isLogin: boolean }
     const getData = async () => {
 
         try {
+
             const { data } = await registerApi(userData)
+
+            dispatch(loadingAction(true))
             dispatch(registerAction(data))
+
+            setTimeout(() => {
+                dispatch(loadingAction(false))
+            }, 400)
+
             setIsLogin(true)
+
         } catch (error) {
             console.log(error);
         }
