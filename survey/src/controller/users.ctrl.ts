@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 
 import User from '../database/model/user';
+import Survey from '../database/model/survey';
+import Comment from '../database/model/comment';
+import Option from '../database/model/option';
 
 import { hashPassword, comparePassword } from "../helper/encrypt";
 import { generateToken } from "../helper/token";
@@ -125,6 +128,18 @@ export const removeUser = async (req: Request, res: Response): Promise<Response>
                 message: "User does not exists"
             })
         }
+
+        await Survey.deleteMany({
+            user: req.user
+        })
+
+        await Comment.deleteMany({
+            user: req.user
+        })
+
+        await Option.deleteMany({
+            user: req.user
+        })
 
         await User.findByIdAndDelete(id)
 

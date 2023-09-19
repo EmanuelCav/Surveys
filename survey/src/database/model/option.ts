@@ -15,6 +15,10 @@ const optionSchema = new Schema({
         type: ObjectId,
         ref: 'User'
     }],
+    user: {
+        type: ObjectId,
+        ref: 'User'
+    }
 
 }, {
     timestamps: true,

@@ -14,10 +14,7 @@ export const surveys = async (req: Request, res: Response): Promise<Response> =>
                 'recommendations': -1
             })
             .populate("options", "name votes")
-            .populate({
-                path: 'comments',
-                populate: { path: 'comments' }
-            })
+            .populate("comments")
             .limit(25)
 
         return res.status(200).json(showSurveys)
@@ -51,10 +48,7 @@ export const surveysProfile = async (req: Request, res: Response): Promise<Respo
 
         const showSurveys = await Survey.find({ user: id })
             .populate("options", "name votes")
-            .populate({
-                path: 'comments',
-                populate: { path: 'comments' }
-            })
+            .populate("comments")
 
         return res.status(200).json(showSurveys)
 
@@ -72,10 +66,7 @@ export const survey = async (req: Request, res: Response): Promise<Response> => 
 
         const showSurvey = await Survey.findById(id)
             .populate("options", "name votes")
-            .populate({
-                path: 'comments',
-                populate: { path: 'comments' }
-            })
+            .populate("comments")
             .populate("user")
 
         if (!showSurvey) {
@@ -137,10 +128,6 @@ export const removeSurvey = async (req: Request, res: Response): Promise<Respons
             await Option.findByIdAndDelete(id)
         })
         survey.comments.forEach(async (id) => {
-            const comment = await Comment.findById(id)
-            comment?.comments.forEach(async (commentId) => {
-                await Comment.findByIdAndDelete(commentId)
-            })
             await Comment.findByIdAndDelete(id)
         })
 
@@ -179,10 +166,7 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
             }, {
                 new: true
             }).populate("options", "name votes")
-                .populate({
-                    path: 'comments',
-                    populate: { path: 'comments' }
-                })
+                .populate("comments")
                 .populate("user")
 
         } else {
@@ -194,10 +178,7 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
             }, {
                 new: true
             }).populate("options", "name votes")
-                .populate({
-                    path: 'comments',
-                    populate: { path: 'comments' }
-                })
+                .populate("comments")
                 .populate("user")
 
         }

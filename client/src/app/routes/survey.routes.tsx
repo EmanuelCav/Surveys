@@ -50,7 +50,7 @@ const Survey = () => {
         surveys.survey.user &&
         <SurveyInfo survey={surveys.survey} user={user.user} />
       }
-      <Comments />
+      <Comments user={user.user} survey={surveys.survey} />
     </div>
   )
 }

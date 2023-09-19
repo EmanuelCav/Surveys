@@ -32,7 +32,9 @@ export const createComment = async (req: Request, res: Response): Promise<Respon
         }, {
             new: true
         })
+            .populate("options", "name votes")
             .populate("comments")
+            .populate("user")
 
         return res.status(200).json(surveyComment)
 
@@ -69,10 +71,6 @@ export const removeComment = async (req: Request, res: Response): Promise<Respon
                 message: "You cannot remove this comment"
             })
         }
-
-        comment.comments.forEach(async (id) => {
-            await Comment.findByIdAndDelete(id)
-        })
 
         await Survey.findByIdAndUpdate(surveyid, {
             $pull: {

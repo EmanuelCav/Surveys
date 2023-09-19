@@ -234,3 +234,51 @@
 .remove-icon:active {
     color: #f00;
 }
+
+/* COMMENT */
+
+.container-comments {
+    padding: 24px;
+    width: 100%;
+    border: 2px solid var(--main-color);
+}
+
+.form-comment {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment-area {
+    width: 88%;
+    resize: none;
+    border-radius: 8px;
+    border: 1px solid var(--main-color);
+    padding: 12px;
+    outline: none;
+    font-size: 18px;
+}
+
+.comment-area:focus {
+    box-shadow: 0px 0px 2px 1px inset var(--main-color);
+}
+
+.button-comment {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 18px;
+    background: var(--main-color);
+    outline: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.button-comment:hover {
+    background: #f76;
+}
+
+.button-comment:active {
+    background: var(--main-color);
+}

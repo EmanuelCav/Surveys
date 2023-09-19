@@ -25,7 +25,8 @@ export const createOption = async (req: Request, res: Response): Promise<Respons
         }
 
         const newOption = new Option({
-            name
+            name,
+            user: req.user
         })
 
         const optionSaved = await newOption.save()

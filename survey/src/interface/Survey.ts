@@ -17,13 +17,13 @@ export interface IOption extends Document {
     votes: ObjectId[];
     created_at: NativeDate;
     updated_at: NativeDate;
+    user: ObjectId;
 }
 
 export interface IComment extends Document {
     _id: string;
     comment: string;
     likes: ObjectId[];
-    comments: ObjectId[];
     updated: boolean;
     user: ObjectId;
     created_at: NativeDate;

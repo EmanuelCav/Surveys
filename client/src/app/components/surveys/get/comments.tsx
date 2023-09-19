@@ -1,8 +1,10 @@
+import { getSurveyType } from "../../../types/survey.types"
+import CreateComment from "./components/createComment"
 
-const Comments = () => {
+const Comments = ({ user, survey }: getSurveyType) => {
     return (
-        <div className="container-survey-info">
-            Comments
+        <div className="container-comments">
+            <CreateComment user={user} survey={survey} />
         </div>
     )
 }
