@@ -33,8 +33,14 @@ export const createComment = async (req: Request, res: Response): Promise<Respon
             new: true
         })
             .populate("options", "name votes")
-            .populate("comments")
-            .populate("user")
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "user",
+                    select: "-password"
+                }
+            })
+            .populate("user", "-password")
 
         return res.status(200).json(surveyComment)
 
@@ -81,83 +87,6 @@ export const removeComment = async (req: Request, res: Response): Promise<Respon
         await Comment.findByIdAndDelete(id)
 
         return res.status(200).json({ message: "Comment was removed" })
-
-    } catch (error) {
-        throw (error);
-    }
-
-}
-
-export const updateComment = async (req: Request, res: Response): Promise<Response> => {
-
-    const { comment } = req.body;
-    const { id } = req.params;
-
-    try {
-
-        const commentData = await Comment.findById(id)
-
-        if (!commentData) {
-            return res.status(400).json({
-                message: "Comment does not exists"
-            })
-        }
-
-        if (req.user != commentData.user) {
-            return res.status(400).json({
-                message: "You cannot update this comment"
-            })
-        }
-
-        const update = {
-            comment,
-            updated: true
-        }
-
-        const commentUpdated = await Comment.findByIdAndUpdate(id, update, {
-            new: true
-        })
-
-        return res.status(200).json(commentUpdated)
-
-    } catch (error) {
-        throw (error);
-    }
-
-}
-
-export const pushComment = async (req: Request, res: Response): Promise<Response> => {
-
-    const { comment } = req.body;
-    const { id } = req.params;
-
-    try {
-
-        const commentData = await Comment.findById(id)
-
-        if (!commentData) {
-            return res.status(400).json({
-                message: "Comment does not exists"
-            })
-        }
-
-        const newComment = new Comment({
-            comment,
-            user: req.user
-        })
-
-        const commentSaved = await newComment.save()
-
-        const pushComment = await Comment.findByIdAndUpdate(id, {
-            $push: {
-                comments: commentSaved._id
-            }
-        }, {
-            new: true
-        })
-            .populate("comments")
-
-        return res.status(200).json(pushComment)
 
     } catch (error) {
         throw (error);

@@ -56,7 +56,7 @@ const InfoSurvey = ({ survey, user }: getSurveyType) => {
                 }
                 <p className='text-info-getsurvey' onClick={likeSurvey}>Recommendations: {survey.recommendations.length}</p>
             </div>
-            <div className="container-icon-info">
+            <div className="container-icon-info-comment">
                 <BiCommentDetail size={28} color={'#f64'} />
                 <p className='text-info-getsurvey'>Comments: {survey.comments.length}</p>
             </div>

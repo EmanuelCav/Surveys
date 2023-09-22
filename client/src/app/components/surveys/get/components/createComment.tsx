@@ -4,18 +4,18 @@ import { useDispatch } from "react-redux";
 import { commentSurveyApi } from "../../../../server/api/surveys.api";
 import { commentSurveyAction } from "../../../../server/features/surveys.features";
 
-import { IComment } from '../../../../interfaces/Survey'
+import { ICreateComment } from '../../../../interfaces/Survey'
 import { getSurveyType } from '../../../../types/survey.types';
 
 const CreateComment = ({ user, survey }: getSurveyType) => {
 
   const dispatch = useDispatch()
 
-  const initialState: IComment = {
+  const initialState: ICreateComment = {
     comment: ""
   }
 
-  const [commentData, setCommentData] = useState<IComment>(initialState)
+  const [commentData, setCommentData] = useState<ICreateComment>(initialState)
 
   const { comment } = commentData
 

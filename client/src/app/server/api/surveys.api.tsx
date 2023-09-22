@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { IComment, ICreateOption, ICreateSurvey } from '../../interfaces/Survey';
+import { ICreateComment, ICreateOption, ICreateSurvey } from '../../interfaces/Survey';
 
 import { host } from '../../config/import';
 
@@ -76,7 +76,7 @@ export const voteSurveyApi = async (id: string, surveyId: string, token: string)
     })
 }
 
-export const commentSurveyApi = async (id: string, commentData: IComment, token: string) => {
+export const commentSurveyApi = async (id: string, commentData: ICreateComment, token: string) => {
     return await api.patch(`/comments/${id}`, commentData, {
         headers: {
             'Content-Type': 'application/json',

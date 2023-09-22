@@ -34,5 +34,14 @@ export interface ICreateOption {
 }
 
 export interface IComment {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    comment: string;
+    likes: string[];
+    user: IUser
+}
+
+export interface ICreateComment {
     comment: string;
 }

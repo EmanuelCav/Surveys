@@ -14,7 +14,6 @@ export const surveys = async (req: Request, res: Response): Promise<Response> =>
                 'recommendations': -1
             })
             .populate("options", "name votes")
-            .populate("comments")
             .limit(25)
 
         return res.status(200).json(showSurveys)
@@ -48,7 +47,6 @@ export const surveysProfile = async (req: Request, res: Response): Promise<Respo
 
         const showSurveys = await Survey.find({ user: id })
             .populate("options", "name votes")
-            .populate("comments")
 
         return res.status(200).json(showSurveys)
 
@@ -66,8 +64,14 @@ export const survey = async (req: Request, res: Response): Promise<Response> => 
 
         const showSurvey = await Survey.findById(id)
             .populate("options", "name votes")
-            .populate("comments")
-            .populate("user")
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "user",
+                    select: "-password"
+                }
+            })
+            .populate("user", "-password")
 
         if (!showSurvey) {
             return res.status(400).json({
@@ -166,8 +170,14 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
             }, {
                 new: true
             }).populate("options", "name votes")
-                .populate("comments")
-                .populate("user")
+                .populate({
+                    path: "comments",
+                    populate: {
+                        path: "user",
+                        select: "-password"
+                    }
+                })
+                .populate("user", "-password")
 
         } else {
 
@@ -178,8 +188,14 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
             }, {
                 new: true
             }).populate("options", "name votes")
-                .populate("comments")
-                .populate("user")
+                .populate({
+                    path: "comments",
+                    populate: {
+                        path: "user",
+                        select: "-password"
+                    }
+                })
+                .populate("user", "-password")
 
         }
 

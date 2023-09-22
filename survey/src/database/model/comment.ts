@@ -15,10 +15,6 @@ const commentSchema = new Schema({
         type: ObjectId,
         ref: 'User'
     }],
-    updated: {
-        type: Boolean,
-        default: false
-    },
     user: {
         type: ObjectId,
         ref: 'User'
