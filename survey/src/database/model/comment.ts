@@ -18,6 +18,10 @@ const commentSchema = new Schema({
     user: {
         type: ObjectId,
         ref: 'User'
+    },
+    survey: {
+        type: ObjectId,
+        ref: 'Survey'
     }
 
 }, {

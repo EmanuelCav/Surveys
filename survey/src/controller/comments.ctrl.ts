@@ -20,7 +20,8 @@ export const createComment = async (req: Request, res: Response): Promise<Respon
 
         const newComment = new Comment({
             comment,
-            user: req.user
+            user: req.user,
+            survey: survey._id
         })
 
         const commentSaved = await newComment.save()
@@ -52,7 +53,7 @@ export const createComment = async (req: Request, res: Response): Promise<Respon
 
 export const removeComment = async (req: Request, res: Response): Promise<Response> => {
 
-    const { id, surveyid } = req.params
+    const { id } = req.params
 
     try {
 
@@ -64,29 +65,32 @@ export const removeComment = async (req: Request, res: Response): Promise<Respon
             })
         }
 
-        const survey = await Survey.findById(surveyid)
-
-        if (!survey) {
-            return res.status(400).json({
-                message: "Survey does not exists"
-            })
-        }
-
         if (req.user != comment.user) {
             return res.status(400).json({
                 message: "You cannot remove this comment"
             })
         }
 
-        await Survey.findByIdAndUpdate(surveyid, {
+        const removeSurvey = await Survey.findByIdAndUpdate(comment.survey, {
             $pull: {
                 comments: id
             }
+        }, {
+            new: true
         })
+            .populate("options", "name votes")
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "user",
+                    select: "-password"
+                }
+            })
+            .populate("user", "-password")
 
         await Comment.findByIdAndDelete(id)
 
-        return res.status(200).json({ message: "Comment was removed" })
+        return res.status(200).json(removeSurvey)
 
     } catch (error) {
         throw (error);

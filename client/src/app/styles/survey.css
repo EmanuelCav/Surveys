@@ -241,6 +241,19 @@
     color: #f00;
 }
 
+.remove-icon-comment {
+    cursor: pointer;
+}
+
+.remove-icon-comment:hover {
+    color: #f44;
+}
+
+.remove-icon-comment:active {
+    color: #f00;
+}
+
+
 /* COMMENT */
 
 .container-comments {
@@ -271,6 +284,12 @@
     font-size: 18px;
     margin-bottom: 7px;
     font-weight: 600;
+}
+
+.container-action-remove {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .form-comment {

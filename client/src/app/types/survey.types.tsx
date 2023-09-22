@@ -1,4 +1,4 @@
-import { IOption, ISurvey } from "../interfaces/Survey";
+import { IComment, IOption, ISurvey } from "../interfaces/Survey";
 import { userReducerType } from "./auth.types";
 
 export type surveyType = {
@@ -25,4 +25,9 @@ export type optionSurveyType = {
     isVoted: boolean;
     setIsVoted: (isVoted: boolean) => void;
     totalVotes: number;
+}
+
+export type commentSurveyType = {
+    comment: IComment;
+    user: userReducerType;
 }

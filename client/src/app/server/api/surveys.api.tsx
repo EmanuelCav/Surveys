@@ -84,3 +84,11 @@ export const commentSurveyApi = async (id: string, commentData: ICreateComment, 
         }
     })
 }
+
+export const removeCommentApi = async (id: string, token: string) => {
+    return await api.delete(`/comments/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

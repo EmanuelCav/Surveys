@@ -13,7 +13,7 @@ const Comments = ({ user, survey }: getSurveyType) => {
                 {
                     survey.comments &&
                     survey.comments.map((comment: IComment, index: number) => {
-                        return <Comment comment={comment} key={index} />
+                        return <Comment comment={comment} user={user} key={index} />
                     })
                 }
             </div>

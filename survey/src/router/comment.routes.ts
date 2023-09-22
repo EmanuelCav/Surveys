@@ -9,9 +9,7 @@ import auth from '../middleware/auth'
 const router = Router()
 
 router.patch('/comments/:id', auth, commentValid, commentCtrl.createComment)
-router.delete('/comments/:id/:surveyid', auth, commentCtrl.removeComment)
-router.put('/comments/:id', auth, commentValid, commentCtrl.updateComment)
-router.patch('/comments/push/:id', auth, commentValid, commentCtrl.pushComment)
+router.delete('/comments/:id', auth, commentCtrl.removeComment)
 router.patch('/comments/like/:id', auth, commentCtrl.likeComment)
 
 export default router

@@ -25,6 +25,7 @@ export interface IComment extends Document {
     comment: string;
     likes: ObjectId[];
     user: ObjectId;
+    survey: ObjectId;
     created_at: NativeDate;
     updated_at: NativeDate;
 }
