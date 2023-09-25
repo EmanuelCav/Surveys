@@ -1,5 +1,7 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import FormHeader from "../auth/components/formHeader"
 
@@ -12,6 +14,7 @@ import { ICreateSurvey } from '../../interfaces/Survey';
 import { IReducer } from '../../interfaces/Reducer';
 
 import { selector } from '../../helper/selector';
+import { dangerMessage } from '../../helper/message';
 
 const CreateSurvey = ({ setIsOptions }: { setIsOptions: (isOption: boolean) => void }) => {
 
@@ -44,8 +47,8 @@ const CreateSurvey = ({ setIsOptions }: { setIsOptions: (isOption: boolean) => v
 
             setIsOptions(true)
 
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            dangerMessage(error.response.data.message)
         }
 
     }
@@ -62,6 +65,7 @@ const CreateSurvey = ({ setIsOptions }: { setIsOptions: (isOption: boolean) => v
 
     return (
         <form className="container-form-auth" onSubmit={handleSumbit}>
+            <ToastContainer />
             <div className="separator">
                 <FormHeader />
             </div>

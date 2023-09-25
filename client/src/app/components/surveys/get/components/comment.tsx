@@ -11,8 +11,14 @@ const Comment = ({ comment, user }: commentSurveyType) => {
   const dispatch = useDispatch()
 
   const removeComment = async () => {
-    const { data } = await removeCommentApi(comment._id, user.token)
-    dispatch(commentSurveyAction(data))
+
+    try {
+      const { data } = await removeCommentApi(comment._id, user.token)
+      dispatch(commentSurveyAction(data))
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   return (

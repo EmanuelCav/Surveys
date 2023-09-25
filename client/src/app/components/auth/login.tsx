@@ -1,6 +1,8 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import AccountAuth from "./components/accountAuth"
 import FormHeader from "./components/formHeader";
@@ -11,6 +13,8 @@ import { loadingAction } from '../../server/features/response.features';
 
 import { isLoginType } from "../../types/auth.types";
 import { ILogin } from '../../interfaces/User';
+
+import { dangerMessage } from '../../helper/message';
 
 const Login = ({ setIsLogin, isLogin }: isLoginType) => {
 
@@ -41,8 +45,8 @@ const Login = ({ setIsLogin, isLogin }: isLoginType) => {
 
             navigate('/surveys')
 
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            dangerMessage(error.response.data.message)
         }
     }
 
@@ -58,6 +62,7 @@ const Login = ({ setIsLogin, isLogin }: isLoginType) => {
 
     return (
         <form className="container-form-auth" onSubmit={handleSumbit}>
+            <ToastContainer limit={1} />
             <div className="separator">
                 <FormHeader />
             </div>

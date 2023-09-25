@@ -1,6 +1,8 @@
 import { useState, ChangeEvent, FC, useEffect, FormEvent } from "react";
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import FormHeader from "../auth/components/formHeader"
 
@@ -9,6 +11,8 @@ import { createOptionAction } from "../../server/features/surveys.features";
 
 import { ICreateOption } from "../../interfaces/Survey";
 import { getSurveyType } from "../../types/survey.types";
+
+import { dangerMessage } from "../../helper/message";
 
 const CreateOption = ({ user, survey }: getSurveyType) => {
 
@@ -30,7 +34,8 @@ const CreateOption = ({ user, survey }: getSurveyType) => {
 
   const addOption = () => {
 
-    if(optionData.length >= 6) {
+    if (optionData.length >= 6) {
+      dangerMessage("You can upload a maximum of 6 options")
       return;
     }
 
@@ -64,8 +69,9 @@ const CreateOption = ({ user, survey }: getSurveyType) => {
   const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if(optionData.length < 2) {
-      return;
+    if (optionData.length < 2) {
+      dangerMessage("You have to upload at least 2 options")
+      return
     }
 
     for (let i = 0; i < optionData.length; i++) {
@@ -76,8 +82,8 @@ const CreateOption = ({ user, survey }: getSurveyType) => {
         const { data } = await createOptionApi({ name: input }, survey._id, user.token)
         dispatch(createOptionAction(data))
         navigate(`/profile/${user.user._id}`)
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        dangerMessage(error.response.data.message)
       }
     }
 
@@ -88,6 +94,7 @@ const CreateOption = ({ user, survey }: getSurveyType) => {
 
   return (
     <form className="container-form-option" onSubmit={handleSumbit}>
+      <ToastContainer />
       <div className="separator">
         <FormHeader />
       </div>

@@ -1,6 +1,8 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import AccountAuth from "./components/accountAuth"
 import FormHeader from "./components/formHeader"
@@ -11,6 +13,8 @@ import { IRegister } from "../../interfaces/User";
 import { registerApi } from "../../server/api/user.api";
 import { registerAction } from "../../server/features/user.features";
 import { loadingAction } from "../../server/features/response.features";
+
+import { dangerMessage } from "../../helper/message";
 
 const Register = ({ setIsLogin, isLogin }: { setIsLogin: any, isLogin: boolean }) => {
 
@@ -53,8 +57,8 @@ const Register = ({ setIsLogin, isLogin }: { setIsLogin: any, isLogin: boolean }
 
             setIsLogin(true)
 
-        } catch (error) {
-            console.log(error);
+        } catch (error: any) {
+            dangerMessage(error.response.data.message)
         }
     }
 
@@ -70,6 +74,7 @@ const Register = ({ setIsLogin, isLogin }: { setIsLogin: any, isLogin: boolean }
 
     return (
         <form className="container-form-auth" onSubmit={handleSumbit}>
+            <ToastContainer />
             <div className="separator">
                 <FormHeader />
             </div>
