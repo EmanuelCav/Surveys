@@ -92,3 +92,11 @@ export const removeCommentApi = async (id: string, token: string) => {
         }
     })
 }
+
+export const likeCommentApi = async (id: string, token: string) => {
+    return await api.patch(`/comments/like/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

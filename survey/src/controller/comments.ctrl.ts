@@ -112,10 +112,8 @@ export const likeComment = async (req: Request, res: Response): Promise<Response
             })
         }
 
-        var likedComment;
-
         if (comment.likes.find(id => id == req.user)) {
-            likedComment = await Comment.findByIdAndUpdate(id, {
+            await Comment.findByIdAndUpdate(id, {
                 $pull: {
                     likes: req.user
                 }
@@ -123,7 +121,7 @@ export const likeComment = async (req: Request, res: Response): Promise<Response
                 new: true
             })
         } else {
-            likedComment = await Comment.findByIdAndUpdate(id, {
+            await Comment.findByIdAndUpdate(id, {
                 $push: {
                     likes: req.user
                 }
@@ -132,7 +130,22 @@ export const likeComment = async (req: Request, res: Response): Promise<Response
             })
         }
 
-        return res.status(200).json(likedComment)
+        const survey = await Survey.findById(comment.survey)
+            .populate("options", "name votes")
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "user",
+                    select: "-password"
+                }
+            })
+            .populate("user", "-password")
+
+        if (!survey) {
+            return res.status(400).json({ message: "Survey does not exists" })
+        }
+
+        return res.status(200).json(survey)
 
     } catch (error) {
         throw (error);
