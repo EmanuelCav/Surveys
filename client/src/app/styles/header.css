@@ -42,7 +42,7 @@
     font-size: 22px;
     cursor: pointer;
 
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
         display: none;
     }
 }
@@ -67,7 +67,7 @@
     margin: 0 30px;
     cursor: pointer;
 
-    @media (max-width: 500px) {
+    @media (max-width: 550px) {
         display: none;
     }
 }

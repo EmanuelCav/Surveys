@@ -14,7 +14,7 @@ const Auth = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [menu, setMenu] = useState(window.matchMedia("(max-width: 500px)").matches)
+  const [menu, setMenu] = useState(window.matchMedia("(max-width: 550px)").matches)
 
   const redirectAuth = () => {
     navigate('/auth')
@@ -30,7 +30,7 @@ const Auth = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
   useEffect(() => {
     window
-      .matchMedia("(max-width: 500px)")
+      .matchMedia("(max-width: 550px)")
       .addEventListener('change', e => setMenu(e.matches));
   }, [])
 

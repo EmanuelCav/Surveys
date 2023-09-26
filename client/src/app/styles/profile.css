@@ -6,6 +6,10 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+
+    @media (max-width: 612px) {
+        display: block;
+    }
 }
 
 /* INFO */
@@ -14,6 +18,11 @@
     width: 292px;
     height: 100%;
     padding: 22px;
+
+    @media (max-width: 612px) {
+        width: 100%;
+        height: auto;
+    }
 }
 
 .user-info-profile {
@@ -34,7 +43,6 @@
     padding: 7px;
     outline: none;
     border: none;
-    height: 31x;
     width: 100%;
     border-radius: 7px;
     cursor: pointer;
