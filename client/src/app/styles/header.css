@@ -41,6 +41,10 @@
 .option-list-header {
     font-size: 22px;
     cursor: pointer;
+
+    @media (max-width: 500px) {
+        display: none;
+    }
 }
 .option-list-header:hover {
     text-decoration: underline;
@@ -62,6 +66,10 @@
     color: var(--main-color);
     margin: 0 30px;
     cursor: pointer;
+
+    @media (max-width: 500px) {
+        display: none;
+    }
 }
 .option-auth-header:hover {
     text-decoration: underline;

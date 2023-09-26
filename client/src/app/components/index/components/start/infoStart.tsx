@@ -7,7 +7,7 @@ const InfoStart = () => {
     const redirectLogin = () => {
         navigate('/auth')
     }
-
+    
     return (
         <div className="container-info-start">
             <h1 className="header-info-start">Create and take part in surveys in a simple way</h1>
