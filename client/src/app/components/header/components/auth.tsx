@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AiOutlineMenu } from 'react-icons/ai';
 
+import SectionNavigation from './components/sectionNavigation';
+
 import { IReducer } from "../../../interfaces/Reducer";
 
 import { selector } from '../../../helper/selector';
@@ -14,7 +16,8 @@ const Auth = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [menu, setMenu] = useState(window.matchMedia("(max-width: 550px)").matches)
+  const [menu, setMenu] = useState<boolean>(window.matchMedia("(max-width: 550px)").matches)
+  const [isNavigation, setIsNavigation] = useState<boolean>(false)
 
   const redirectAuth = () => {
     navigate('/auth')
@@ -28,6 +31,10 @@ const Auth = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     navigate(`/profile/${user.user.user._id}`)
   }
 
+  const showNavigation = () => {
+    setIsNavigation(!isNavigation)
+  }
+
   useEffect(() => {
     window
       .matchMedia("(max-width: 550px)")
@@ -35,13 +42,17 @@ const Auth = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   }, [])
 
   useEffect(() => {
-  }, [location])
+  }, [location, isNavigation])
 
   return (
     <div className="container-auth-header">
       {
+        isNavigation && menu && <SectionNavigation user={user} redirectAuth={redirectAuth} 
+        redirectCreate={redirectCreate} redirectProfile={redirectProfile} navigate={navigate} />
+      }
+      {
         menu ? (
-          <AiOutlineMenu size={24} />
+          <AiOutlineMenu size={24} style={{ cursor: 'pointer' }} onClick={showNavigation} />
         ) : (
           <>
             {

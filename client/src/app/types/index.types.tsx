@@ -1,5 +1,7 @@
 import { NavigateFunction } from "react-router-dom";
 
+import { userType } from "./auth.types";
+
 export type cardType = {
     header: string; 
     text: string; 
@@ -8,4 +10,11 @@ export type cardType = {
 export type logoHeaderType = {
     navigate: NavigateFunction;
     isLoggedIn: boolean;
+}
+export type userNavigationType = {
+    user: userType;
+    redirectAuth: () => void;
+    redirectCreate: () => void;
+    redirectProfile: () => void;
+    navigate: NavigateFunction;
 }

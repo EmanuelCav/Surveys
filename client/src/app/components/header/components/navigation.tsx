@@ -19,7 +19,6 @@ const Navigation = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
     useEffect(() => {
     }, [location])
 
-
     return (
         <div className="container-navigation">
             <Logo navigate={navigate} isLoggedIn={isLoggedIn} />

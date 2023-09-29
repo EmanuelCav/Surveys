@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import SurveyList from "../surveys/components/surveyList"
 
@@ -14,6 +14,7 @@ const SurveysProfile = ({ surveys, user }: profileSurveyType) => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const params = useParams()
 
   const redirectCreate = () => {
     navigate('/surveys/create')
@@ -27,7 +28,9 @@ const SurveysProfile = ({ surveys, user }: profileSurveyType) => {
   useEffect(() => {
     surveys.find((survey) => {
       if (survey.options.length < 2) {
-        removeSurveyWithoutOptions(survey)
+        if (survey.user._id === user.user.user._id) {
+          removeSurveyWithoutOptions(survey)
+        }
       }
     })
   }, [surveys])
