@@ -6,14 +6,12 @@ import InfoProfile from "../components/profile/infoProfile"
 import SurveysProfile from "../components/profile/surveysProfile"
 
 import { surveysProfileApi } from "../server/api/surveys.api";
-import { surveysProfileAction } from "../server/features/surveys.features";
-import { getUserApi } from "../server/api/user.api";
-import { getUserAction } from "../server/features/user.features";
-import { loadingAction } from '../server/features/response.features';
+import { surveysAction } from "../server/features/surveys.features";
 
 import { IReducer } from '../interfaces/Reducer';
 
 import { selector } from '../helper/selector';
+import { userProfile } from '../server/actions/user.actions';
 
 const Profile = () => {
 
@@ -24,17 +22,12 @@ const Profile = () => {
   const params = useParams()
 
   const getSurveys = async () => {
-    
+
     try {
 
       const { data } = await surveysProfileApi(params.id as string, user.user.token)
-      
-      dispatch(loadingAction(true))
-      dispatch(surveysProfileAction(data))
-      
-      setTimeout(() => {
-        dispatch(loadingAction(false))
-      }, 150)
+
+      dispatch(surveysAction(data))
 
     } catch (error) {
       console.log(error);
@@ -42,16 +35,10 @@ const Profile = () => {
   }
 
   const getData = async () => {
-
-    try {
-
-      const { data } = await getUserApi(params.id as string, user.user.token)
-
-      dispatch(getUserAction(data))
-
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(userProfile({
+      id: String(params.id),
+      token: user.user.token
+    }) as any)
   }
 
   useEffect(() => {

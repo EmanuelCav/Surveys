@@ -5,16 +5,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import FormHeader from "../auth/components/formHeader"
 
-import { createSurveyApi } from "../../server/api/surveys.api";
-import { createSurveyAction, getSurveyAction } from "../../server/features/surveys.features";
-import { loadingAction } from '../../server/features/response.features';
-
 import { ICreateSurvey } from '../../interfaces/Survey';
-
 import { IReducer } from '../../interfaces/Reducer';
 
+import { surveyCreate } from '../../server/actions/survey.actions';
+
 import { selector } from '../../helper/selector';
-import { dangerMessage } from '../../helper/message';
 
 const CreateSurvey = ({ setIsOptions }: { setIsOptions: (isOption: boolean) => void }) => {
 
@@ -31,26 +27,11 @@ const CreateSurvey = ({ setIsOptions }: { setIsOptions: (isOption: boolean) => v
     const { title } = surveyData
 
     const getData = async () => {
-
-        try {
-
-            const { data } = await createSurveyApi(surveyData, user.user.token)
-
-            dispatch(loadingAction(true))
-
-            dispatch(createSurveyAction(data))
-            dispatch(getSurveyAction(data))
-
-            setTimeout(() => {
-                dispatch(loadingAction(false))
-            }, 450)
-
-            setIsOptions(true)
-
-        } catch (error: any) {
-            dangerMessage(error.response.data.message)
-        }
-
+        dispatch(surveyCreate({
+            setIsOptions,
+            surveyData,
+            token: user.user.token
+        }) as any)
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

@@ -3,9 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import User from "../components/users/user";
 
-import { usersApi } from '../server/api/user.api'
-import { usersAction } from '../server/features/user.features'
-import { loadingAction } from "../server/features/response.features";
+import { userAll } from "../server/actions/user.actions";
 
 import { IReducer } from "../interfaces/Reducer";
 import { IUser } from "../interfaces/User";
@@ -19,21 +17,7 @@ const Users = () => {
     const dispatch = useDispatch()
 
     const getData = async () => {
-
-        try {
-
-            const { data } = await usersApi(user.user.token)
-
-            dispatch(loadingAction(true))
-            dispatch(usersAction(data))
-
-            setTimeout(() => {
-                dispatch(loadingAction(false))
-            }, 150)
-
-        } catch (error) {
-            console.log(error);
-        }
+        dispatch(userAll(user.user.token) as any)
     }
 
     useEffect(() => {

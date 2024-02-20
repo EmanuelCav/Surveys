@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 
 import { voteSurveyApi } from '../../../../server/api/surveys.api'
-import { voteSurveyAction } from '../../../../server/features/surveys.features'
+import { getSurveyAction } from '../../../../server/features/surveys.features'
 
 import { optionSurveyType } from "../../../../types/survey.types"
 
@@ -13,7 +13,7 @@ const ShowOption = ({ survey, user, option, isVoted, setIsVoted, totalVotes }: o
 
     try {
       const { data } = await voteSurveyApi(option._id, survey._id, user.token)
-      dispatch(voteSurveyAction(data))
+      dispatch(getSurveyAction(data))
       setIsVoted(true)
     } catch (error) {
       console.log(error);

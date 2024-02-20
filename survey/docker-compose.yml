@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  mongo:
+    container_name: survey_app_db
+    image: mongo
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+    ports:
+      - "27019:27017"
+    logging:
+      driver: none
+
+  server:
+    container_name: surveyapp
+    restart: always
+    build: .
+    ports:
+      - "5000:4000"
+    environment:
+      PORT: 4000
+      URL: mongodb://mongo:27017/survey_app_db
+      JWT: usertokensurvey
+      MY_PASS: dfkqklqbxbgfofwd
+      MY_HOST: smtp.gmail.com
+      MY_MAIL: cavallinema@gmail.com
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+
+volumes:
+  mongo_db: {}

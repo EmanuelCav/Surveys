@@ -1,7 +1,8 @@
 import { ChangeEvent } from "react";
 
-import { IUser } from "../interfaces/User";
+import { ILogin, IUser } from "../interfaces/User";
 import { ISurvey } from "../interfaces/Survey";
+import { NavigateFunction } from "react-router-dom";
 
 export type userType = {
     user: userReducerType;
@@ -37,4 +38,19 @@ export type userReducerType = {
 export type profileSurveyType = {
     user: userType;
     surveys: ISurvey[];
+}
+
+export type userLoginType = {
+    navigate: NavigateFunction;
+    userData: ILogin;   
+}
+
+export type userRegisterType = {
+    setIsLogin: (isLogin: boolean) => void;
+    userData: ILogin;   
+}
+
+export type userProfileType = {
+    id: string;
+    token: string;
 }

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import SurveyList from "../surveys/components/surveyList"
 
@@ -14,7 +14,6 @@ const SurveysProfile = ({ surveys, user }: profileSurveyType) => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const params = useParams()
 
   const redirectCreate = () => {
     navigate('/surveys/create')

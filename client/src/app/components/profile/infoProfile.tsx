@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { followApi } from "../../server/api/user.api";
-import { logoutAction, followAction } from "../../server/features/user.features";
-import { loadingAction } from '../../server/features/response.features';
+import { getUserAction } from "../../server/features/user.features";
 
 import { profileType } from "../../types/auth.types"
+import { userLogout } from '../../server/actions/user.actions';
 
 const InfoProfile = ({ user, loggedUser, surveys }: profileType) => {
 
@@ -16,22 +16,14 @@ const InfoProfile = ({ user, loggedUser, surveys }: profileType) => {
     const [isFollowing, setIsFollowing] = useState<boolean>(false)
 
     const logOut = () => {
-
-        dispatch(loadingAction(true))
-        dispatch(logoutAction())
-
-        setTimeout(() => {
-            dispatch(loadingAction(false))
-        }, 450)
-
-        navigate('/auth')
+        dispatch(userLogout(navigate) as any)
     }
 
     const follow = async () => {
 
         try {
             const { data } = await followApi(user._id, loggedUser.token)
-            dispatch(followAction(data))
+            dispatch(getUserAction(data))
             setIsFollowing(!isFollowing)
         } catch (error) {
             console.log(error);
@@ -44,7 +36,7 @@ const InfoProfile = ({ user, loggedUser, surveys }: profileType) => {
                 setIsFollowing(true)
             }
         })
-    }, [dispatch, isFollowing])
+    }, [dispatch, user.followers])
 
     return (
         <div className='container-info-profile'>

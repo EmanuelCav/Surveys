@@ -18,7 +18,7 @@ const counterSliceUser = createSlice({
     reducers: {
         loginAction: (state, action: PayloadAction<IUser>) => {
             state.user = action.payload,
-            state.isLoggedIn = true
+                state.isLoggedIn = true
         },
         registerAction: (state, action: PayloadAction<IUser>) => {
             state.user = action.payload
@@ -35,13 +35,10 @@ const counterSliceUser = createSlice({
         },
         usersAction: (state, action: PayloadAction<IUser[]>) => {
             state.users = action.payload
-        },
-        followAction: (state, action: PayloadAction<IUser>) => {
-            state.profile = action.payload
         }
     }
 })
 
-export const { loginAction, registerAction, logoutAction, getUserAction, usersAction, followAction } = counterSliceUser.actions
+export const { loginAction, registerAction, logoutAction, getUserAction, usersAction } = counterSliceUser.actions
 
 export default counterSliceUser.reducer

@@ -10,11 +10,7 @@ import SelectGender from "./components/selectGender"
 
 import { IRegister } from "../../interfaces/User";
 
-import { registerApi } from "../../server/api/user.api";
-import { registerAction } from "../../server/features/user.features";
-import { loadingAction } from "../../server/features/response.features";
-
-import { dangerMessage } from "../../helper/message";
+import { userRegister } from "../../server/actions/user.actions";
 
 const Register = ({ setIsLogin, isLogin }: { setIsLogin: any, isLogin: boolean }) => {
 
@@ -44,22 +40,11 @@ const Register = ({ setIsLogin, isLogin }: { setIsLogin: any, isLogin: boolean }
 
     const getData = async () => {
 
-        try {
+        dispatch(userRegister({
+            userData,
+            setIsLogin
+        }) as any)
 
-            const { data } = await registerApi(userData)
-
-            dispatch(loadingAction(true))
-            dispatch(registerAction(data))
-
-            setTimeout(() => {
-                dispatch(loadingAction(false))
-            }, 400)
-
-            setIsLogin(true)
-
-        } catch (error: any) {
-            dangerMessage(error.response.data.message)
-        }
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {

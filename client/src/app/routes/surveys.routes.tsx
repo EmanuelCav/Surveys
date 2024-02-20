@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
-import { surveysApi, surveysFollowApi } from '../server/api/surveys.api';
-import { surveysAction, surveysFollowAction } from '../server/features/surveys.features';
-import { loadingAction } from "../server/features/response.features";
+import { surveysFollowApi } from '../server/api/surveys.api';
+import { surveysFollowAction } from '../server/features/surveys.features';
 
 import { IReducer } from '../interfaces/Reducer';
 
@@ -11,6 +10,7 @@ import List from "../components/surveys/list";
 import Recommendations from "../components/surveys/recommendations";
 
 import { selector } from "../helper/selector";
+import { surveyAll } from "../server/actions/survey.actions";
 
 const Surveys = () => {
 
@@ -20,21 +20,7 @@ const Surveys = () => {
   const dispatch = useDispatch()
 
   const getData = async () => {
-    
-    try {
-
-      const { data } = await surveysApi()
-      
-      dispatch(loadingAction(true))
-      dispatch(surveysAction(data))
-
-      setTimeout(() => {
-        dispatch(loadingAction(false))
-      }, 150)
-
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(surveyAll() as any)
   }
 
   const getDataFollow = async () => {

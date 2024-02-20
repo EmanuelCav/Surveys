@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from "react-redux";
 
 import { commentSurveyApi } from "../../../../server/api/surveys.api";
-import { commentSurveyAction } from "../../../../server/features/surveys.features";
+import { getSurveyAction } from "../../../../server/features/surveys.features";
 
 import { ICreateComment } from '../../../../interfaces/Survey'
 import { getSurveyType } from '../../../../types/survey.types';
@@ -24,7 +24,7 @@ const CreateComment = ({ user, survey }: getSurveyType) => {
     try {
 
       const { data } = await commentSurveyApi(survey._id, commentData, user.token)
-      dispatch(commentSurveyAction(data))
+      dispatch(getSurveyAction(data))
 
     } catch (error) {
       console.log(error);

@@ -1,4 +1,6 @@
-import { IComment, IOption, ISurvey } from "../interfaces/Survey";
+import { NavigateFunction } from "react-router-dom";
+
+import { IComment, ICreateSurvey, IOption, ISurvey } from "../interfaces/Survey";
 import { userReducerType } from "./auth.types";
 
 export type surveyType = {
@@ -30,4 +32,23 @@ export type optionSurveyType = {
 export type commentSurveyType = {
     comment: IComment;
     user: userReducerType;
+}
+
+export type surveyCreateType = {
+    token: string;
+    surveyData: ICreateSurvey;
+    setIsOptions: (isOptions: boolean) => void;
+}
+
+export type surveyGetType = {
+    id: string;
+    token: string;
+}
+
+export type surveyRemoveType = {
+    survey: ISurvey;
+    token: string;
+    setIsRemove: (isRemove: boolean) => void;
+    navigate: NavigateFunction;
+    id: string;
 }

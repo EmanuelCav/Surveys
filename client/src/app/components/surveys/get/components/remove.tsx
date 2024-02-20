@@ -3,13 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { removeSurveyApi } from "../../../../server/api/surveys.api";
-import { removeSurveyAction } from "../../../../server/features/surveys.features";
-import { loadingAction } from "../../../../server/features/response.features";
-
 import { removeSurveyType } from "../../../../types/survey.types";
 
-import { successMessage } from "../../../../helper/message";
+import { surveyRemove } from "../../../../server/actions/survey.actions";
 
 const Remove = ({ setIsRemove, survey, user }: removeSurveyType) => {
 
@@ -17,25 +13,13 @@ const Remove = ({ setIsRemove, survey, user }: removeSurveyType) => {
     const navigate = useNavigate()
 
     const removeSurvey = async () => {
-
-        try {
-
-            const { data } = await removeSurveyApi(survey._id, user.token)
-
-            dispatch(loadingAction(true))
-            dispatch(removeSurveyAction(survey))
-
-            setTimeout(() => {
-                dispatch(loadingAction(false))
-            }, 450)
-
-            setIsRemove(false)
-            navigate(`/profile/${user.user._id}`)
-            successMessage(data.message)
-
-        } catch (error: any) {
-            console.log(error);
-        }
+        dispatch(surveyRemove({
+            id: user.user._id,
+            token: user.token,
+            survey,
+            setIsRemove,
+            navigate
+        }) as any)
     }
 
     const cancelRemove = () => {

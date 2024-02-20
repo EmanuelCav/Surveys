@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { AiOutlineStar, AiFillStar, AiOutlineDelete } from 'react-icons/ai';
 
 import { likeCommentApi, removeCommentApi } from "../../../../server/api/surveys.api";
-import { commentSurveyAction, voteSurveyAction } from "../../../../server/features/surveys.features";
+import { getSurveyAction } from "../../../../server/features/surveys.features";
 
 import { commentSurveyType } from '../../../../types/survey.types';
 
@@ -17,7 +17,7 @@ const Comment = ({ comment, user }: commentSurveyType) => {
 
     try {
       const { data } = await removeCommentApi(comment._id, user.token)
-      dispatch(commentSurveyAction(data))
+      dispatch(getSurveyAction(data))
     } catch (error) {
       console.log(error);
     }
@@ -29,7 +29,7 @@ const Comment = ({ comment, user }: commentSurveyType) => {
     try {
 
       const { data } = await likeCommentApi(comment._id, user.token)
-      dispatch(voteSurveyAction(data))
+      dispatch(getSurveyAction(data))
       setIsLiked(!isLiked)
 
     } catch (error) {

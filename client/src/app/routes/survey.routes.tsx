@@ -2,16 +2,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { getSurveyApi } from "../server/api/surveys.api";
-import { getSurveyAction } from "../server/features/surveys.features";
-import { loadingAction } from "../server/features/response.features";
-
 import { IReducer } from "../interfaces/Reducer";
 
 import SurveyInfo from "../components/surveys/get/surveyInfo";
 import Comments from "../components/surveys/get/comments";
 
 import { selector } from "../helper/selector";
+import { surveyGet } from "../server/actions/survey.actions";
 
 const Survey = () => {
 
@@ -22,22 +19,10 @@ const Survey = () => {
   const dispatch = useDispatch()
 
   const getData = async () => {
-
-    try {
-
-      const { data } = await getSurveyApi(params.id as string, user.user.token)
-
-      dispatch(loadingAction(true))
-      dispatch(getSurveyAction(data))
-
-      setTimeout(() => {
-        dispatch(loadingAction(false))
-      }, 150)
-
-
-    } catch (error) {
-      console.log(error);
-    }
+    dispatch(surveyGet({
+      id: String(params.id),
+      token: user.user.token
+    }) as any)
   }
 
   useEffect(() => {

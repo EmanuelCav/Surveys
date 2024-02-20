@@ -7,14 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import AccountAuth from "./components/accountAuth"
 import FormHeader from "./components/formHeader";
 
-import { loginApi } from "../../server/api/user.api";
-import { loginAction } from "../../server/features/user.features";
-import { loadingAction } from '../../server/features/response.features';
+import { userLogin } from '../../server/actions/user.actions';
 
 import { isLoginType } from "../../types/auth.types";
 import { ILogin } from '../../interfaces/User';
-
-import { dangerMessage } from '../../helper/message';
 
 const Login = ({ setIsLogin, isLogin }: isLoginType) => {
 
@@ -32,22 +28,11 @@ const Login = ({ setIsLogin, isLogin }: isLoginType) => {
 
     const getData = async () => {
 
-        try {
+        dispatch(userLogin({
+            userData,
+            navigate
+        }) as any)
 
-            const { data } = await loginApi(userData)
-
-            dispatch(loadingAction(true))
-            dispatch(loginAction(data))
-
-            setTimeout(() => {
-                dispatch(loadingAction(false))
-            }, 400)
-
-            navigate('/surveys')
-
-        } catch (error: any) {
-            dangerMessage(error.response.data.message)
-        }
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
