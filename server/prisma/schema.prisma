@@ -19,6 +19,8 @@ model User {
   email           String           @unique
   gender          Gender
   status          Boolean          @default(true)
+  password        String
+  role            Role             @default(USER)
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   recommendations Recommendation[]
@@ -39,8 +41,10 @@ model Survey {
   recommendations Recommendation[]
   options         Option[]
   comments        Comment[]
+  category        Category         @relation(fields: [categoryId], references: [id])
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
+  categoryId      Int
 }
 
 model Comment {
@@ -57,11 +61,20 @@ model Comment {
 
 model Option {
   id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(75)
   votes     Vote[]
   user      User     @relation(fields: [userId], references: [id])
   userId    Int
   survey    Survey?  @relation(fields: [surveyId], references: [id])
   surveyId  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  category  String
+  surveys   Survey[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -110,4 +123,9 @@ model Following {
 enum Gender {
   FEMALE
   MALE
+}
+
+enum Role {
+  ADMIN
+  USER
 }

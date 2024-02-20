@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
 
-import User from '../database/model/user';
-import Survey from '../database/model/survey';
-import Comment from '../database/model/comment';
-import Option from '../database/model/option';
+import { prisma } from "../helper/prisma";
 
 import { hashPassword, comparePassword } from "../helper/encrypt";
 import { generateToken } from "../helper/token";
@@ -13,16 +10,15 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const showUsers = await User.find({
-            _id: {
-                "$ne": req.user
-            }
+        const showUsers = await prisma.user.findMany({
+            select: {
+                password: false,
+                role: false
+            },
+            take: 10
         })
-            .select("-password")
 
-        const usersFollowers = showUsers.sort((a, b) => b.followers.length - a.followers.length)
-
-        return res.status(200).json(usersFollowers)
+        return res.status(200).json(showUsers)
 
     } catch (error) {
         throw (error);
@@ -36,8 +32,15 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const showUser = await User.findById(id)
-            .select("-password")
+        const showUser = await prisma.user.findFirst({
+            where: {
+                id: Number(id)
+            },
+            select: {
+                password: false,
+                role: false
+            }
+        })
 
         if (!showUser) {
             return res.status(400).json({
@@ -55,7 +58,7 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
 
 export const register = async (req: Request, res: Response): Promise<Response> => {
 
-    const { username, email, gender, password } = req.body
+    const { username, email, gender, password, role } = req.body
 
     try {
 
@@ -63,14 +66,19 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
         await infoEmail(email)
 
-        const newUser = new User({
-            username,
-            gender,
-            email,
-            password: pass
+        const user = await prisma.user.create({
+            data: {
+                username,
+                gender,
+                email,
+                password: pass,
+                role: role && role
+            },
+            select: {
+                password: false,
+                role: false
+            }
         })
-
-        const user = await newUser.save()
 
         return res.status(200).json(user)
 
@@ -86,7 +94,11 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
-        const user = await User.findOne({ email })
+        const user = await prisma.user.findUnique({
+            where: {
+                email
+            }
+        })
 
         if (!user) {
             return res.status(400).json({
@@ -102,10 +114,20 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
             })
         }
 
-        const token = generateToken(user)
+        const token = generateToken(user.id)
+
+        const userLoggedIn = await prisma.user.findUnique({
+            where: {
+                email
+            },
+            select: {
+                password: false,
+                role: false
+            }
+        })
 
         return res.status(200).json({
-            user,
+            user: userLoggedIn,
             token
         })
 
@@ -121,7 +143,11 @@ export const removeUser = async (req: Request, res: Response): Promise<Response>
 
     try {
 
-        const user = await User.findById(id)
+        const user = await prisma.user.findFirst({
+            where: {
+                id: Number(id)
+            }
+        })
 
         if (!user) {
             return res.status(200).json({
@@ -129,19 +155,29 @@ export const removeUser = async (req: Request, res: Response): Promise<Response>
             })
         }
 
-        await Survey.deleteMany({
-            user: req.user
+        await prisma.survey.deleteMany({
+            where: {
+                userId: Number(id)
+            }
         })
 
-        await Comment.deleteMany({
-            user: req.user
+        await prisma.survey.deleteMany({
+            where: {
+                userId: Number(id)
+            }
         })
 
-        await Option.deleteMany({
-            user: req.user
+        await prisma.survey.deleteMany({
+            where: {
+                userId: Number(id)
+            }
         })
 
-        await User.findByIdAndDelete(id)
+        await prisma.user.delete({
+            where: {
+                id: Number(id)
+            }
+        })
 
         return res.status(200).json({
             message: "User was removed"
@@ -159,7 +195,18 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
 
     try {
 
-        const user = await User.findById(id)
+        const user = await prisma.user.findFirst({
+            where: {
+                id: Number(id)
+            },
+            include: {
+                followers: {
+                    select: {
+                        userId: true
+                    }
+                }
+            }
+        })
 
         if (!user) {
             return res.status(200).json({
@@ -167,49 +214,69 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
             })
         }
 
-        if (user.id == req.user) {
+        if (user.id === req.user) {
             return res.status(401).json({
                 message: "You cannot follow yourself"
             })
         }
 
-        var userFollowed;
+        let userFollowed;
 
-        if (user.followers.find((id) => id == req.user)) {
+        if (user.followers.find((u) => Number(u.userId) === req.user)) {
 
-            await User.findByIdAndUpdate(req.user, {
-                $pull: {
-                    following: id
+            await prisma.user.update({
+                where: {
+                    id: req.user
+                },
+                data: {
+                    following: {
+                        delete: [{
+                            userId: Number(id)
+                        }]
+                    }
                 }
-            }, {
-                new: true
             })
 
-            userFollowed = await User.findByIdAndUpdate(id, {
-                $pull: {
-                    followers: req.user
+            userFollowed = await prisma.user.update({
+                where: {
+                    id: Number(id)
+                },
+                data: {
+                    followers: {
+                        delete: [{
+                            userId: req.user
+                        }]
+                    }
                 }
-            }, {
-                new: true
             })
 
         } else {
 
-            await User.findByIdAndUpdate(req.user, {
-                $push: {
-                    following: id
+            await prisma.user.update({
+                where: {
+                    id: req.user
+                },
+                data: {
+                    following: {
+                        create: [{
+                            userId: Number(id)
+                        }]
+                    }
                 }
-            }, {
-                new: true
             })
 
 
-            userFollowed = await User.findByIdAndUpdate(id, {
-                $push: {
-                    followers: req.user
+            await prisma.user.update({
+                where: {
+                    id: Number(id)
+                },
+                data: {
+                    followers: {
+                        create: [{
+                            userId: req.user
+                        }]
+                    }
                 }
-            }, {
-                new: true
             })
 
         }

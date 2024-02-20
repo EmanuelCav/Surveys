@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 
-import Comment from '../database/model/comment'
-import Survey from '../database/model/survey'
+import { prisma } from "../helper/prisma";
 
 export const createComment = async (req: Request, res: Response): Promise<Response> => {
 
@@ -10,7 +9,11 @@ export const createComment = async (req: Request, res: Response): Promise<Respon
 
     try {
 
-        const survey = await Survey.findById(id)
+        const survey = await prisma.survey.findFirst({
+            where: {
+                id: Number(id)
+            }
+        })
 
         if (!survey) {
             return res.status(400).json({
@@ -18,32 +21,43 @@ export const createComment = async (req: Request, res: Response): Promise<Respon
             })
         }
 
-        const newComment = new Comment({
-            comment,
-            user: req.user,
-            survey: survey._id
-        })
-
-        const commentSaved = await newComment.save()
-
-        const surveyComment = await Survey.findByIdAndUpdate(id, {
-            $push: {
-                comments: commentSaved._id
-            }
-        }, {
-            new: true
-        })
-            .populate("options", "name votes")
-            .populate({
-                path: "comments",
-                populate: {
-                    path: "user",
-                    select: "-password"
+        const surveyUpdated = await prisma.survey.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                comments: {
+                    create: [{
+                        comment,
+                        userId: Number(req.user)
+                    }]
                 }
-            })
-            .populate("user", "-password")
+            },
+            include: {
+                options: {
+                    select: {
+                        name: true,
+                        votes: true
+                    }
+                },
+                comments: {
+                    include: {
+                        user: {
+                            select: {
+                                password: false
+                            }
+                        }
+                    }
+                },
+                user: {
+                    select: {
+                        password: false
+                    }
+                }
+            }
+        })
 
-        return res.status(200).json(surveyComment)
+        return res.status(200).json(surveyUpdated)
 
     } catch (error) {
         throw (error);
@@ -57,7 +71,11 @@ export const removeComment = async (req: Request, res: Response): Promise<Respon
 
     try {
 
-        const comment = await Comment.findById(id)
+        const comment = await prisma.comment.findFirst({
+            where: {
+                id: Number(id)
+            },
+        })
 
         if (!comment) {
             return res.status(400).json({
@@ -65,32 +83,54 @@ export const removeComment = async (req: Request, res: Response): Promise<Respon
             })
         }
 
-        if (req.user != comment.user) {
+        if (req.user !== comment.userId) {
             return res.status(400).json({
                 message: "You cannot remove this comment"
             })
         }
 
-        const removeSurvey = await Survey.findByIdAndUpdate(comment.survey, {
-            $pull: {
-                comments: id
-            }
-        }, {
-            new: true
-        })
-            .populate("options", "name votes")
-            .populate({
-                path: "comments",
-                populate: {
-                    path: "user",
-                    select: "-password"
+        await prisma.survey.update({
+            where: {
+                id: comment.surveyId
+            },
+            data: {
+                comments: {
+                    delete: {
+                        id: Number(id)
+                    }
                 }
-            })
-            .populate("user", "-password")
+            },
+            include: {
+                options: {
+                    select: {
+                        name: true,
+                        votes: true
+                    }
+                },
+                comments: {
+                    include: {
+                        user: {
+                            select: {
+                                password: false
+                            }
+                        }
+                    }
+                },
+                user: {
+                    select: {
+                        password: false
+                    }
+                }
+            }
+        })
 
-        await Comment.findByIdAndDelete(id)
+        await prisma.comment.delete({
+            where: {
+                id: Number(id)
+            }
+        })
 
-        return res.status(200).json(removeSurvey)
+        return res.status(200).json({ message: "Comment removed successfully" })
 
     } catch (error) {
         throw (error);
@@ -104,7 +144,18 @@ export const likeComment = async (req: Request, res: Response): Promise<Response
 
     try {
 
-        const comment = await Comment.findById(id)
+        const comment = await prisma.comment.findFirst({
+            where: {
+                id: Number(id)
+            },
+            include: {
+                likes: {
+                    select: {
+                        userId: true
+                    }
+                }
+            }
+        })
 
         if (!comment) {
             return res.status(400).json({
@@ -112,34 +163,61 @@ export const likeComment = async (req: Request, res: Response): Promise<Response
             })
         }
 
-        if (comment.likes.find(id => id == req.user)) {
-            await Comment.findByIdAndUpdate(id, {
-                $pull: {
-                    likes: req.user
-                }
-            }, {
-                new: true
-            })
+        if (comment.likes.find((u) => u.userId === req.user)) {
+            // await prisma.comment.update({
+            //     where: {
+            //         id: Number(id)
+            //     },
+            //     data: {
+            //         likes: {
+            //             delete: {
+            //                 userId: req.user
+            //             }
+            //         }
+            //     }
+            // })
         } else {
-            await Comment.findByIdAndUpdate(id, {
-                $push: {
-                    likes: req.user
+            await prisma.comment.update({
+                where: {
+                    id: Number(id)
+                },
+                data: {
+                    likes: {
+                        create: {
+                            userId: req.user
+                        }
+                    }
                 }
-            }, {
-                new: true
             })
         }
 
-        const survey = await Survey.findById(comment.survey)
-            .populate("options", "name votes")
-            .populate({
-                path: "comments",
-                populate: {
-                    path: "user",
-                    select: "-password"
+        const survey = await prisma.survey.findFirst({
+            where: {
+                id: comment.surveyId
+            },
+            include: {
+                options: {
+                    select: {
+                        name: true,
+                        votes: true
+                    }
+                },
+                comments: {
+                    include: {
+                        user: {
+                            select: {
+                                password: false
+                            }
+                        }
+                    }
+                },
+                user: {
+                    select: {
+                        password: false
+                    }
                 }
-            })
-            .populate("user", "-password")
+            }
+        })
 
         if (!survey) {
             return res.status(400).json({ message: "Survey does not exists" })
