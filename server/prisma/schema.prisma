@@ -73,7 +73,7 @@ model Option {
 
 model Category {
   id        Int      @id @default(autoincrement())
-  category  String
+  category  String   @unique
   surveys   Survey[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
