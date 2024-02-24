@@ -1,33 +1,40 @@
-import { useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 
 import { IReducer } from "../../interfaces/Reducer";
 
-import Auth from "./components/auth"
-import Navigation from "./components/navigation"
+import Auth from "./components/Auth"
+import Icon from "./components/Icon"
+import Search from "./components/Search";
 
 import { selector } from "../../helper/selector";
+import { AppBar, Box, Toolbar } from "@mui/material";
 
 const Header = () => {
 
   const user = useSelector((state: IReducer) => selector(state).user)
 
   const location = useLocation()
-
-  useEffect(() => {
-  }, [location, user.isLoggedIn])
+  const navigate = useNavigate()
 
   return (
-    <>
-      {
-        location.pathname !== "/auth" &&
-        <div className="container-header">
-          <Navigation isLoggedIn={user.isLoggedIn} />
-          <Auth isLoggedIn={user.isLoggedIn} />
-        </div>
-      }
-    </>
+    <Box>
+      <AppBar sx={{
+        background: '#ffffff',
+        padding: 1
+      }}>
+        <Toolbar sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <Icon isLoggedIn={user.isLoggedIn} navigate={navigate} location={location} />
+          <Search />
+          {/* <Auth isLoggedIn={user.isLoggedIn} /> */}
+        </Toolbar>
+      </AppBar>
+    </Box>
   )
 }
 

@@ -5,7 +5,7 @@ import { secret } from '../config/config'
 
 import { IVerification } from '../interface/Verification'
 
-import User from '../database/model/user'
+import { prisma } from '../helper/prisma'
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -26,14 +26,6 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     }
 
     req.user = verification.id
-
-    const user = await User.findById(req.user)
-
-    if(!user) {
-        return res.status(401).json({
-            message: "User does not exists"
-        })
-    }
 
     next()
 

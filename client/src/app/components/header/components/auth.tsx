@@ -41,9 +41,6 @@ const Auth = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
       .addEventListener('change', e => setMenu(e.matches));
   }, [])
 
-  useEffect(() => {
-  }, [location, isNavigation])
-
   return (
     <div className="container-auth-header">
       {

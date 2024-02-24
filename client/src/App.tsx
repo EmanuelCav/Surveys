@@ -2,10 +2,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
+import { Container } from "@mui/material";
 
-import Container from './Container';
+// import Container from './Container';
 
-import Header from "./app/components/header/header";
+import Header from "./app/components/header/Header";
 import Loading from "./app/components/message/loading";
 
 import Index from "./app/routes/index.routes";

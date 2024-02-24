@@ -1,5 +1,5 @@
 export interface IVerification {
-    id: string;
+    id: number;
     iat: number;
     exp: number;
 }

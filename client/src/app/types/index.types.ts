@@ -7,10 +7,7 @@ export type cardType = {
     text: string; 
     card: boolean;
 }
-export type logoHeaderType = {
-    navigate: NavigateFunction;
-    isLoggedIn: boolean;
-}
+
 export type userNavigationType = {
     user: userType;
     redirectAuth: () => void;
