@@ -13,8 +13,8 @@ const Search = () => {
                     sx={{
                         borderBottomColor: '#f64',
                         ":hover": {
-                            color: '#f64'
-                        }
+                            color: '#f64',
+                        },
                     }}
                     startAdornment={
                         <InputAdornment position="start" variant="outlined">

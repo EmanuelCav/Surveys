@@ -4,8 +4,6 @@ import { useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import FormHeader from "../auth/components/formHeader"
-
 import { createOptionApi } from "../../server/api/surveys.api";
 import { createOptionAction } from "../../server/features/surveys.features";
 
@@ -95,9 +93,6 @@ const CreateOption = ({ user, survey }: getSurveyType) => {
   return (
     <form className="container-form-option" onSubmit={handleSumbit}>
       <ToastContainer />
-      <div className="separator">
-        <FormHeader />
-      </div>
       <div className="separator">
         {
           inputs.map((Input: FC, index: number) => {

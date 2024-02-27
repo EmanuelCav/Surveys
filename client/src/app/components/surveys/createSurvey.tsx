@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-import FormHeader from "../auth/components/formHeader"
-
 import { ICreateSurvey } from '../../interfaces/Survey';
 import { IReducer } from '../../interfaces/Reducer';
 
@@ -47,9 +45,6 @@ const CreateSurvey = ({ setIsOptions }: { setIsOptions: (isOption: boolean) => v
     return (
         <form className="container-form-auth" onSubmit={handleSumbit}>
             <ToastContainer />
-            <div className="separator">
-                <FormHeader />
-            </div>
             <div className="separator">
                 <input type="text" name="title" className="input-form" placeholder="WRITE THE SURVEY TITLE" value={title} onChange={handleChange} maxLength={40} />
             </div>

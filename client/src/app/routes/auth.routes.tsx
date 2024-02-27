@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import Login from "../components/auth/login"
-import Register from '../components/auth/register';
+import Login from "../components/auth/components/Login"
+import Register from '../components/auth/components/Register';
 
 import { isStorage } from '../helper/storage';
 

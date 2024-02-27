@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 
-import { ILogin, IUser } from "../interfaces/User";
+import { ILogin, IRegister, IUser } from "../interfaces/User";
 import { ISurvey } from "../interfaces/Survey";
 import { NavigateFunction } from "react-router-dom";
 
@@ -13,10 +13,6 @@ export type userType = {
 export type isAccountType = {
     typeAuth: string;
     textAccount: string;
-    setIsLogin: (isLogin: boolean) => void;
-    isLogin: boolean;
-}
-export type isLoginType = {
     setIsLogin: (isLogin: boolean) => void;
     isLogin: boolean;
 }
@@ -40,14 +36,16 @@ export type profileSurveyType = {
     surveys: ISurvey[];
 }
 
-export type userLoginType = {
-    navigate: NavigateFunction;
+export type UserLoginActionPropsType = {
     userData: ILogin;   
+    navigate: NavigateFunction;
+    handleIsAuth: () => void;
 }
 
-export type userRegisterType = {
-    setIsLogin: (isLogin: boolean) => void;
-    userData: ILogin;   
+export type UserRegisterActionPropsType = {
+    userData: IRegister;
+    navigate: NavigateFunction;   
+    handleIsAuth: () => void;
 }
 
 export type userProfileType = {

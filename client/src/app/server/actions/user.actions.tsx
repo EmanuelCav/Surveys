@@ -4,17 +4,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as userApi from '../api/user.api';
 import * as userFeatures from '../features/user.features';
 
-import { userLoginType, userProfileType, userRegisterType } from "../../types/auth.types";
+import { UserRegisterActionPropsType, UserLoginActionPropsType, userProfileType } from "../../types/auth.types";
 
 import { dangerMessage } from "../../helper/message";
 
-export const userLogin = createAsyncThunk('user/login', async (userLoginData: userLoginType, { dispatch }) => {
+export const userLogin = createAsyncThunk('user/login', async (userLoginData: UserLoginActionPropsType, { dispatch }) => {
 
     try {
 
         const { data } = await userApi.loginApi(userLoginData.userData)
 
         dispatch(userFeatures.loginAction(data))
+
+        userLoginData.handleIsAuth()
 
         userLoginData.navigate('/surveys')
 
@@ -25,7 +27,7 @@ export const userLogin = createAsyncThunk('user/login', async (userLoginData: us
 
 })
 
-export const userRegister = createAsyncThunk('user/register', async (userRegisterData: userRegisterType, { dispatch }) => {
+export const userRegister = createAsyncThunk('user/register', async (userRegisterData: UserRegisterActionPropsType, { dispatch }) => {
 
     try {
 
@@ -33,7 +35,9 @@ export const userRegister = createAsyncThunk('user/register', async (userRegiste
 
         dispatch(userFeatures.registerAction(data))
 
-        userRegisterData.setIsLogin(true)
+        userRegisterData.handleIsAuth()
+
+        userRegisterData.navigate('/surveys')
 
     } catch (error: any) {
         dangerMessage(error.response.data.message)
