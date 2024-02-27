@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 
-const Logo = ({ func }: { func: () => void }) => {
+const Logo = () => {
 
   return (
     <Box
@@ -11,7 +11,6 @@ const Logo = ({ func }: { func: () => void }) => {
       }}
       alt="Icon"
       src="icon.png"
-      onClick={func}
     />
   )
 }

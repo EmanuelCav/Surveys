@@ -4,13 +4,10 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import { Container } from "@mui/material";
 
-// import Container from './Container';
-
 import Header from "./app/components/header/Header";
 import Loading from "./app/components/message/loading";
 
 import Index from "./app/routes/index.routes";
-import Auth from "./app/routes/auth.routes";
 import Surveys from "./app/routes/surveys.routes";
 import Create from "./app/routes/create.routes";
 import Survey from "./app/routes/survey.routes";
@@ -35,7 +32,6 @@ function App() {
           <Container>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/auth" element={<Auth />} />
               <Route path="/surveys" element={<Surveys />} />
               <Route path="/surveys/create" element={<PrivateRoute />}>
                 <Route path="/surveys/create" element={<Create />} />

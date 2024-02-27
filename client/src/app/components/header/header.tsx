@@ -1,6 +1,7 @@
-import { useLocation } from 'react-router-dom';
+import { useState } from "react";
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { AppBar, Box, Toolbar } from "@mui/material";
 
 import { IReducer } from "../../interfaces/Reducer";
 
@@ -9,7 +10,6 @@ import Icon from "./components/Icon"
 import Search from "./components/Search";
 
 import { selector } from "../../helper/selector";
-import { AppBar, Box, Toolbar } from "@mui/material";
 
 const Header = () => {
 
@@ -17,6 +17,9 @@ const Header = () => {
 
   const location = useLocation()
   const navigate = useNavigate()
+
+  const [isLogin, setIsLogin] = useState<boolean>(false)
+  const [isRegister, setIsRegister] = useState<boolean>(false)
 
   return (
     <Box>
@@ -31,7 +34,7 @@ const Header = () => {
         }}>
           <Icon isLoggedIn={user.isLoggedIn} navigate={navigate} location={location} />
           <Search />
-          {/* <Auth isLoggedIn={user.isLoggedIn} /> */}
+          <Auth isLoggedIn={user.isLoggedIn} setIsLogin={setIsLogin} />
         </Toolbar>
       </AppBar>
     </Box>

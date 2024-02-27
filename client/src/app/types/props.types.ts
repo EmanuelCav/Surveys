@@ -5,3 +5,8 @@ export type IconPropsType = {
     navigate: NavigateFunction;
     location: Location;
 }
+
+export type AuthPropsType = {
+    isLoggedIn: boolean;
+    setIsLogin: (isLogin: boolean) => void
+}

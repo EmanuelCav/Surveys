@@ -8,17 +8,24 @@ import { IconPropsType } from '../../../types/props.types';
 
 const Icon = ({ isLoggedIn, navigate, location }: IconPropsType) => {
 
-    const redirectSurveys = () => {
+    const redirectIndex = () => {
+        if(location.pathname === "/") return
+
+        if(isLoggedIn) {
+            navigate('/surveys')    
+            return
+        }
+
         navigate('/')
     }
 
-    const redirectUsers = () => {
-        navigate('/users')
-    }
-
     return (
-        <Box display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'row'}>
-            <Logo func={redirectSurveys} />
+        <Box sx={{
+            cursor: location.pathname === "/" ? 'default' : 'pointer',
+            userSelect: 'none'
+        }} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'row'}
+        onClick={redirectIndex}>
+            <Logo />
             <TextHeader />
         </Box>
     )
