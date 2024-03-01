@@ -1,13 +1,13 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import FormRegister from "./components/FormRegister";
 import CloseForm from "../../general/CloseForm";
 import FormHeader from "../../general/FormHeader";
+import FormTitle from "../../general/FormTitle";
 
 import { RegisterPropsType } from "../../../types/props.types";
-import FormTitle from "../../general/FormTitle";
 
 const Register = ({ navigate, handleIsAuth, dispatch }: RegisterPropsType) => {
 

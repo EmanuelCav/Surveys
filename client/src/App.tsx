@@ -16,7 +16,7 @@ import Users from "./app/routes/users.routes";
 
 import { store } from "./app/server/store";
 
-import PrivateRoute from "./app/helper/privateRoute";
+import PrivateRoute from "./app/routes/PrivateRoute";
 import NotFountPage from "./app/routes/notfound.routes";
 
 const persistor = persistStore(store)

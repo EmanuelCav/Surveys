@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 
 import { prisma } from '../../helper/prisma'
 
-const loginValid = async (req: Request, res: Response, next: NextFunction) => {
+const registerValid = async (req: Request, res: Response, next: NextFunction) => {
 
     const { username, email, gender, password, confirm } = req.body
 
@@ -81,4 +81,4 @@ const validateEmail = (email: string) => {
         );
 };
 
-export default loginValid
+export default registerValid

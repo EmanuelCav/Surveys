@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { IReducer } from '../interfaces/Reducer';
 
-import { selector } from './selector';
+import { selector } from '../helper/selector';
 
 const PrivateRoute = () => {
 

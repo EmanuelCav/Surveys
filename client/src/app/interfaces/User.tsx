@@ -28,4 +28,5 @@ export interface IRegister {
     gender: string;
     password: string;
     confirm: string;
+    status: boolean;
 }

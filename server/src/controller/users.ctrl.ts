@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { prisma } from "../helper/prisma";
+import { exclude, excludeArray, prisma } from "../helper/prisma";
 
 import { hashPassword, comparePassword } from "../helper/encrypt";
 import { generateToken } from "../helper/token";
@@ -11,14 +11,12 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
     try {
 
         const showUsers = await prisma.user.findMany({
-            select: {
-                password: false,
-                role: false
-            },
             take: 10
         })
 
-        return res.status(200).json(showUsers)
+        const showUsersFilter = excludeArray(showUsers, ['password', 'role'])
+
+        return res.status(200).json(showUsersFilter)
 
     } catch (error) {
         throw (error);
@@ -35,10 +33,6 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
         const showUser = await prisma.user.findFirst({
             where: {
                 id: Number(id)
-            },
-            select: {
-                password: false,
-                role: false
             }
         })
 
@@ -48,7 +42,9 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
             })
         }
 
-        return res.status(200).json(showUser)
+        const showUserFilter = exclude(showUser, ['password', 'role'])
+
+        return res.status(200).json(showUserFilter)
 
     } catch (error) {
         throw (error);
@@ -64,7 +60,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
         const pass = await hashPassword(password)
 
-        await infoEmail(email)
+        // await infoEmail(email)
 
         const user = await prisma.user.create({
             data: {
@@ -73,14 +69,13 @@ export const register = async (req: Request, res: Response): Promise<Response> =
                 email,
                 password: pass,
                 role: role && role
-            },
-            select: {
-                password: false,
-                role: false
             }
         })
 
-        return res.status(200).json(user)
+        return res.status(200).json({
+            message: "Check your email",
+            user
+        })
 
     } catch (error) {
         throw (error);
@@ -119,15 +114,13 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
         const userLoggedIn = await prisma.user.findUnique({
             where: {
                 email
-            },
-            select: {
-                password: false,
-                role: false
             }
         })
 
+        const showUserFilter = exclude(userLoggedIn, ['password', 'role'])
+
         return res.status(200).json({
-            user: userLoggedIn,
+            user: showUserFilter,
             token
         })
 
@@ -282,6 +275,49 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
         }
 
         return res.status(200).json(userFollowed)
+
+    } catch (error) {
+        throw (error);
+    }
+
+}
+
+export const changeStatus = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
+
+    try {
+
+        const user = await prisma.user.findFirst({
+            where: {
+                id: Number(id)
+            }
+        })
+
+        if (!user) {
+            return res.status(400).json({
+                message: "User does not exists."
+            })
+        }
+
+        const userUpdated = await prisma.user.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                status: true
+            }
+        })
+
+        const showUserFilter = exclude(userUpdated, ['password', 'role'])
+
+        const token = generateToken(user.id)
+
+        return res.status(200).json({
+            token,
+            user: showUserFilter,
+            message: "Welcome to Surfrage!"
+        })
 
     } catch (error) {
         throw (error);

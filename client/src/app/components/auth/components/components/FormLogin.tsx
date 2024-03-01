@@ -75,7 +75,7 @@ const FormLogin = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) => 
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 1, mb: 2 }}
+                sx={{ mt: 1, mb: 2, fontSize: '1.225em' }}
                 color='warning'
                 size='large'
             >

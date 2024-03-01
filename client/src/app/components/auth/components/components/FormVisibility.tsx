@@ -5,11 +5,12 @@ const FormVisibility = ({ registerVisibility }: { registerVisibility: () => void
         <Box width='100%' display='flex' justifyContent='space-between' alignItems='center' mt={1}>
             <Typography component='p' sx={{
                 cursor: 'pointer',
+                color: '#f64',
                 ":hover": {
-                    color: '#f64',
+                    textDecoration: 'underline'
                 },
                 ":active": {
-                    color: '#000'
+                    textDecoration: 'none'
                 }
             }}>
                 Forgot password?

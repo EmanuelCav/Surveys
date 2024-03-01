@@ -1,4 +1,26 @@
 
+.eye-icon {
+    position: absolute;
+    transform: translate(-90%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    top: 50%;
+    left: 95%;
+    cursor: pointer;
+}
+
+.eye-icon:hover {
+    color: #f76 !important;
+}
+
+.eye-icon:active {
+    color: #f64;
+}
+
+/**/
+
 .container-auth {
     display: flex;
     justify-content: center;
