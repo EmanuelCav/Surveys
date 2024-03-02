@@ -6,7 +6,7 @@ import * as userFeatures from '../features/user.features';
 
 import { UserRegisterActionPropsType, UserLoginActionPropsType, userProfileType } from "../../types/auth.types";
 
-import { dangerMessage } from "../../helper/message";
+import { dangerMessage, successMessage } from "../../helper/message";
 
 export const userLogin = createAsyncThunk('user/login', async (userLoginData: UserLoginActionPropsType, { dispatch }) => {
 
@@ -14,14 +14,14 @@ export const userLogin = createAsyncThunk('user/login', async (userLoginData: Us
 
         const { data } = await userApi.loginApi(userLoginData.userData)
 
-        dispatch(userFeatures.loginAction(data))
+        dispatch(userFeatures.authAction(data))
 
         userLoginData.handleIsAuth()
 
         userLoginData.navigate('/surveys')
 
     } catch (error: any) {
-        dangerMessage(error.response.data.message)
+        dangerMessage(error.response.data[0].message)
     }
 
 
@@ -33,11 +33,11 @@ export const userRegister = createAsyncThunk('user/register', async (userRegiste
 
         const { data } = await userApi.loginApi(userRegisterData.userData)
 
-        dispatch(userFeatures.registerAction(data))
+        dispatch(userFeatures.authAction(data.user))
 
         userRegisterData.handleIsAuth()
 
-        userRegisterData.navigate('/surveys')
+        successMessage(data.message)
 
     } catch (error: any) {
         dangerMessage(error.response.data.message)

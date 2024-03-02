@@ -4,7 +4,7 @@ import * as optionCtrl from '../controller/options.ctrl'
 
 import optionValid from '../validation/survey/option.valid'
 
-import auth from '../middleware/auth'
+import auth from '../middleware/auth/auth'
 
 const router = Router()
 

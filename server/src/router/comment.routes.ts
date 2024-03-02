@@ -4,7 +4,7 @@ import * as commentCtrl from '../controller/comments.ctrl'
 
 import commentValid from '../validation/survey/comment.valid'
 
-import auth from '../middleware/auth'
+import auth from '../middleware/auth/auth'
 
 const router = Router()
 

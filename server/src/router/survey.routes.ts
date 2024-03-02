@@ -4,7 +4,7 @@ import * as surveysCtrl from '../controller/surveys.ctrl';
 
 import surveyValid from '../validation/survey/survey.valid';
 
-import auth from '../middleware/auth'
+import auth from '../middleware/auth/auth'
 
 const router = Router()
 

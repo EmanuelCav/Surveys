@@ -1,11 +1,9 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 
-import { secret } from '../config/config'
+import { secret } from '../../config/config'
 
-import { IVerification } from '../interface/Verification'
-
-import { prisma } from '../helper/prisma'
+import { IVerification } from '../../interface/Verification'
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
 

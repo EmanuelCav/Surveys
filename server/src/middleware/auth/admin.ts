@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 
-import { prisma } from '../helper/prisma'
+import { prisma } from '../../helper/prisma'
 
 const admin = async (req: Request, res: Response, next: NextFunction) => {
 

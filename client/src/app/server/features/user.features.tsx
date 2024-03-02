@@ -16,11 +16,7 @@ const counterSliceUser = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        loginAction: (state, action: PayloadAction<IUser>) => {
-            state.user = action.payload,
-                state.isLoggedIn = true
-        },
-        registerAction: (state, action: PayloadAction<IUser>) => {
+        authAction: (state, action: PayloadAction<IUser>) => {
             state.user = action.payload
             state.isLoggedIn = false
         },
@@ -39,6 +35,6 @@ const counterSliceUser = createSlice({
     }
 })
 
-export const { loginAction, registerAction, logoutAction, getUserAction, usersAction } = counterSliceUser.actions
+export const { authAction, logoutAction, getUserAction, usersAction } = counterSliceUser.actions
 
 export default counterSliceUser.reducer

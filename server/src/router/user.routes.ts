@@ -2,10 +2,10 @@ import { Router } from "express";
 
 import * as userCtrl from '../controller/users.ctrl';
 
-import loginValid from '../validation/user/login.valid';
-import registerValid from '../validation/user/register.valid';
+import loginValid from '../middleware/validation/validation/login.valid';
+import registerValid from '../middleware/validation/validation/register.valid';
 
-import auth from '../middleware/auth'
+import auth from '../middleware/auth/auth'
 
 const router = Router()
 
