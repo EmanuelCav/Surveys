@@ -10,7 +10,7 @@ const Logo = () => {
         width: 64
       }}
       alt="Icon"
-      src="icon.png"
+      src="https://res.cloudinary.com/projects-emanuek/image/upload/v1709490095/portfolio/icon_qfb1dl.png"
     />
   )
 }

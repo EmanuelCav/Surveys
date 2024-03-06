@@ -1,9 +1,10 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { Location, NavigateFunction } from "react-router-dom";
 
-import { userReducerType, userType } from "./auth.types";
-import { ISurvey } from "../interfaces/Survey";
+import { userReducerType, userType } from "./action.types";
+import { ICategory, ISurvey } from "../interfaces/Survey";
 import { IUser } from "../interfaces/User";
+import { SelectChangeEvent } from "@mui/material";
 
 export type IconPropsType = {
     isLoggedIn: boolean;
@@ -81,4 +82,18 @@ export type InfoProfilePropsType = {
 export type SurveysProfilePropsType = {
     user: userType;
     navigate: NavigateFunction;
+}
+
+export type CreateSurveyPropsType = {
+    setIsOptions: (isOption: boolean) => void;
+    user: userReducerType;
+    dispatch: Dispatch;
+    categories: ICategory[];
+}
+
+export type SelectPropsType = {
+    text: string; 
+    value: string; 
+    handleChange: (e: SelectChangeEvent<string>) => void;
+    array: any[];
 }

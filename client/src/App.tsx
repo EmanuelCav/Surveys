@@ -7,17 +7,17 @@ import { Box, Container } from "@mui/material";
 import Header from "./app/components/header/Header";
 import Loading from "./app/components/message/loading";
 
-import Index from "./app/routes/index.routes";
-import Surveys from "./app/routes/surveys.routes";
-import Create from "./app/routes/create.routes";
-import Survey from "./app/routes/survey.routes";
-import Profile from "./app/routes/profile.routes";
-import Users from "./app/routes/users.routes";
+import Index from "./app/routes/Index.routes";
+import Explore from "./app/routes/Explore.routes";
+import Create from "./app/routes/Create.routes";
+import Survey from "./app/routes/Survey.routes";
+import Profile from "./app/routes/Profile.routes";
+import Users from "./app/routes/Users.routes";
 
 import { store } from "./app/server/store";
 
 import PrivateRoute from "./app/routes/PrivateRoute";
-import NotFountPage from "./app/routes/notfound.routes";
+import NotFountPage from "./app/routes/Notfound.routes";
 
 const persistor = persistStore(store)
 
@@ -33,7 +33,7 @@ function App() {
             <Box mt={12}>
               <Routes>
                 <Route path="/" element={<Index />} />
-                <Route path="/surveys" element={<Surveys />} />
+                <Route path="/surveys" element={<Explore />} />
                 <Route path="/surveys/create" element={<PrivateRoute />}>
                   <Route path="/surveys/create" element={<Create />} />
                 </Route>

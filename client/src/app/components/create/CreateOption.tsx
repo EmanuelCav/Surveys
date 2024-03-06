@@ -77,7 +77,7 @@ const CreateOption = ({ user, survey }: getSurveyType) => {
       const input = (document.getElementById(`name${i + 1}`) as HTMLInputElement).value
 
       try {
-        const { data } = await createOptionApi({ name: input }, survey._id, user.token)
+        const { data } = await createOptionApi({ name: input }, survey.id, user.token)
         dispatch(createOptionAction(data))
         navigate(`/profile/${user.user.id}`)
       } catch (error: any) {
@@ -86,9 +86,6 @@ const CreateOption = ({ user, survey }: getSurveyType) => {
     }
 
   }
-
-  useEffect(() => {
-  }, [optionData])
 
   return (
     <form className="container-form-option" onSubmit={handleSumbit}>

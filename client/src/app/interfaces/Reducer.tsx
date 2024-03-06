@@ -1,4 +1,4 @@
-import { userType } from "../types/auth.types";
+import { userType } from "../types/action.types";
 import { surveyType } from "../types/survey.types";
 import { IResponse } from "./Response";
 

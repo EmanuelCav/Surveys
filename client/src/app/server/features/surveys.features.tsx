@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { ICounterSurvey, ISurvey } from '../../interfaces/Survey';
+import { ICategory, ICounterSurvey, ISurvey } from '../../interfaces/Survey';
 
 const initialState: ICounterSurvey = {
     surveys: [],
     follow: [],
-    survey: {}
+    survey: {},
+    categories: []
 }
 
 export const counterSliceSurvey = createSlice({
@@ -21,27 +22,27 @@ export const counterSliceSurvey = createSlice({
             state.follow = action.payload
             state.survey = {}
         },
-        createSurveyAction: (state, action: PayloadAction<ISurvey>) => {
-            state.surveys = [...state.surveys, action.payload]
-        },
         createOptionAction: (state, action: PayloadAction<ISurvey>) => {
-            state.surveys = state.surveys.map((survey: ISurvey) => survey._id === action.payload._id ? action.payload : survey)
+            state.surveys = state.surveys.map((survey: ISurvey) => survey.id === action.payload.id ? action.payload : survey)
         },
         getSurveyAction: (state, action: PayloadAction<ISurvey>) => {
             state.survey = action.payload
         },
         removeSurveyAction: (state, action: PayloadAction<ISurvey>) => {
-            state.surveys = state.surveys.filter((survey: ISurvey) => survey._id !== action.payload._id)
+            state.surveys = state.surveys.filter((survey: ISurvey) => survey.id !== action.payload.id)
         },
         recommendSurveyAction: (state, action: PayloadAction<ISurvey>) => {
-            state.surveys = state.surveys.map((survey: ISurvey) => survey._id === action.payload._id ? action.payload : survey)
+            state.surveys = state.surveys.map((survey: ISurvey) => survey.id === action.payload.id ? action.payload : survey)
             state.survey = action.payload
+        },
+        categoriesAction: (state, action: PayloadAction<ICategory[]>) => {
+            state.categories = action.payload
         }
     }
 })
 
-export const { surveysAction, createSurveyAction, createOptionAction, getSurveyAction,
-    removeSurveyAction, recommendSurveyAction, surveysFollowAction } = counterSliceSurvey.actions
+export const { surveysAction, createOptionAction, getSurveyAction,
+    removeSurveyAction, recommendSurveyAction, surveysFollowAction, categoriesAction } = counterSliceSurvey.actions
 
 export default counterSliceSurvey.reducer
 

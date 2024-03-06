@@ -28,8 +28,8 @@ const Users = () => {
     return (
         <div className="container-users">
             {
-                user.users.map((us: IUser) => {
-                    return <User user={us} key={us._id} />
+                user.users.map((u: IUser) => {
+                    return <User user={u} key={u.id} />
                 })
             }
         </div>

@@ -4,6 +4,7 @@ export interface ICounterSurvey {
     surveys: ISurvey[];
     survey: object;
     follow: ISurvey[];
+    categories: ICategory[]
 }
 
 export interface ISurvey {
@@ -12,7 +13,18 @@ export interface ISurvey {
     options: IOption[];
     recommendations: string[]
     comments: IComment[];
+    category: ICategory;
     user: IUser;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface ICategory {
+    id: number;
+    category: string;
+    icon: string;
+    isSelect: boolean;
+    surveys: ISurvey[];
     createdAt: string;
     updatedAt: string;
 }
@@ -27,6 +39,7 @@ export interface IOption {
 
 export interface ICreateSurvey {
     title: string;
+    category: string;
 }
 
 export interface ICreateOption {

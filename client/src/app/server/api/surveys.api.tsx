@@ -27,7 +27,7 @@ export const createSurveyApi = async (surveyData: ICreateSurvey, token: string) 
     })
 }
 
-export const createOptionApi = async (optionData: ICreateOption, id: string, token: string) => {
+export const createOptionApi = async (optionData: ICreateOption, id: number, token: string) => {
     return await api.patch(`/options/${id}`, optionData, {
         headers: {
             'Content-Type': 'application/json',
@@ -91,4 +91,8 @@ export const likeCommentApi = async (id: string, token: string) => {
             'Authorization': `Bearer ${token}`
         }
     })
+}
+
+export const categoriesApi = async () => {
+    return await api.get('/categories')
 }

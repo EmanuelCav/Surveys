@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
-import { surveysFollowApi } from '../server/api/surveys.api';
-import { surveysFollowAction } from '../server/features/surveys.features';
+import { categoriesApi, surveysFollowApi } from '../server/api/surveys.api';
+import { categoriesAction, surveysFollowAction } from '../server/features/surveys.features';
+import { surveyAll } from "../server/actions/survey.actions";
 
 import { IReducer } from '../interfaces/Reducer';
 
@@ -10,9 +11,8 @@ import List from "../components/surveys/list";
 import Recommendations from "../components/surveys/recommendations";
 
 import { selector } from "../helper/selector";
-import { surveyAll } from "../server/actions/survey.actions";
 
-const Surveys = () => {
+const Explore = () => {
 
   const surveys = useSelector((state: IReducer) => selector(state).surveys)
   const user = useSelector((state: IReducer) => selector(state).user)
@@ -20,7 +20,11 @@ const Surveys = () => {
   const dispatch = useDispatch()
 
   const getData = async () => {
+
+    const { data } = await categoriesApi()
+    
     dispatch(surveyAll() as any)
+    dispatch(categoriesAction(data) as any)
   }
 
   const getDataFollow = async () => {
@@ -43,7 +47,7 @@ const Surveys = () => {
       getDataFollow()
     }
 
-  }, [dispatch])
+  }, [])
 
   return (
     <div className="container-surveys">
@@ -56,4 +60,4 @@ const Surveys = () => {
   )
 }
 
-export default Surveys
+export default Explore

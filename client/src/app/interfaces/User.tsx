@@ -1,4 +1,4 @@
-import { genderType } from "../types/auth.types";
+import { genderType } from "../types/action.types";
 import { ISurvey } from "./Survey";
 
 export interface ICounterUser {

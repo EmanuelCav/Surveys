@@ -11,6 +11,7 @@ import surveyRoute from './router/survey.routes';
 import userRoute from './router/user.routes';
 import optionRoute from './router/option.routes';
 import commentRoute from './router/comment.routes';
+import categoryRoute from './router/category.routes';
 
 const app = express()
 
@@ -29,6 +30,7 @@ app.use(surveyRoute)
 app.use(userRoute)
 app.use(optionRoute)
 app.use(commentRoute)
+app.use(categoryRoute)
 
 app.listen(port, () => {
     console.log("Server on port", port);

@@ -1,6 +1,6 @@
 import { NavigateFunction } from "react-router-dom";
 
-import { userType } from "./auth.types";
+import { userType } from "./action.types";
 
 export type cardType = {
     header: string; 

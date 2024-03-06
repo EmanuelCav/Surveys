@@ -26,8 +26,8 @@ const NavIsAuth = ({ navigate, id }: NavIsAuthPropsType) => {
             alignItems: 'center',
             display: 'flex',
         }}>
-            <ButtonNav func={redirectSurveys} ComponentIcon={MdAddCircle} text="New" />
-            <ButtonNav func={redirectCreate} ComponentIcon={MdExplore} text="Explore" />
+            <ButtonNav func={redirectCreate} ComponentIcon={MdAddCircle} text="New" />
+            <ButtonNav func={redirectSurveys} ComponentIcon={MdExplore} text="Explore" />
             <ButtonNav func={redirectProfile} ComponentIcon={AiOutlineUser} text="Profile" />
         </Box>
     )

@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as userApi from '../api/user.api';
 import * as userFeatures from '../features/user.features';
 
-import { UserRegisterActionPropsType, UserLoginActionPropsType } from "../../types/auth.types";
+import { UserRegisterActionPropsType, UserLoginActionPropsType } from "../../types/action.types";
 
 import { dangerMessage, successMessage } from "../../helper/message";
 

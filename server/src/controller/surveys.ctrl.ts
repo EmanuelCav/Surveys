@@ -131,6 +131,12 @@ export const createSurvey = async (req: Request, res: Response): Promise<Respons
                 title,
                 userId: req.user,
                 categoryId: surveyCategory.id
+            },
+            select: {
+                id: true,
+                title: true,
+                options: true,
+                userId: true
             }
         })
 

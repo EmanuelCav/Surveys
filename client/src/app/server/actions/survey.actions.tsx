@@ -3,9 +3,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as surveyApi from '../api/surveys.api';
 import * as surveyFeatures from '../features/surveys.features';
 
-import { surveyCreateType, surveyGetType, surveyRemoveType } from "../../types/survey.types";
+import { surveyGetType, surveyRemoveType } from "../../types/survey.types";
 
 import { dangerMessage, successMessage } from "../../helper/message";
+import { SurveyCreateActionPropsType } from "../../types/action.types";
 
 export const surveyAll = createAsyncThunk('survey/all', async (_, { dispatch }) => {
 
@@ -21,13 +22,12 @@ export const surveyAll = createAsyncThunk('survey/all', async (_, { dispatch }) 
 
 })
 
-export const surveyCreate = createAsyncThunk('survey/create', async (surveyCreateData: surveyCreateType, { dispatch }) => {
+export const surveyCreate = createAsyncThunk('survey/create', async (surveyCreateData: SurveyCreateActionPropsType, { dispatch }) => {
 
     try {
 
         const { data } = await surveyApi.createSurveyApi(surveyCreateData.surveyData, surveyCreateData.token)
 
-        dispatch(surveyFeatures.createSurveyAction(data))
         dispatch(surveyFeatures.getSurveyAction(data))
 
         surveyCreateData.setIsOptions(true)
@@ -56,7 +56,7 @@ export const surveyRemove = createAsyncThunk('survey/remove', async (surveyData:
 
     try {
 
-        const { data } = await surveyApi.removeSurveyApi(surveyData.survey._id, surveyData.token)
+        const { data } = await surveyApi.removeSurveyApi(surveyData.survey.id, surveyData.token)
 
         dispatch(surveyFeatures.removeSurveyAction(surveyData.survey))
 

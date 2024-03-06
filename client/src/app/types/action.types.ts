@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 
 import { ILogin, IRegister, IUser } from "../interfaces/User";
-import { ISurvey } from "../interfaces/Survey";
+import { ICreateSurvey, ISurvey } from "../interfaces/Survey";
 import { NavigateFunction } from "react-router-dom";
 
 export type userType = {
@@ -36,4 +36,10 @@ export type UserRegisterActionPropsType = {
     userData: IRegister;
     navigate: NavigateFunction;   
     handleIsAuth: () => void;
+}
+
+export type SurveyCreateActionPropsType = {
+    token: string;
+    setIsOptions: (isOptions: boolean) => void;
+    surveyData: ICreateSurvey
 }

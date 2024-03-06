@@ -24,7 +24,7 @@ const List = ({ surveys }: { surveys: ISurvey[] }) => {
             }
             {
                 surveys.map((survey: ISurvey) => {
-                    return <SurveyList survey={survey} key={survey._id} />
+                    return <SurveyList survey={survey} key={survey.id} />
                 })
             }
         </div>
