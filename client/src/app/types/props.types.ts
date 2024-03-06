@@ -1,6 +1,10 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { Location, NavigateFunction } from "react-router-dom";
 
+import { userReducerType, userType } from "./auth.types";
+import { ISurvey } from "../interfaces/Survey";
+import { IUser } from "../interfaces/User";
+
 export type IconPropsType = {
     isLoggedIn: boolean;
     navigate: NavigateFunction;
@@ -8,8 +12,9 @@ export type IconPropsType = {
 }
 
 export type AuthPropsType = {
-    isLoggedIn: boolean;
+    user: userType;
     setIsLogin: (isLogin: boolean) => void;
+    navigate: NavigateFunction;
 }
 
 export type ContainerAuthPropsType = {
@@ -37,4 +42,43 @@ export type FormLAuthPropsType = {
     handleIsAuth: () => void;
     navigate: NavigateFunction;
     dispatch: Dispatch;
+}
+
+export type ButtonNavPropsType = {
+    func: () => void;
+    ComponentIcon: any;
+    text: string;
+}
+
+export type NavIsAuthPropsType = {
+    id: number;
+    navigate: NavigateFunction
+}
+
+export type FollowPropsType = {
+    text: string;
+    number: number;
+    ml: number;
+}
+
+export type SurveyPropsType = {
+    survey: ISurvey;
+    redirectSurvey: (id: number) => void;
+}
+
+export type NoSuveysPropsType = {
+    redirectCreate: () => void;
+    isUser: boolean;
+}
+
+export type InfoProfilePropsType = {
+    user: IUser;
+    loggedUser: userReducerType;
+    dispatch: Dispatch;
+    navigate: NavigateFunction;
+}
+
+export type SurveysProfilePropsType = {
+    user: userType;
+    navigate: NavigateFunction;
 }

@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react'
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
+import FollowInfo from './components/infoProfile/FollowInfo';
+
+import { InfoProfilePropsType } from '../../types/props.types';
 
 import { followApi } from "../../server/api/user.api";
 import { getUserAction } from "../../server/features/user.features";
-
-import { profileType } from "../../types/auth.types"
 import { userLogout } from '../../server/actions/user.actions';
 
-const InfoProfile = ({ user, loggedUser, surveys }: profileType) => {
+import { Box, Button, Typography } from '@mui/material';
 
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+const InfoProfile = ({ user, loggedUser, dispatch, navigate }: InfoProfilePropsType) => {
 
     const [isFollowing, setIsFollowing] = useState<boolean>(false)
 
@@ -22,7 +21,7 @@ const InfoProfile = ({ user, loggedUser, surveys }: profileType) => {
     const follow = async () => {
 
         try {
-            const { data } = await followApi(user._id, loggedUser.token)
+            const { data } = await followApi(user.id, loggedUser.token)
             dispatch(getUserAction(data))
             setIsFollowing(!isFollowing)
         } catch (error) {
@@ -31,31 +30,31 @@ const InfoProfile = ({ user, loggedUser, surveys }: profileType) => {
     }
 
     useEffect(() => {
-        user.followers.find((userId) => {
-            if (userId === loggedUser.user._id) {
+        user.followers.find((u) => {
+            if (u.id === loggedUser.user.id) {
                 setIsFollowing(true)
             }
         })
     }, [dispatch, user.followers])
 
     return (
-        <div className='container-info-profile'>
-            <h1 className="user-info-profile">{user.username}</h1>
-            <p className="text-info-profile">Followers: {user.followers.length}</p>
-            <p className="text-info-profile">Following: {user.following.length}</p>
-            <p className="text-info-profile">Surveys: {surveys.length}</p>
+        <Box>
+            <Typography variant='h3' color='#f76'>
+                {user.username}
+            </Typography>
+            <FollowInfo user={user} />
             {
-                user._id === loggedUser.user._id ? (
-                    <button className="button-profile" onClick={logOut}>Log out</button>
+                user.id === loggedUser.user.id ? (
+                    <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={logOut}>Edit Profile</Button>
                 ) : (
                     isFollowing ? (
-                        <button className="button-follow" onClick={follow}>Following</button>
+                        <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={follow}>Following</Button>
                     ) : (
-                        <button className="button-profile" onClick={follow}>Follow</button>
+                        <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={follow}>Follow</Button>
                     )
                 )
             }
-        </div>
+        </Box>
     )
 }
 

@@ -4,7 +4,7 @@ import { Box, FormControl, Input, InputAdornment } from "@mui/material";
 
 const Search = () => {
     return (
-        <Box sx={{ '& > :not(style)': { m: 1 }, userSelect: 'none' }}>
+        <Box width='33%' sx={{ '& > :not(style)': { m: 1 }, userSelect: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <FormControl variant="standard">
                 <Input
                     id="input-with-icon-adornment"

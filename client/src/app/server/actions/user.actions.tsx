@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as userApi from '../api/user.api';
 import * as userFeatures from '../features/user.features';
 
-import { UserRegisterActionPropsType, UserLoginActionPropsType, userProfileType } from "../../types/auth.types";
+import { UserRegisterActionPropsType, UserLoginActionPropsType } from "../../types/auth.types";
 
 import { dangerMessage, successMessage } from "../../helper/message";
 
@@ -60,11 +60,11 @@ export const userAll = createAsyncThunk('user/all', async (token: string, { disp
 
 })
 
-export const userProfile = createAsyncThunk('user/profile', async (userData: userProfileType, { dispatch }) => {
+export const userProfile = createAsyncThunk('user/profile', async (id: string, { dispatch }) => {
 
     try {
 
-        const { data } = await userApi.getUserApi(userData.id, userData.token)
+        const { data } = await userApi.getUserApi(id)
 
         dispatch(userFeatures.getUserAction(data))
 

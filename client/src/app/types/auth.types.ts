@@ -20,20 +20,10 @@ export type genderType = {
     gender: string;
     handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
 }
-export type profileType = {
-    user: IUser;
-    loggedUser: userReducerType;
-    surveys: ISurvey[];
-}
 
 export type userReducerType = {
     user: IUser;
     token: string;
-}
-
-export type profileSurveyType = {
-    user: userType;
-    surveys: ISurvey[];
 }
 
 export type UserLoginActionPropsType = {
@@ -46,9 +36,4 @@ export type UserRegisterActionPropsType = {
     userData: IRegister;
     navigate: NavigateFunction;   
     handleIsAuth: () => void;
-}
-
-export type userProfileType = {
-    id: string;
-    token: string;
 }

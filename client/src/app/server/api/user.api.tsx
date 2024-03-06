@@ -22,12 +22,8 @@ export const registerApi = async (userData: IRegister) => {
     })
 }
 
-export const getUserApi = async (id: string, token: string) => {
-    return await api.get(`/users/${id}`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
+export const getUserApi = async (id: string) => {
+    return await api.get(`/users/${id}`)
 }
 
 export const usersApi = async (token: string) => {
@@ -38,7 +34,7 @@ export const usersApi = async (token: string) => {
     })
 }
 
-export const followApi = async (id: string, token: string) => {
+export const followApi = async (id: number, token: string) => {
     return await api.patch(`/users/follow/${id}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`

@@ -33,6 +33,19 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
         const showUser = await prisma.user.findFirst({
             where: {
                 id: Number(id)
+            },
+            include: {
+                surveys: true,
+                followers: {
+                    select: {
+                        userId: true
+                    }
+                },
+                following: {
+                    select: {
+                        userId: true
+                    }
+                }
             }
         })
 

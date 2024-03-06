@@ -7,7 +7,7 @@ export interface ICounterSurvey {
 }
 
 export interface ISurvey {
-    _id: string;
+    id: number;
     title: string;
     options: IOption[];
     recommendations: string[]

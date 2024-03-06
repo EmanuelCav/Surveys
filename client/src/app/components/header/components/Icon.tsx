@@ -20,7 +20,7 @@ const Icon = ({ isLoggedIn, navigate, location }: IconPropsType) => {
     }
 
     return (
-        <Box sx={{
+        <Box width='33%' sx={{
             cursor: location.pathname === "/" ? 'default' : 'pointer',
             userSelect: 'none'
         }} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'row'}

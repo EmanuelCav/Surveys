@@ -1,63 +1,46 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
+import { Box } from '@mui/material';
 
-import SurveyList from "../surveys/components/surveyList"
+import NoSurveys from './components/surveyProfile/NoSuveys'
+import Survey from '../general/Survey';
 
 import { ISurvey } from "../../interfaces/Survey"
-import { profileSurveyType } from "../../types/auth.types"
+import { SurveysProfilePropsType } from '../../types/props.types';
 
-import { removeSurveyApi } from '../../server/api/surveys.api';
-import { removeSurveyAction } from '../../server/features/surveys.features';
-
-const SurveysProfile = ({ surveys, user }: profileSurveyType) => {
-
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+const SurveysProfile = ({ user, navigate }: SurveysProfilePropsType) => {
 
   const redirectCreate = () => {
     navigate('/surveys/create')
   }
 
-  const removeSurveyWithoutOptions = async (survey: ISurvey) => {
-    await removeSurveyApi(survey._id, user.user.token)
-    dispatch(removeSurveyAction(survey))
+  const redirectSurvey = (id: number) => {
+    navigate(`/surveys/${id}`)
   }
 
-  useEffect(() => {
-    surveys.find((survey) => {
-      if (survey.options.length < 2) {
-        if (survey.user._id === user.user.user._id) {
-          removeSurveyWithoutOptions(survey)
-        }
-      }
-    })
-  }, [surveys])
-
   return (
-    <div className="container-surveys-profile">
+    <Box mt={2} sx={{
+      borderWidth: 1,
+      borderColor: '#f64',
+      borderStyle: 'solid',
+      padding: 3
+    }}>
       {
-        surveys.length === 0 &&
-        <>
+        user.profile.surveys.length === 0 &&
+        <Box width='100%'>
           {
-            user.profile._id === user.user.user._id ? (
-              <p className="text-info-getsurvey">You have not posts.
-                <span className="start-profile" onClick={redirectCreate}>
-                  Start now!
-                </span>
-              </p>
+            user.profile.id === user.user.user.id ? (
+              <NoSurveys isUser={user.profile.id === user.user.user.id} redirectCreate={redirectCreate} />
             ) : (
-              <p className="text-info-getsurvey">This user has not posts</p>
+              <NoSurveys isUser={user.profile.id === user.user.user.id} redirectCreate={redirectCreate} />
             )
           }
-        </>
+        </Box>
       }
       {
-        surveys.map((survey: ISurvey) => {
-          return <SurveyList survey={survey} key={survey._id} />
+        user.profile.surveys.map((survey: ISurvey) => {
+          return <Survey survey={survey} redirectSurvey={redirectSurvey} key={survey.id} />
         })
       }
-    </div>
+    </Box>
   )
 }
 

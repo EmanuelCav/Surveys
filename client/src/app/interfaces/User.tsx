@@ -1,3 +1,6 @@
+import { genderType } from "../types/auth.types";
+import { ISurvey } from "./Survey";
+
 export interface ICounterUser {
     user: object;
     isLoggedIn: boolean;
@@ -6,15 +9,16 @@ export interface ICounterUser {
 }
 
 export interface IUser {
-    _id: string;
+    id: number;
     createdAt: string;
     updatedAt: string;
     username: string;
     email: string;
-    gender: string;
-    password: string;
-    followers: string[];
-    following: string[];
+    gender: genderType;
+    status: boolean;
+    followers: IUser[];
+    following: IUser[];
+    surveys: ISurvey[];
 }
 
 export interface ILogin {

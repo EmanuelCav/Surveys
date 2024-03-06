@@ -44,15 +44,7 @@ export const getSurveyApi = async (id: string, token: string) => {
     })
 }
 
-export const surveysProfileApi = async (id: string, token: string) => {
-    return await api.get(`/surveys/profile/${id}`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-}
-
-export const removeSurveyApi = async (id: string, token: string) => {
+export const removeSurveyApi = async (id: number, token: string) => {
     return await api.delete(`/surveys/${id}`, {
         headers: {
             'Authorization': `Bearer ${token}`

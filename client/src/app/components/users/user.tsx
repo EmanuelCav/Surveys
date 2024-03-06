@@ -7,7 +7,7 @@ const User = ({ user }: { user: IUser }) => {
     const navigate = useNavigate()
 
     const redirectProfile = () => {
-        navigate(`/profile/${user._id}`)
+        navigate(`/profile/${user.id}`)
     }
 
     return (

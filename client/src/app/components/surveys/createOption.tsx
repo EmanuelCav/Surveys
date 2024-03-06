@@ -79,7 +79,7 @@ const CreateOption = ({ user, survey }: getSurveyType) => {
       try {
         const { data } = await createOptionApi({ name: input }, survey._id, user.token)
         dispatch(createOptionAction(data))
-        navigate(`/profile/${user.user._id}`)
+        navigate(`/profile/${user.user.id}`)
       } catch (error: any) {
         dangerMessage(error.response.data.message)
       }

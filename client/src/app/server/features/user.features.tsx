@@ -18,7 +18,7 @@ const counterSliceUser = createSlice({
     reducers: {
         authAction: (state, action: PayloadAction<IUser>) => {
             state.user = action.payload
-            state.isLoggedIn = false
+            state.isLoggedIn = true
         },
         logoutAction: (state) => {
             state.user = {}

@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 
 import Header from "./app/components/header/Header";
 import Loading from "./app/components/message/loading";
@@ -30,21 +30,23 @@ function App() {
           <Loading />
           <Header />
           <Container>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/surveys" element={<Surveys />} />
-              <Route path="/surveys/create" element={<PrivateRoute />}>
-                <Route path="/surveys/create" element={<Create />} />
-              </Route>
-              <Route path="/surveys/:id" element={<PrivateRoute />}>
-                <Route path="/surveys/:id" element={<Survey />} />
-              </Route>
-              <Route path="/users" element={<PrivateRoute />}>
-                <Route path="/users" element={<Users />} />
-              </Route>
-              <Route path="/profile/:id" element={<Profile />} />
-              <Route path="*" element={<NotFountPage />} />
-            </Routes>
+            <Box mt={12}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/surveys" element={<Surveys />} />
+                <Route path="/surveys/create" element={<PrivateRoute />}>
+                  <Route path="/surveys/create" element={<Create />} />
+                </Route>
+                <Route path="/surveys/:id" element={<PrivateRoute />}>
+                  <Route path="/surveys/:id" element={<Survey />} />
+                </Route>
+                <Route path="/users" element={<PrivateRoute />}>
+                  <Route path="/users" element={<Users />} />
+                </Route>
+                <Route path="/profile/:id" element={<Profile />} />
+                <Route path="*" element={<NotFountPage />} />
+              </Routes>
+            </Box>
           </Container>
         </PersistGate>
       </Provider>

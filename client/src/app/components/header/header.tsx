@@ -52,7 +52,7 @@ const Header = () => {
         }}>
           <Icon isLoggedIn={user.isLoggedIn} navigate={navigate} location={location} />
           <Search />
-          <Auth isLoggedIn={user.isLoggedIn} setIsLogin={setIsLogin} />
+          <Auth user={user} setIsLogin={setIsLogin} navigate={navigate} />
         </Toolbar>
       </AppBar>
     </Box>
