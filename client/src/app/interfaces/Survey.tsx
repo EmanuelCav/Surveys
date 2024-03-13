@@ -11,7 +11,7 @@ export interface ISurvey {
     id: number;
     title: string;
     options: IOption[];
-    recommendations: string[]
+    recommendations: number[]
     comments: IComment[];
     category: ICategory;
     user: IUser;
@@ -30,11 +30,11 @@ export interface ICategory {
 }
 
 export interface IOption {
-    _id: string;
+    id: number;
     createdAt: string;
     updatedAt: string;
     name: string;
-    votes: string[];
+    votes: number[];
 }
 
 export interface ICreateSurvey {
@@ -47,11 +47,11 @@ export interface ICreateOption {
 }
 
 export interface IComment {
-    _id: string;
+    id: number;
     createdAt: string;
     updatedAt: string;
     comment: string;
-    likes: string[];
+    likes: number[];
     user: IUser
 }
 

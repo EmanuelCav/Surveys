@@ -1,10 +1,11 @@
+import { ChangeEvent } from "react";
+import { SelectChangeEvent } from "@mui/material";
 import { Dispatch } from "@reduxjs/toolkit";
 import { Location, NavigateFunction } from "react-router-dom";
 
 import { userReducerType, userType } from "./action.types";
-import { ICategory, ISurvey } from "../interfaces/Survey";
+import { ICategory, IOption, ISurvey } from "../interfaces/Survey";
 import { IUser } from "../interfaces/User";
-import { SelectChangeEvent } from "@mui/material";
 
 export type IconPropsType = {
     isLoggedIn: boolean;
@@ -96,4 +97,28 @@ export type SelectPropsType = {
     value: string; 
     handleChange: (e: SelectChangeEvent<string>) => void;
     array: any[];
+}
+
+export type CreateOptionPropsType = {
+    user: userReducerType;
+    survey: ISurvey;
+    navigate: NavigateFunction
+}
+
+export type InputOptionPropsType = {
+    option: IOption;
+    index: number;
+    value: string;
+    handleChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => void;
+}
+
+export type ActionOptionPropsType = {
+    text: string;
+    handleOptionAction: (isAdd: boolean) => void;
+    disabled: boolean;
+}
+
+export type SurveyInfoPropsType = {
+    survey: ISurvey;
+    user: userReducerType;
 }

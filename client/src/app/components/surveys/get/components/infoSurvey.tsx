@@ -4,12 +4,10 @@ import { useDispatch } from "react-redux";
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { BiCommentDetail, BiUser } from "react-icons/bi";
 
-import { getSurveyType } from "../../../../types/survey.types";
-
 import { recommendSurveyApi } from "../../../../server/api/surveys.api";
 import { recommendSurveyAction } from "../../../../server/features/surveys.features";
 
-const InfoSurvey = ({ survey, user }: getSurveyType) => {
+const InfoSurvey = ({ survey, user }: any) => {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -37,7 +35,7 @@ const InfoSurvey = ({ survey, user }: getSurveyType) => {
 
     useEffect(() => {
         survey.recommendations.find((userId: string) => {
-            if (userId === user.user._id) {
+            if (userId === user.user.id) {
                 setIsLiked(true)
             }
         })

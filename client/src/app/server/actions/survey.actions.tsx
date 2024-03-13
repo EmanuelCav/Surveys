@@ -3,10 +3,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as surveyApi from '../api/surveys.api';
 import * as surveyFeatures from '../features/surveys.features';
 
-import { surveyGetType, surveyRemoveType } from "../../types/survey.types";
+import { surveyRemoveType } from "../../types/survey.types";
+import { SurveyCreateActionPropsType, SurveyGetPropsType, SurveyOptionActionPropsType } from "../../types/action.types";
 
 import { dangerMessage, successMessage } from "../../helper/message";
-import { SurveyCreateActionPropsType } from "../../types/action.types";
 
 export const surveyAll = createAsyncThunk('survey/all', async (_, { dispatch }) => {
 
@@ -26,9 +26,10 @@ export const surveyCreate = createAsyncThunk('survey/create', async (surveyCreat
 
     try {
 
-        const { data } = await surveyApi.createSurveyApi(surveyCreateData.surveyData, surveyCreateData.token)
+        const createSurveyData = await surveyApi.createSurveyApi(surveyCreateData.surveyData, surveyCreateData.token)
+        const createOptionData = await surveyApi.createOptionApi(createSurveyData.data.survey.id, surveyCreateData.token)
 
-        dispatch(surveyFeatures.getSurveyAction(data))
+        dispatch(surveyFeatures.getSurveyAction(createOptionData.data))
 
         surveyCreateData.setIsOptions(true)
 
@@ -38,11 +39,31 @@ export const surveyCreate = createAsyncThunk('survey/create', async (surveyCreat
 
 })
 
-export const surveyGet = createAsyncThunk('survey/get', async (surveyData: surveyGetType, { dispatch }) => {
+export const surveyOptions = createAsyncThunk('survey/option', async (surveyOptionData: SurveyOptionActionPropsType, { dispatch }) => {
 
     try {
 
-        const { data } = await surveyApi.getSurveyApi(surveyData.id as string, surveyData.token)
+        for (let i = 0; i < surveyOptionData.optionData.length; i++) {
+            await surveyApi.updateOptionApi(surveyOptionData.survey.options[i].id, surveyOptionData.optionData[i], surveyOptionData.token)
+        }
+
+        const { data } = await surveyApi.getSurveyApi(surveyOptionData.survey.id, surveyOptionData.token)
+
+        dispatch(surveyFeatures.getSurveyAction(data))
+
+        surveyOptionData.navigate(`/surveys/${surveyOptionData.survey.id}`)
+        
+    } catch (error: any) {
+        dangerMessage(error.response.data.message)
+    }
+
+})
+
+export const surveyGet = createAsyncThunk('survey/get', async (surveyData: SurveyGetPropsType, { dispatch }) => {
+
+    try {
+
+        const { data } = await surveyApi.getSurveyApi(surveyData.id, surveyData.token)
 
         dispatch(surveyFeatures.getSurveyAction(data))
 

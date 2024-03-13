@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 
 import { prisma } from "../helper/prisma";
+import { survey } from "./surveys.ctrl";
 
 export const createOption = async (req: Request, res: Response): Promise<Response> => {
 
-    const { name } = req.body;
     const { id } = req.params;
 
     try {
@@ -13,8 +13,13 @@ export const createOption = async (req: Request, res: Response): Promise<Respons
             where: {
                 id: Number(id)
             },
-            select: {
-                userId: true
+            include: {
+                options: {
+                    select: {
+                        id: true,
+                        name: true
+                    }
+                }
             }
         })
 
@@ -37,7 +42,7 @@ export const createOption = async (req: Request, res: Response): Promise<Respons
             data: {
                 options: {
                     create: {
-                        name,
+                        name: "",
                         userId: req.user
                     }
                 }
@@ -45,8 +50,8 @@ export const createOption = async (req: Request, res: Response): Promise<Respons
             include: {
                 options: {
                     select: {
-                        name: true,
-                        votes: true
+                        id: true,
+                        name: true
                     }
                 }
             }
@@ -99,7 +104,7 @@ export const removeOption = async (req: Request, res: Response): Promise<Respons
             })
         }
 
-        await prisma.survey.update({
+        const surveyUpdated = await prisma.survey.update({
             where: {
                 id: Number(surveyId)
             },
@@ -109,19 +114,47 @@ export const removeOption = async (req: Request, res: Response): Promise<Respons
                         id: Number(id)
                     }
                 }
+            },
+            include: {
+                options: {
+                    select: {
+                        id: true,
+                        name: true
+                    }
+                }
             }
         })
 
-        await prisma.option.delete({
-            where: {
-                id: Number(id)
-            }
-        })
-
-        return res.status(200).json({ message: "Option was removed" })
+        return res.status(200).json(surveyUpdated)
 
     } catch (error) {
         throw (error);
+    }
+
+}
+
+export const updateOptions = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
+    const { name } = req.body
+
+    try {
+
+        await prisma.option.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                name
+            }
+        })
+
+        return res.status(400).json({
+            message: "Option updated successfully"
+        })
+        
+    } catch (error) {
+        throw error
     }
 
 }

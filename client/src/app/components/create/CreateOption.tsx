@@ -1,119 +1,103 @@
-import { useState, ChangeEvent, FC, useEffect, FormEvent } from "react";
-import { useNavigate } from 'react-router-dom'
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { Box, Button } from "@mui/material";
 import { useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { createOptionApi } from "../../server/api/surveys.api";
-import { createOptionAction } from "../../server/features/surveys.features";
+import { ICreateOption, IOption } from "../../interfaces/Survey";
+import { CreateOptionPropsType } from "../../types/props.types";
 
-import { ICreateOption } from "../../interfaces/Survey";
-import { getSurveyType } from "../../types/survey.types";
+import InputOption from "./components/InputOption";
+import ActionOption from "./components/ActionOption";
 
-import { dangerMessage } from "../../helper/message";
+import { createOptionApi, removeOptionApi } from "../../server/api/surveys.api";
+import { getSurveyAction } from "../../server/features/surveys.features";
+import { surveyOptions } from "../../server/actions/survey.actions";
 
-const CreateOption = ({ user, survey }: getSurveyType) => {
+const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
 
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
-  const initialState: ICreateOption[] = []
+  const initialState: ICreateOption[] = [{
+    name: ""
+  }]
 
   const [optionData, setOptionData] = useState<ICreateOption[]>(initialState)
-  const [inputs, setInputs] = useState<FC[]>([])
 
-  const InputElement = () => {
-    return (
-      <div className="separator">
-        <input type="text" id={`name${optionData.length + 1}`} className="input-form" placeholder="WRITE A SURVEY OPTION" onChange={handleChange} autoComplete="off" maxLength={75} />
-      </div>
-    )
-  }
-
-  const addOption = () => {
-
-    if (optionData.length >= 6) {
-      dangerMessage("You can upload a maximum of 6 options")
-      return;
-    }
-
-    const newOption: ICreateOption = {
+  const addOption = async () => {
+    setOptionData([...optionData, {
       name: ""
+    }])
+
+    const { data } = await createOptionApi(survey.id, user.token)
+    dispatch(getSurveyAction(data))
+  }
+
+  const removeOption = async () => {
+    const { data } = await removeOptionApi(survey.options[survey.options.length - 1].id, survey.id, user.token)
+    dispatch(getSurveyAction(data))
+
+    setOptionData(optionData.slice(0, -1))
+  }
+
+  const handleOptionAction = (isAdd: boolean) => {
+    if (isAdd) {
+      addOption()
+    } else {
+      removeOption()
     }
-
-    setOptionData([...optionData, newOption])
-    setInputs([...inputs, InputElement])
   }
 
-  const removeOption = () => {
-    let options = [...optionData]
-    let allInputs = [...inputs]
-    options.pop()
-    allInputs.pop()
-    setOptionData(options)
-    setInputs(allInputs)
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
+    let items = [...optionData];
+    let item = {...items[index]};
+    item.name = e.target.value;
+    items[index] = item;
+    setOptionData(items);
   }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-
-    let options = [...optionData]
-    let option = { ...optionData[optionData.length] }
-    option.name = e.target.value
-    options[optionData.length] = option
-    setOptionData(options)
-
-  }
-
-  const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSumbit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-
-    if (optionData.length < 2) {
-      dangerMessage("You have to upload at least 2 options")
-      return
-    }
-
-    for (let i = 0; i < optionData.length; i++) {
-
-      const input = (document.getElementById(`name${i + 1}`) as HTMLInputElement).value
-
-      try {
-        const { data } = await createOptionApi({ name: input }, survey.id, user.token)
-        dispatch(createOptionAction(data))
-        navigate(`/profile/${user.user.id}`)
-      } catch (error: any) {
-        dangerMessage(error.response.data.message)
-      }
-    }
-
+    surveyOptions({
+      token: user.token,
+      optionData,
+      survey,
+      navigate
+    })
   }
+
+  useEffect(() => {
+    console.log(optionData);
+  }, [optionData])
 
   return (
-    <form className="container-form-option" onSubmit={handleSumbit}>
+    <Box component='form' p={3} justifyContent='center' alignItems='center' flexDirection='column' display='flex' sx={{
+      width: '37.33%',
+      height: '100%'
+    }} noValidate onSubmit={handleSumbit}>
       <ToastContainer />
-      <div className="separator">
+      <Box width='100%' flex={1} display='flex' justifyContent='flex-start' alignItems='center' flexDirection='column'>
         {
-          inputs.map((Input: FC, index: number) => {
-            return <Input key={index} />
+          survey.options.map((option: IOption, index: number) => {
+            return <InputOption option={option} index={index} value={optionData[index].name} handleChange={handleChange} key={option.id} />
           })
         }
-      </div>
-      <div className="separator container-add-option" onClick={addOption}>
-        <p className="auth-text-account-form">
-          Add an option
-        </p>
-      </div>
-      {
-        optionData.length > 0 &&
-        <div className="separator">
-          <p className="auth-text-account-form" onClick={removeOption}>Remove option</p>
-        </div>
-      }
-      <div className="separator">
-        <button className="button-form">
-          CREATE SURVEY
-        </button>
-      </div>
-    </form>
+      </Box>
+      <Box height='30%' width='100%' display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
+        <ActionOption text="Add an option" handleOptionAction={handleOptionAction} disabled={survey.options.length >= 6} />
+        <ActionOption text="Remove an option" handleOptionAction={handleOptionAction} disabled={survey.options.length <= 1} />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ my: 2, fontSize: '1.225em' }}
+          color='warning'
+          size='large'
+        >
+          Create Survey
+        </Button>
+      </Box>
+    </Box>
   )
 }
 

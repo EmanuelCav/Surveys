@@ -132,15 +132,20 @@ export const createSurvey = async (req: Request, res: Response): Promise<Respons
                 userId: req.user,
                 categoryId: surveyCategory.id
             },
-            select: {
-                id: true,
-                title: true,
-                options: true,
-                userId: true
+            include: {
+                options: {
+                    select: {
+                        id: true,
+                        name: true
+                    }
+                }
             }
         })
 
-        return res.status(200).json(newSurvey)
+        return res.status(200).json({
+            survey: newSurvey,
+            message: "Survey creted successfully"
+        })
 
     } catch (error) {
         throw (error);

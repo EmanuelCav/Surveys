@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Box } from "@mui/material";
 
@@ -15,13 +16,14 @@ const Create = () => {
   const surveys = useSelector((state: IReducer) => selector(state).surveys)
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [isOptions, setIsOptions] = useState<boolean>(false)
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" className="full-screen">
       {
-        isOptions ? <CreateOption user={user.user} survey={surveys.survey} />
+        isOptions ? <CreateOption user={user.user} survey={surveys.survey} navigate={navigate} />
           : <CreateSurvey dispatch={dispatch} user={user.user} categories={surveys.categories} setIsOptions={setIsOptions} />
       }
     </Box>

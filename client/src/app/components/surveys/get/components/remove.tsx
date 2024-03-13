@@ -14,7 +14,7 @@ const Remove = ({ setIsRemove, survey, user }: removeSurveyType) => {
 
     const removeSurvey = async () => {
         dispatch(surveyRemove({
-            id: user.user._id,
+            id: user.user.id,
             token: user.token,
             survey,
             setIsRemove,

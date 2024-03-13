@@ -27,8 +27,24 @@ export const createSurveyApi = async (surveyData: ICreateSurvey, token: string) 
     })
 }
 
-export const createOptionApi = async (optionData: ICreateOption, id: number, token: string) => {
-    return await api.patch(`/options/${id}`, optionData, {
+export const createOptionApi = async (id: number, token: string) => {
+    return await api.patch(`/options/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export const removeOptionApi = async (id: number, surveyId: number, token: string) => {
+    return await api.patch(`/options/${id}/surveys/${surveyId}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export const updateOptionApi = async (id: number, optionData: ICreateOption, token: string) => {
+    return await api.put(`/options/${id}`, optionData, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -36,7 +52,7 @@ export const createOptionApi = async (optionData: ICreateOption, id: number, tok
     })
 }
 
-export const getSurveyApi = async (id: string, token: string) => {
+export const getSurveyApi = async (id: number, token: string) => {
     return await api.get(`/surveys/${id}`, {
         headers: {
             'Authorization': `Bearer ${token}`

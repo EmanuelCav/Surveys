@@ -10,11 +10,6 @@ export type surveyType = {
     categories: ICategory[];
 }
 
-export type getSurveyType = {
-    survey: ISurvey;
-    user: userReducerType;
-}
-
 export type removeSurveyType = {
     survey: ISurvey;
     user: userReducerType;
@@ -35,15 +30,10 @@ export type commentSurveyType = {
     user: userReducerType;
 }
 
-export type surveyGetType = {
-    id: string;
-    token: string;
-}
-
 export type surveyRemoveType = {
     survey: ISurvey;
     token: string;
     setIsRemove: (isRemove: boolean) => void;
     navigate: NavigateFunction;
-    id: string;
+    id: number;
 }

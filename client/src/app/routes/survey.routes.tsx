@@ -20,7 +20,7 @@ const Survey = () => {
 
   const getData = async () => {
     dispatch(surveyGet({
-      id: String(params.id),
+      id: Number(params.id),
       token: user.user.token
     }) as any)
   }
