@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material"
 
-import { NoSuveysPropsType } from "../../../../types/props.types"
+import { NoSuveysPropsType } from "../../../../../types/props.types"
 
-const NoSuveys = ({ isUser, redirectCreate }: NoSuveysPropsType) => {
+const NoSurveys = ({ isUser, redirectCreate }: NoSuveysPropsType) => {
     return (
         <Box display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
             <Box
@@ -32,4 +32,4 @@ const NoSuveys = ({ isUser, redirectCreate }: NoSuveysPropsType) => {
     )
 }
 
-export default NoSuveys
+export default NoSurveys

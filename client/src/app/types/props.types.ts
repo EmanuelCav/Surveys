@@ -193,3 +193,13 @@ export type ActionCommentPropsType = {
     handleAction: () => void;
     Icon: any;
 }
+
+export type ShowSurveysProfilePropsType = {
+    user: userType;
+    redirectSurvey: (id: number) => void;
+}
+
+export type ActionSurveyProfilePropsType = {
+    user: userType;
+    redirectCreate: () => void;
+}

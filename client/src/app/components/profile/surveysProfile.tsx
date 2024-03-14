@@ -1,10 +1,9 @@
 import { Box } from '@mui/material';
 
-import NoSurveys from './components/surveyProfile/NoSuveys'
-import Survey from '../general/Survey';
+import ShowSurveysProfile from './components/surveyProfile/ShowSurveysProfile';
 
-import { ISurvey } from "../../interfaces/Survey"
 import { SurveysProfilePropsType } from '../../types/props.types';
+import ActionSurveyProfile from './components/surveyProfile/ActionSurveyProfile';
 
 const SurveysProfile = ({ user, navigate }: SurveysProfilePropsType) => {
 
@@ -23,23 +22,8 @@ const SurveysProfile = ({ user, navigate }: SurveysProfilePropsType) => {
       borderStyle: 'solid',
       padding: 3
     }}>
-      {
-        user.profile.surveys.length === 0 &&
-        <Box width='100%'>
-          {
-            user.profile.id === user.user.user.id ? (
-              <NoSurveys isUser={user.profile.id === user.user.user.id} redirectCreate={redirectCreate} />
-            ) : (
-              <NoSurveys isUser={user.profile.id === user.user.user.id} redirectCreate={redirectCreate} />
-            )
-          }
-        </Box>
-      }
-      {
-        user.profile.surveys.map((survey: ISurvey) => {
-          return <Survey survey={survey} redirectSurvey={redirectSurvey} key={survey.id} />
-        })
-      }
+      <ActionSurveyProfile user={user} redirectCreate={redirectCreate} />
+      <ShowSurveysProfile user={user} redirectSurvey={redirectSurvey} />
     </Box>
   )
 }

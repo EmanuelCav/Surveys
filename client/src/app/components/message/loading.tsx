@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { Box } from '@mui/material';
 
 import img from '../../../loading.gif';
 
@@ -14,9 +15,15 @@ const Loading = () => {
         <>
             {
                 response.loading && 
-                <div className='container-loading'>
-                    <img src={img} alt="loading..." className='loading-icon' />
-                </div>
+                <Box position='fixed' display='flex' zIndex={22} justifyContent='center' alignItems='center' top={0} left={0} height='100vh' width='100%' bgcolor='#ffffff'>
+                    <Box 
+                        component='img'
+                        alt='loading...'
+                        src={img}
+                        width={212}
+                        height={212}
+                    />
+                </Box>
             }
         </>
     )
