@@ -68,7 +68,7 @@ export const removeSurveyApi = async (id: number, token: string) => {
     })
 }
 
-export const recommendSurveyApi = async (id: string, token: string) => {
+export const recommendSurveyApi = async (id: number, token: string) => {
     return await api.patch(`/surveys/recommend/${id}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -76,7 +76,7 @@ export const recommendSurveyApi = async (id: string, token: string) => {
     })
 }
 
-export const voteSurveyApi = async (id: string, surveyId: string, token: string) => {
+export const voteSurveyApi = async (id: number, surveyId: number, token: string) => {
     return await api.patch(`/options/vote/${id}/${surveyId}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -84,7 +84,7 @@ export const voteSurveyApi = async (id: string, surveyId: string, token: string)
     })
 }
 
-export const commentSurveyApi = async (id: string, commentData: ICreateComment, token: string) => {
+export const commentSurveyApi = async (id: number, commentData: ICreateComment, token: string) => {
     return await api.patch(`/comments/${id}`, commentData, {
         headers: {
             'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ export const commentSurveyApi = async (id: string, commentData: ICreateComment, 
     })
 }
 
-export const removeCommentApi = async (id: string, token: string) => {
+export const removeCommentApi = async (id: number, token: string) => {
     return await api.delete(`/comments/${id}`, {
         headers: {
             'Authorization': `Bearer ${token}`
@@ -101,7 +101,7 @@ export const removeCommentApi = async (id: string, token: string) => {
     })
 }
 
-export const likeCommentApi = async (id: string, token: string) => {
+export const likeCommentApi = async (id: number, token: string) => {
     return await api.patch(`/comments/like/${id}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`

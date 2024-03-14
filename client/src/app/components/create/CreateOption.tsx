@@ -1,5 +1,5 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { Box, Button } from "@mui/material";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { Box } from "@mui/material";
 import { useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,12 +7,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ICreateOption, IOption } from "../../interfaces/Survey";
 import { CreateOptionPropsType } from "../../types/props.types";
 
-import InputOption from "./components/InputOption";
-import ActionOption from "./components/ActionOption";
+import InputOption from "./components/components/InputOption";
+import ActionsOption from "./components/ActionsOption";
+import ShowOptions from "./components/ShowOptions";
 
 import { createOptionApi, removeOptionApi } from "../../server/api/surveys.api";
 import { getSurveyAction } from "../../server/features/surveys.features";
 import { surveyOptions } from "../../server/actions/survey.actions";
+
+import { dangerMessage } from "../../helper/message";
 
 const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
 
@@ -58,17 +61,19 @@ const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
 
   const handleSumbit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    surveyOptions({
+
+    if(survey.options.length < 2) {
+      dangerMessage("You must to upload at least two options")
+      return
+    }
+
+    dispatch(surveyOptions({
       token: user.token,
       optionData,
       survey,
       navigate
-    })
+    }) as any)
   }
-
-  useEffect(() => {
-    console.log(optionData);
-  }, [optionData])
 
   return (
     <Box component='form' p={3} justifyContent='center' alignItems='center' flexDirection='column' display='flex' sx={{
@@ -83,20 +88,8 @@ const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
           })
         }
       </Box>
-      <Box height='30%' width='100%' display='flex' justifyContent='center' alignItems='center' flexDirection='column'>
-        <ActionOption text="Add an option" handleOptionAction={handleOptionAction} disabled={survey.options.length >= 6} />
-        <ActionOption text="Remove an option" handleOptionAction={handleOptionAction} disabled={survey.options.length <= 1} />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ my: 2, fontSize: '1.225em' }}
-          color='warning'
-          size='large'
-        >
-          Create Survey
-        </Button>
-      </Box>
+      <ShowOptions optionData={optionData} handleChange={handleChange} options={survey.options} />
+      <ActionsOption handleOptionAction={handleOptionAction} options={survey.options} />
     </Box>
   )
 }

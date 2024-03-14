@@ -1,6 +1,6 @@
 import { TextField } from "@mui/material"
 
-import { InputOptionPropsType } from "../../../types/props.types"
+import { InputOptionPropsType } from "../../../../types/props.types"
 
 const InputOption = ({ index, value, handleChange }: InputOptionPropsType) => {
     return (

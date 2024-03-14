@@ -79,22 +79,17 @@ export const survey = async (req: Request, res: Response): Promise<Response> => 
                         votes: true
                     }
                 },
+                recommendations: true,
                 comments: {
                     include: {
-                        user: {
-                            select: {
-                                password: false
-                            }
-                        }
+                        user: true
                     }
                 },
-                user: {
-                    select: {
-                        password: false
-                    }
-                }
+                user: true
             }
         })
+
+        // const showSurveyFilter = exclude(showSurvey, ['password', 'role'])
 
         if (!showSurvey) {
             return res.status(400).json({

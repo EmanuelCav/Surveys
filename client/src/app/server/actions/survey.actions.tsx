@@ -41,7 +41,7 @@ export const surveyCreate = createAsyncThunk('survey/create', async (surveyCreat
 
 export const surveyOptions = createAsyncThunk('survey/option', async (surveyOptionData: SurveyOptionActionPropsType, { dispatch }) => {
 
-    try {
+    try {        
 
         for (let i = 0; i < surveyOptionData.optionData.length; i++) {
             await surveyApi.updateOptionApi(surveyOptionData.survey.options[i].id, surveyOptionData.optionData[i], surveyOptionData.token)

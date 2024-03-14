@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 
 import { prisma } from "../helper/prisma";
-import { survey } from "./surveys.ctrl";
 
 export const createOption = async (req: Request, res: Response): Promise<Response> => {
 
@@ -140,6 +139,16 @@ export const updateOptions = async (req: Request, res: Response): Promise<Respon
 
     try {
 
+        const option = await prisma.option.findFirst({
+            where: {
+                id: Number(id)
+            }
+        })
+
+        if(!option) {
+            return res.status(400).json({ message: "Option does not exists" })
+        }
+
         await prisma.option.update({
             where: {
                 id: Number(id)
@@ -149,7 +158,7 @@ export const updateOptions = async (req: Request, res: Response): Promise<Respon
             }
         })
 
-        return res.status(400).json({
+        return res.status(200).json({
             message: "Option updated successfully"
         })
         

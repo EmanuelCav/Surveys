@@ -1,6 +1,6 @@
 import { NavigateFunction } from "react-router-dom";
 
-import { ICategory, IComment, IOption, ISurvey } from "../interfaces/Survey";
+import { ICategory, IComment, ISurvey } from "../interfaces/Survey";
 import { userReducerType } from "./action.types";
 
 export type surveyType = {
@@ -8,21 +8,6 @@ export type surveyType = {
     survey: ISurvey;
     follow: ISurvey[];
     categories: ICategory[];
-}
-
-export type removeSurveyType = {
-    survey: ISurvey;
-    user: userReducerType;
-    setIsRemove: (isRemove: boolean) => void;
-}
-
-export type optionSurveyType = {
-    user: userReducerType;
-    survey: ISurvey;
-    option: IOption;
-    isVoted: boolean;
-    setIsVoted: (isVoted: boolean) => void;
-    totalVotes: number;
 }
 
 export type commentSurveyType = {

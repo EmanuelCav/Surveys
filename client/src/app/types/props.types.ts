@@ -4,7 +4,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { Location, NavigateFunction } from "react-router-dom";
 
 import { userReducerType, userType } from "./action.types";
-import { ICategory, IOption, ISurvey } from "../interfaces/Survey";
+import { ICategory, ICreateOption, IOption, ISurvey } from "../interfaces/Survey";
 import { IUser } from "../interfaces/User";
 
 export type IconPropsType = {
@@ -20,7 +20,7 @@ export type AuthPropsType = {
 }
 
 export type ContainerAuthPropsType = {
-    navigate: NavigateFunction; 
+    navigate: NavigateFunction;
     setIsLogin: (isLogin: boolean) => void;
     setIsRegister: (isRegister: boolean) => void;
     isLogin: boolean;
@@ -93,8 +93,8 @@ export type CreateSurveyPropsType = {
 }
 
 export type SelectPropsType = {
-    text: string; 
-    value: string; 
+    text: string;
+    value: string;
     handleChange: (e: SelectChangeEvent<string>) => void;
     array: any[];
 }
@@ -121,4 +121,54 @@ export type ActionOptionPropsType = {
 export type SurveyInfoPropsType = {
     survey: ISurvey;
     user: userReducerType;
+}
+
+export type OptionsSurveyPropsType = {
+    survey: ISurvey;
+    isVoted: boolean;
+    setIsVoted: (isVoted: boolean) => void;
+    user: userReducerType;
+    totalVotes: number;
+}
+
+export type ShowOptionPropsType = {
+    survey: ISurvey;
+    isVoted: boolean;
+    setIsVoted: (isVoted: boolean) => void;
+    user: userReducerType;
+    totalVotes: number;
+    option: IOption;
+}
+
+export type RemovePropsType = {
+    setIsRemove: (isRemove: boolean) => void;
+    survey: ISurvey;
+    user: userReducerType;
+}
+
+export type ActionSurveyPropsType = {
+    Icon: any;
+    data: string;
+    func: () => void;
+}
+
+export type InfoSurveyPropsType = {
+    survey: ISurvey;
+    user: userReducerType;
+}
+
+export type ActionRemovePropsType = {
+    removeSurvey: () => void;
+    cancelRemove: () => void;
+}
+
+export type ActionsOptionPropsType = {
+    handleOptionAction: (isAdd: boolean) => void;
+    options: IOption[];
+}
+
+export type ShowOptionsPropsType = {
+    options: IOption[];
+    optionData: ICreateOption[]; 
+    handleChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => void;
 }

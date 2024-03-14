@@ -4,13 +4,13 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { IResponse } from "../../interfaces/Response";
 
 import { userAll, userLogin, userLogout, userProfile, userRegister } from "../actions/user.actions";
-import { surveyAll, surveyCreate, surveyGet, surveyRemove } from "../actions/survey.actions";
+import { surveyAll, surveyCreate, surveyGet, surveyOptions, surveyRemove } from "../actions/survey.actions";
 
 const initialState: IResponse = {
     loading: false
 }
 
-const counterSliceRespose = createSlice({
+const counterSliceResponse = createSlice({
     name: 'response',
     initialState,
     reducers: {
@@ -74,9 +74,15 @@ const counterSliceRespose = createSlice({
         builder.addCase(surveyRemove.fulfilled, (state) => {
             state.loading = false
         })
+        builder.addCase(surveyOptions.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(surveyOptions.fulfilled, (state) => {
+            state.loading = false
+        })
     },
 })
 
-export const { loadingAction } = counterSliceRespose.actions
+export const { loadingAction } = counterSliceResponse.actions
 
-export default counterSliceRespose.reducer
+export default counterSliceResponse.reducer

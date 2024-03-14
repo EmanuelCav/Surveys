@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom';
 
 import { IReducer } from "../interfaces/Reducer";
 
-import SurveyInfo from "../components/surveys/get/surveyInfo";
+import SurveyInfo from "../components/survey/SurveyInfo";
 import Comments from "../components/surveys/get/comments";
 
 import { selector } from "../helper/selector";
 import { surveyGet } from "../server/actions/survey.actions";
+import { Box } from "@mui/material";
 
 const Survey = () => {
 
@@ -30,13 +31,13 @@ const Survey = () => {
   }, [dispatch, params])
 
   return (
-    <div className="container-getsurvey">
+    <Box p={4}>
       {
         surveys.survey.user &&
         <SurveyInfo survey={surveys.survey} user={user.user} />
       }
       <Comments user={user.user} survey={surveys.survey} />
-    </div>
+    </Box>
   )
 }
 

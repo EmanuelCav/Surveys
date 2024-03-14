@@ -16,7 +16,7 @@ const Comment = ({ comment, user }: commentSurveyType) => {
   const removeComment = async () => {
 
     try {
-      const { data } = await removeCommentApi(comment._id, user.token)
+      const { data } = await removeCommentApi(comment.id, user.token)
       dispatch(getSurveyAction(data))
     } catch (error) {
       console.log(error);
@@ -28,7 +28,7 @@ const Comment = ({ comment, user }: commentSurveyType) => {
 
     try {
 
-      const { data } = await likeCommentApi(comment._id, user.token)
+      const { data } = await likeCommentApi(comment.id, user.token)
       dispatch(getSurveyAction(data))
       setIsLiked(!isLiked)
 
@@ -40,7 +40,7 @@ const Comment = ({ comment, user }: commentSurveyType) => {
 
   useEffect(() => {
     comment.likes.find((userId) => {
-      if (userId === user.user._id) {
+      if (userId === user.user.id) {
         setIsLiked(true)
       }
     })
@@ -51,7 +51,7 @@ const Comment = ({ comment, user }: commentSurveyType) => {
       <div className="container-action-remove">
         <p className='user-info-comment'>{comment.user.username}</p>
         {
-          comment.user._id === user.user._id &&
+          comment.user.id === user.user.id &&
           <AiOutlineDelete size={18} color={'#f00'} className="remove-icon-comment" onClick={removeComment} />
         }
       </div>

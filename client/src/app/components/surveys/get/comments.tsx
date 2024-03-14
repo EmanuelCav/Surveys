@@ -2,9 +2,8 @@ import CreateComment from "./components/createComment"
 import Comment from './components/comment';
 
 import { IComment } from "../../../interfaces/Survey"
-import { getSurveyType } from "../../../types/survey.types"
 
-const Comments = ({ user, survey }: getSurveyType) => {
+const Comments = ({ user, survey }: any) => {
 
     return (
         <div className="container-comments">

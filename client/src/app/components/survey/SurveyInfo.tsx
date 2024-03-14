@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
+import { Box, Typography } from "@mui/material";
 
-import ShowOption from "./components/showOptions"
-import InfoSurvey from "./components/infoSurvey"
-import Remove from "./components/remove";
+import InfoSurvey from "./components/surveyinfo/components/InfoSurvey"
+import OptionsSurvey from "./components/surveyinfo/OptionsSurvey";
+import Remove from "./components/surveyinfo/components/Remove";
 
-import { IOption } from "../../../interfaces/Survey"
-import { SurveyInfoPropsType } from "../../../types/props.types";
+import { SurveyInfoPropsType } from "../../types/props.types";
 
 const SurveyInfo = ({ survey, user }: SurveyInfoPropsType) => {
 
@@ -46,25 +46,25 @@ const SurveyInfo = ({ survey, user }: SurveyInfoPropsType) => {
   }, [isVoted, totalVotes])
 
   return (
-    <div className="container-survey-info">
+    <Box position="relative" p={2} sx={{
+      borderWidth: 1,
+      borderColor: '#f64',
+      borderStyle: 'solid',
+      textAlign: 'center'
+    }}>
       {
         isRemove && <Remove setIsRemove={setIsRemove} survey={survey} user={user} />
       }
-      <h1 className="text-survey-info">{survey.title}</h1>
+      <Typography variant="h5" color="#f64">{survey.title}</Typography>
       {
         user.user.id === survey.user.id && <AiOutlineDelete size={18} className="remove-icon" onClick={removeSurvey} />
       }
-      <div className="container-options-survey">
-        {
-          survey.options.map((option: IOption) => {
-            return <ShowOption survey={survey} user={user} option={option}
-              isVoted={isVoted} setIsVoted={setIsVoted} totalVotes={totalVotes} key={option.id} />
-          })
-        }
-      </div>
+      <OptionsSurvey survey={survey} isVoted={isVoted} setIsVoted={setIsVoted} totalVotes={totalVotes} user={user} />
       <InfoSurvey survey={survey} user={user} />
-      <p className="text-info-getsurvey" style={{ marginTop: '10px' }}>Votes: {totalVotes}</p>
-    </div>
+      <Typography variant="h6" align="center" mt={2} color="#f64">
+        Votes: {totalVotes}
+      </Typography>
+    </Box>
   )
 }
 
