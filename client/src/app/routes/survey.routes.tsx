@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { IReducer } from "../interfaces/Reducer";
 
 import SurveyInfo from "../components/survey/SurveyInfo";
-import Comments from "../components/surveys/get/comments";
+import Comments from "../components/survey/Comments";
 
 import { selector } from "../helper/selector";
 import { surveyGet } from "../server/actions/survey.actions";
@@ -33,10 +33,12 @@ const Survey = () => {
   return (
     <Box p={4}>
       {
-        surveys.survey.user &&
-        <SurveyInfo survey={surveys.survey} user={user.user} />
+        surveys.survey.id &&
+        <>
+          <SurveyInfo survey={surveys.survey} user={user.user} />
+          <Comments user={user.user} survey={surveys.survey} />
+        </>
       }
-      <Comments user={user.user} survey={surveys.survey} />
     </Box>
   )
 }

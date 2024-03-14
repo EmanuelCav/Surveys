@@ -4,7 +4,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { Location, NavigateFunction } from "react-router-dom";
 
 import { userReducerType, userType } from "./action.types";
-import { ICategory, ICreateOption, IOption, ISurvey } from "../interfaces/Survey";
+import { ICategory, IComment, ICreateOption, IOption, ISurvey } from "../interfaces/Survey";
 import { IUser } from "../interfaces/User";
 
 export type IconPropsType = {
@@ -171,4 +171,25 @@ export type ShowOptionsPropsType = {
     options: IOption[];
     optionData: ICreateOption[]; 
     handleChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => void;
+}
+
+export type CommentsPropsType = {
+    survey: ISurvey;
+    user: userReducerType;
+}
+
+export type CommentPropsType = {
+    comment: IComment;
+    user: userReducerType;
+}
+
+export type SurveyCommentsPropsType = {
+    comments: IComment[];
+    user: userReducerType;
+}
+
+export type ActionCommentPropsType = {
+    info: string;
+    handleAction: () => void;
+    Icon: any;
 }

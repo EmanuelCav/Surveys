@@ -35,7 +35,12 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
                 id: Number(id)
             },
             include: {
-                surveys: true,
+                surveys: {
+                    include: {
+                        options: true,
+                        recommendations: true
+                    }
+                },
                 followers: {
                     select: {
                         userId: true

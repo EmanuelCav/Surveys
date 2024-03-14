@@ -45,7 +45,6 @@ const FormLogin = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) => 
                 id="email"
                 label="Email Address"
                 name="email"
-                autoComplete="email"
                 value={email}
                 autoFocus
                 color='warning'

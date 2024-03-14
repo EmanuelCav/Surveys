@@ -8,7 +8,7 @@ const Recommendations = ({ surveys }: { surveys: ISurvey[]}) => {
             <p className="header-recommendation">Recommendations</p>
             {
                 surveys.map((survey: ISurvey) => {
-                    return <SurveyList survey={survey} key={survey._id} />
+                    return <SurveyList survey={survey} key={survey.id} />
                 })
             }
         </div>

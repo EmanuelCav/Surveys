@@ -1,13 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { useDispatch } from "react-redux";
+import { Box, Button, TextField } from '@mui/material';
 
 import { commentSurveyApi } from "../../../../server/api/surveys.api";
 import { getSurveyAction } from "../../../../server/features/surveys.features";
 
 import { ICreateComment } from '../../../../interfaces/Survey'
-import { getSurveyType } from '../../../../types/survey.types';
 
-const CreateComment = ({ user, survey }: getSurveyType) => {
+import { CommentsPropsType } from '../../../../types/props.types';
+
+const CreateComment = ({ user, survey }: CommentsPropsType) => {
 
   const dispatch = useDispatch()
 
@@ -23,7 +25,7 @@ const CreateComment = ({ user, survey }: getSurveyType) => {
 
     try {
 
-      const { data } = await commentSurveyApi(survey._id, commentData, user.token)
+      const { data } = await commentSurveyApi(survey.id, commentData, user.token)
       dispatch(getSurveyAction(data))
 
     } catch (error) {
@@ -45,10 +47,25 @@ const CreateComment = ({ user, survey }: getSurveyType) => {
   }
 
   return (
-    <form className='form-comment' onSubmit={handleSumbit}>
-      <textarea className='comment-area' name='comment' value={comment} onChange={handleChange} placeholder='Write a comment' />
-      <button className='button-comment' disabled={comment.length === 0 ? true : false}>SEND</button>
-    </form>
+    <Box component='form' noValidate display='flex' justifyContent='space-between' alignItems='center' width='100%' onSubmit={handleSumbit}>
+      <TextField
+        placeholder="Write a comment"
+        multiline
+        rows={2}
+        name='comment'
+        value={comment}
+        onChange={handleChange}
+        margin="normal"
+        color='warning'
+        sx={{
+          width: '80%',
+          '&:hover fieldset': {
+            borderColor: '#f64 !important',
+          },
+        }}
+      />
+      <Button variant='contained' color='warning' disabled={comment.length === 0}>SEND</Button>
+    </Box>
   )
 }
 

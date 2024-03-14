@@ -1,18 +1,12 @@
 import { NavigateFunction } from "react-router-dom";
 
-import { ICategory, IComment, ISurvey } from "../interfaces/Survey";
-import { userReducerType } from "./action.types";
+import { ICategory, ISurvey } from "../interfaces/Survey";
 
 export type surveyType = {
     surveys: ISurvey[];
     survey: ISurvey;
     follow: ISurvey[];
     categories: ICategory[];
-}
-
-export type commentSurveyType = {
-    comment: IComment;
-    user: userReducerType;
 }
 
 export type surveyRemoveType = {
