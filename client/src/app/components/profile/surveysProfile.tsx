@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
 
-import ShowSurveysProfile from './components/surveyProfile/ShowSurveysProfile';
+import ActionSurveyProfile from './components/surveyProfile/ActionSurveyProfile';
+import ShowSurveys from '../general/ShowSurveys';
 
 import { SurveysProfilePropsType } from '../../types/props.types';
-import ActionSurveyProfile from './components/surveyProfile/ActionSurveyProfile';
 
 const SurveysProfile = ({ user, navigate }: SurveysProfilePropsType) => {
 
@@ -23,7 +23,7 @@ const SurveysProfile = ({ user, navigate }: SurveysProfilePropsType) => {
       padding: 3
     }}>
       <ActionSurveyProfile user={user} redirectCreate={redirectCreate} />
-      <ShowSurveysProfile user={user} redirectSurvey={redirectSurvey} />
+      <ShowSurveys surveys={user.profile.surveys} redirectSurvey={redirectSurvey} />
     </Box>
   )
 }

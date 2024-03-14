@@ -1,16 +1,16 @@
 import { Button, Card, CardActions, CardContent, Grid, List, ListItemText, Typography } from "@mui/material"
 
-import { SurveyPropsType } from "../../types/props.types"
+import { SurveyPropsType } from "../../../types/props.types"
 
 const Survey = ({ survey, redirectSurvey }: SurveyPropsType) => {
     return (
-        <Grid item width={438}>
+        <Grid item xs={6}>
             <Card sx={{
                 boxShadow: "0 0 2px 1px #f76 inset",
                 p: 2
             }}>
                 <CardContent>
-                    <Typography variant="h6" align="center" component="div">
+                    <Typography noWrap variant="h6" align="center" component="div">
                         {survey.title}
                     </Typography>
                     <List sx={{ listStyleType: 'disc', pl: 2 }}>

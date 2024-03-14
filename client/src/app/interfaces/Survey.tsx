@@ -3,7 +3,6 @@ import { IUser } from "./User";
 export interface ICounterSurvey {
     surveys: ISurvey[];
     survey: object;
-    follow: ISurvey[];
     categories: ICategory[]
 }
 

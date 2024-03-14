@@ -194,12 +194,17 @@ export type ActionCommentPropsType = {
     Icon: any;
 }
 
-export type ShowSurveysProfilePropsType = {
-    user: userType;
+export type ShowSurveysPropsType = {
+    surveys: ISurvey[];
     redirectSurvey: (id: number) => void;
 }
 
 export type ActionSurveyProfilePropsType = {
     user: userType;
     redirectCreate: () => void;
+}
+
+export type ListPropsType = {
+    surveys: ISurvey[];
+    navigate: NavigateFunction;
 }

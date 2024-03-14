@@ -5,7 +5,6 @@ import { ICategory, ICounterSurvey, ISurvey } from '../../interfaces/Survey';
 
 const initialState: ICounterSurvey = {
     surveys: [],
-    follow: [],
     survey: {},
     categories: []
 }
@@ -16,10 +15,6 @@ export const counterSliceSurvey = createSlice({
     reducers: {
         surveysAction: (state, action: PayloadAction<ISurvey[]>) => {
             state.surveys = action.payload
-            state.survey = {}
-        },
-        surveysFollowAction: (state, action: PayloadAction<ISurvey[]>) => {
-            state.follow = action.payload
             state.survey = {}
         },
         getSurveyAction: (state, action: PayloadAction<ISurvey>) => {
@@ -39,7 +34,7 @@ export const counterSliceSurvey = createSlice({
 })
 
 export const { surveysAction, getSurveyAction,
-    removeSurveyAction, recommendSurveyAction, surveysFollowAction, categoriesAction } = counterSliceSurvey.actions
+    removeSurveyAction, recommendSurveyAction, categoriesAction } = counterSliceSurvey.actions
 
 export default counterSliceSurvey.reducer
 

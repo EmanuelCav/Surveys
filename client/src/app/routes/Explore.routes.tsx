@@ -1,62 +1,47 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { Box } from "@mui/material";
 
-import { categoriesApi, surveysFollowApi } from '../server/api/surveys.api';
-import { categoriesAction, surveysFollowAction } from '../server/features/surveys.features';
+import Navigation from "../components/navigation/Navigation";
+import ExploreSurveys from "../components/surveys/ExploreSurveys";
+
+import { categoriesApi } from '../server/api/surveys.api';
+import { categoriesAction } from '../server/features/surveys.features';
 import { surveyAll } from "../server/actions/survey.actions";
 
 import { IReducer } from '../interfaces/Reducer';
-
-import List from "../components/surveys/list";
-import Recommendations from "../components/surveys/recommendations";
 
 import { selector } from "../helper/selector";
 
 const Explore = () => {
 
   const surveys = useSelector((state: IReducer) => selector(state).surveys)
-  const user = useSelector((state: IReducer) => selector(state).user)
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const redirectSurvey = (id: number) => {
+    navigate(`/surveys/${id}`)
+  }
 
   const getData = async () => {
 
     const { data } = await categoriesApi()
-    
+
     dispatch(surveyAll() as any)
     dispatch(categoriesAction(data) as any)
   }
 
-  const getDataFollow = async () => {
-
-    try {
-
-      const { data } = await surveysFollowApi(user.user.token)
-
-      dispatch(surveysFollowAction(data))
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   useEffect(() => {
     getData()
-
-    if (user.isLoggedIn) {
-      getDataFollow()
-    }
-
   }, [])
 
   return (
-    <div className="container-surveys">
-      <List surveys={user.isLoggedIn ? surveys.follow : surveys.surveys} />
-      {
-        user.isLoggedIn &&
-        <Recommendations surveys={surveys.surveys} />
-      }
-    </div>
+    <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
+      <Navigation />
+      <ExploreSurveys surveys={surveys.surveys} redirectSurvey={redirectSurvey} />
+    </Box>
   )
 }
 
