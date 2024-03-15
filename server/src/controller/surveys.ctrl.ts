@@ -10,10 +10,12 @@ export const surveys = async (req: Request, res: Response): Promise<Response> =>
             include: {
                 options: {
                     select: {
+                        id: true,
                         name: true,
                         votes: true
                     }
-                }
+                },
+                recommendations: true
             },
             take: 25
         })
@@ -75,6 +77,7 @@ export const survey = async (req: Request, res: Response): Promise<Response> => 
             include: {
                 options: {
                     select: {
+                        id: true,
                         name: true,
                         votes: true
                     }
@@ -131,7 +134,8 @@ export const createSurvey = async (req: Request, res: Response): Promise<Respons
                 options: {
                     select: {
                         id: true,
-                        name: true
+                        name: true,
+                        votes: true
                     }
                 }
             }
@@ -237,6 +241,7 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
                 include: {
                     options: {
                         select: {
+                            id: true,
                             name: true,
                             votes: true
                         }
@@ -274,6 +279,7 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
                 include: {
                     options: {
                         select: {
+                            id: true,
                             name: true,
                             votes: true
                         }

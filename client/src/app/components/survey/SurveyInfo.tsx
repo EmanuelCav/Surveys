@@ -7,12 +7,12 @@ import OptionsSurvey from "./components/surveyinfo/OptionsSurvey";
 import Remove from "./components/surveyinfo/components/Remove";
 
 import { SurveyInfoPropsType } from "../../types/props.types";
+import { totalVotes } from "../../helper/functions";
 
 const SurveyInfo = ({ survey, user }: SurveyInfoPropsType) => {
 
   const [isRemove, setIsRemove] = useState<boolean>(false)
   const [isVoted, setIsVoted] = useState<boolean>(false)
-  const [totalVotes, setTotalVotes] = useState<number>(0)
 
   const removeSurvey = () => {
     setIsRemove(!isRemove)
@@ -31,20 +31,6 @@ const SurveyInfo = ({ survey, user }: SurveyInfoPropsType) => {
 
   }, [isVoted])
 
-  useEffect(() => {
-
-    let total = 0
-
-    for (let i = 0; i < survey.options.length; i++) {
-      for (let j = 0; j < survey.options[i].votes.length; j++) {
-        total++
-      }
-    }
-
-    setTotalVotes(total)
-
-  }, [isVoted, totalVotes])
-
   return (
     <Box position="relative" p={2} sx={{
       borderWidth: 1,
@@ -59,10 +45,10 @@ const SurveyInfo = ({ survey, user }: SurveyInfoPropsType) => {
       {
         user.user.id === survey.user.id && <AiOutlineDelete size={18} className="remove-icon" onClick={removeSurvey} />
       }
-      <OptionsSurvey survey={survey} isVoted={isVoted} setIsVoted={setIsVoted} totalVotes={totalVotes} user={user} />
+      <OptionsSurvey survey={survey} isVoted={isVoted} setIsVoted={setIsVoted} totalVotes={totalVotes(survey.options)} user={user} />
       <InfoSurvey survey={survey} user={user} />
       <Typography variant="h6" align="center" mt={2} color="#f64">
-        Votes: {totalVotes}
+        Votes: {totalVotes(survey.options)}
       </Typography>
     </Box>
   )

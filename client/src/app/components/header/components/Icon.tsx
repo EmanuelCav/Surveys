@@ -6,27 +6,19 @@ import TextHeader from "./components/icon/TextHeader";
 import { IconPropsType } from '../../../types/props.types';
 
 
-const Icon = ({ isLoggedIn, navigate, location }: IconPropsType) => {
+const Icon = ({ navigate, location }: IconPropsType) => {
 
     const redirectIndex = () => {
-        if(location.pathname === "/") return
-
-        if(isLoggedIn) {
-            navigate('/surveys')    
-            return
-        }
-
+        if (location.pathname === "/") return
         navigate('/')
     }
 
     return (
         <Box width='33%' sx={{
-            cursor: location.pathname === "/" ? 'default' : 'pointer',
             userSelect: 'none'
-        }} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'row'}
-        onClick={redirectIndex}>
-            <Logo />
-            <TextHeader />
+        }} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'row'}>
+            <Logo redirectIndex={redirectIndex} />
+            <TextHeader redirectIndex={redirectIndex} />
         </Box>
     )
 }

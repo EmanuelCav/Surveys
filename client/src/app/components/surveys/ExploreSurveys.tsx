@@ -1,15 +1,17 @@
 import { Box } from '@mui/material'
 
+import ExploreHeader from './components/explore/ExploreHeader'
 import ShowSurveys from '../general/ShowSurveys'
 
 import { ShowSurveysPropsType } from '../../types/props.types'
 
 const ExploreSurveys = ({ surveys, redirectSurvey }: ShowSurveysPropsType) => {
   return (
-    <Box width='100%' sx={{
-        marginLeft: '294px'
+    <Box width='100%' p={2} sx={{
+      marginLeft: '294px'
     }}>
-        <ShowSurveys surveys={surveys} redirectSurvey={redirectSurvey} />
+      <ExploreHeader />
+      <ShowSurveys surveys={surveys} redirectSurvey={redirectSurvey} />
     </Box>
   )
 }

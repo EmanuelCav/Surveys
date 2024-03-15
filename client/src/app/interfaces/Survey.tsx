@@ -21,7 +21,7 @@ export interface ISurvey {
 export interface ICategory {
     id: number;
     category: string;
-    icon: string;
+    iconCategory: string;
     isSelect: boolean;
     surveys: ISurvey[];
     createdAt: string;

@@ -8,7 +8,6 @@ import { ICategory, IComment, ICreateOption, IOption, ISurvey } from "../interfa
 import { IUser } from "../interfaces/User";
 
 export type IconPropsType = {
-    isLoggedIn: boolean;
     navigate: NavigateFunction;
     location: Location;
 }
@@ -206,5 +205,21 @@ export type ActionSurveyProfilePropsType = {
 
 export type ListPropsType = {
     surveys: ISurvey[];
+    navigate: NavigateFunction;
+}
+
+export type SectionPropsType = {
+    section: string;
+    handleAction: () => void;
+    isAction: boolean;
+}
+
+export type NavigationPropsType = {
+    isCategories: boolean;
+    isUsers: boolean;
+    isSurveys: boolean;
+    setIsCategories: (isCategories: boolean) => void;
+    setIsUsers: (isUsers: boolean) => void;
+    setIsSurveys: (isSurveys: boolean) => void;
     navigate: NavigateFunction;
 }

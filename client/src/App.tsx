@@ -12,7 +12,6 @@ import Explore from "./app/routes/Explore.routes";
 import Create from "./app/routes/Create.routes";
 import Survey from "./app/routes/Survey.routes";
 import Profile from "./app/routes/Profile.routes";
-import Users from "./app/routes/Users.routes";
 
 import { store } from "./app/server/store";
 
@@ -39,9 +38,6 @@ function App() {
                 </Route>
                 <Route path="/surveys/:id" element={<PrivateRoute />}>
                   <Route path="/surveys/:id" element={<Survey />} />
-                </Route>
-                <Route path="/users" element={<PrivateRoute />}>
-                  <Route path="/users" element={<Users />} />
                 </Route>
                 <Route path="/profile/:id" element={<Profile />} />
                 <Route path="*" element={<NotFountPage />} />

@@ -1,6 +1,9 @@
-import { Button, Card, CardActions, CardContent, Grid, List, ListItemText, Typography } from "@mui/material"
+import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material"
+
+import InfoShowSurvey from "./components/InfoShowSurvey"
 
 import { SurveyPropsType } from "../../../types/props.types"
+import ListOptionsSurvey from "./components/ListOptionsSurvey"
 
 const Survey = ({ survey, redirectSurvey }: SurveyPropsType) => {
     return (
@@ -13,14 +16,11 @@ const Survey = ({ survey, redirectSurvey }: SurveyPropsType) => {
                     <Typography noWrap variant="h6" align="center" component="div">
                         {survey.title}
                     </Typography>
-                    <List sx={{ listStyleType: 'disc', pl: 2 }}>
-                        {survey.options.map((s) => {
-                            return <ListItemText sx={{ display: 'list-item' }} primary={s.name} key={s.id} />
-                        }).slice(0, 2)}
-                    </List>
+                    <ListOptionsSurvey options={survey.options} />
                     <Typography variant="subtitle1" mt={1}>
                         More...
                     </Typography>
+                    <InfoShowSurvey survey={survey} />
                 </CardContent>
                 <CardActions>
                     <Button variant="contained" color="warning" fullWidth size="medium" onClick={() => redirectSurvey(survey.id)}>Take part</Button>

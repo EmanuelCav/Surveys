@@ -1,8 +1,10 @@
 import { Typography } from "@mui/material"
 
-const TextHeader = () => {
+const TextHeader = ({ redirectIndex }: { redirectIndex: () => void; }) => {
     return (
-        <Typography variant="h4" color={'#f64'}>
+        <Typography variant="h4" color={'#f64'} sx={{
+            cursor: 'pointer'
+        }} onClick={redirectIndex}>
             Surfrage
         </Typography>
     )

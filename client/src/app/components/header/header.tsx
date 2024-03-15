@@ -50,7 +50,7 @@ const Header = () => {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <Icon isLoggedIn={user.isLoggedIn} navigate={navigate} location={location} />
+          <Icon navigate={navigate} location={location} />
           <Search />
           <Auth user={user} setIsLogin={setIsLogin} navigate={navigate} />
         </Toolbar>
