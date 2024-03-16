@@ -81,13 +81,6 @@ const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
       height: '100%'
     }} noValidate onSubmit={handleSumbit}>
       <ToastContainer />
-      <Box width='100%' flex={1} display='flex' justifyContent='flex-start' alignItems='center' flexDirection='column'>
-        {
-          survey.options.map((option: IOption, index: number) => {
-            return <InputOption option={option} index={index} value={optionData[index].name} handleChange={handleChange} key={option.id} />
-          })
-        }
-      </Box>
       <ShowOptions optionData={optionData} handleChange={handleChange} options={survey.options} />
       <ActionsOption handleOptionAction={handleOptionAction} options={survey.options} />
     </Box>

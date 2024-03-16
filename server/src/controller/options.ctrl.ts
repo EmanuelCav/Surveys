@@ -145,7 +145,7 @@ export const updateOptions = async (req: Request, res: Response): Promise<Respon
             }
         })
 
-        if(!option) {
+        if (!option) {
             return res.status(400).json({ message: "Option does not exists" })
         }
 
@@ -161,7 +161,7 @@ export const updateOptions = async (req: Request, res: Response): Promise<Respon
         return res.status(200).json({
             message: "Option updated successfully"
         })
-        
+
     } catch (error) {
         throw error
     }
@@ -230,19 +230,21 @@ export const vote = async (req: Request, res: Response): Promise<Response> => {
             include: {
                 options: {
                     select: {
+                        id: true,
                         name: true,
                         votes: true
                     }
                 },
-                comments: true,
-                user: {
-                    select: {
-                        password: false
+                comments: {
+                    include: {
+                        user: true
                     }
-                }
+                },
+                user: true,
+                recommendations: true
             }
         })
-
+        
         return res.status(200).json(surveyVoted)
 
     } catch (error) {
@@ -250,4 +252,22 @@ export const vote = async (req: Request, res: Response): Promise<Response> => {
     }
 
 }
+
+export const removeAllOptions = async (req: Request, res: Response): Promise<Response> => {
+
+    try {
+
+        await prisma.vote.deleteMany()
+        await prisma.option.deleteMany()
+        
+        return res.status(200).json("json")
+
+    } catch (error) {
+        throw (error);
+    }
+
+}
+
+
+
 

@@ -6,6 +6,9 @@ export const createSurveySchema = z.object({
     }).trim(),
     category: z.string().min(1, {
         message: "There are empty fields"
+    }).trim(),
+    state: z.string().min(1, {
+        message: "There are empty fields"
     }).trim()
 })
 

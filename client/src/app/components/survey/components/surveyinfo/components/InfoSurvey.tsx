@@ -10,7 +10,8 @@ import ActionSurvey from "./components/ActionSurvey";
 import { InfoSurveyPropsType } from "../../../../../types/props.types";
 
 import { recommendSurveyApi } from "../../../../../server/api/surveys.api";
-import { recommendSurveyAction } from "../../../../../server/features/surveys.features";
+import { updateSurveyAction } from "../../../../../server/features/surveys.features";
+import { IRecommendation } from "../../../../../interfaces/Survey";
 
 const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
 
@@ -23,7 +24,7 @@ const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
 
         try {
             const { data } = await recommendSurveyApi(survey.id, user.token)
-            dispatch(recommendSurveyAction(data))
+            dispatch(updateSurveyAction(data))
         } catch (error) {
             console.log(error);
         }
@@ -39,8 +40,8 @@ const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
     }
 
     useEffect(() => {
-        survey.recommendations.find((userId: number) => {
-            if (userId === user.user.id) {
+        survey.recommendations.find((recommendation: IRecommendation) => {
+            if (recommendation.userId === user.user.id) {
                 setIsLiked(true)
             }
         })
@@ -56,7 +57,7 @@ const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
                 isLiked ? (
                     <ActionSurvey data={`Recommendations: ${survey.recommendations.length}`} Icon={AiFillStar} func={likeSurvey} />
                 ) : (
-                    <ActionSurvey data={`Recommendations: ${survey.comments.length}`} Icon={AiOutlineStar} func={likeSurvey} />
+                    <ActionSurvey data={`Recommendations: ${survey.recommendations.length}`} Icon={AiOutlineStar} func={likeSurvey} />
                 )
             }
             <ActionSurvey data={`Comments: ${survey.comments.length}`} Icon={BiCommentDetail} func={likeSurvey} />

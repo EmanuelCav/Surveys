@@ -6,6 +6,7 @@ import { Location, NavigateFunction } from "react-router-dom";
 import { userReducerType, userType } from "./action.types";
 import { ICategory, IComment, ICreateOption, IOption, ISurvey } from "../interfaces/Survey";
 import { IUser } from "../interfaces/User";
+import { GenderTypeKey, StateTypeKey } from "./key.types";
 
 export type IconPropsType = {
     navigate: NavigateFunction;
@@ -91,11 +92,25 @@ export type CreateSurveyPropsType = {
     categories: ICategory[];
 }
 
-export type SelectPropsType = {
+export type SelectCategoryInputPropsType = {
     text: string;
     value: string;
     handleChange: (e: SelectChangeEvent<string>) => void;
-    array: any[];
+    array: ICategory[];
+}
+
+export type SelectGenderInputPropsType = {
+    text: string;
+    value: string;
+    handleChange: (e: SelectChangeEvent<string>) => void;
+    array: GenderTypeKey[];
+}
+
+export type SelectStateInputPropsType = {
+    text: string;
+    value: string;
+    handleChange: (e: SelectChangeEvent<string>) => void;
+    array: StateTypeKey[];
 }
 
 export type CreateOptionPropsType = {
@@ -222,4 +237,14 @@ export type NavigationPropsType = {
     setIsUsers: (isUsers: boolean) => void;
     setIsSurveys: (isSurveys: boolean) => void;
     navigate: NavigateFunction;
+}
+
+export type CategoryItemsCreatePropsType = {
+    value: string;
+    item: ICategory;
+}
+
+export type StateItemsCreatePropsType = {
+    value: string;
+    item: string;
 }

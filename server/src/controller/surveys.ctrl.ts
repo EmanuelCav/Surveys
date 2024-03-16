@@ -110,7 +110,7 @@ export const survey = async (req: Request, res: Response): Promise<Response> => 
 
 export const createSurvey = async (req: Request, res: Response): Promise<Response> => {
 
-    const { title, category } = req.body
+    const { title, category, state } = req.body
 
     try {
 
@@ -128,7 +128,8 @@ export const createSurvey = async (req: Request, res: Response): Promise<Respons
             data: {
                 title,
                 userId: req.user,
-                categoryId: surveyCategory.id
+                categoryId: surveyCategory.id,
+                state
             },
             include: {
                 options: {
@@ -227,16 +228,18 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
 
         let recommendedSurvey;
 
-        if (survey.recommendations.find((s) => s.userId == req.user)) {
+        if (survey.recommendations.find((s) => s.userId === req.user)) {
 
             recommendedSurvey = await prisma.survey.update({
                 where: {
                     id: Number(id)
                 },
                 data: {
-                    // recommendations: {
-                    //     set: survey.recommendations.filter((r) => r.userId !== req.user)
-                    // }
+                    recommendations: {
+                        deleteMany: {
+                            userId: req.user
+                        }
+                    }
                 },
                 include: {
                     options: {
@@ -248,18 +251,11 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
                     },
                     comments: {
                         include: {
-                            user: {
-                                select: {
-                                    password: false
-                                }
-                            }
+                            user: true
                         }
                     },
-                    user: {
-                        select: {
-                            password: false
-                        }
-                    }
+                    user: true,
+                    recommendations: true
                 }
             })
 
@@ -286,18 +282,11 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
                     },
                     comments: {
                         include: {
-                            user: {
-                                select: {
-                                    password: false
-                                }
-                            }
+                            user: true
                         }
                     },
-                    user: {
-                        select: {
-                            password: false
-                        }
-                    }
+                    user: true,
+                    recommendations: true
                 }
             })
 

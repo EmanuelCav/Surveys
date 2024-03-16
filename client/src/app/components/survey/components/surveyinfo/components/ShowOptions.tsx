@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { Box, Typography } from "@mui/material";
 
 import { voteSurveyApi } from '../../../../../server/api/surveys.api'
-import { getSurveyAction } from '../../../../../server/features/surveys.features'
+import { updateSurveyAction } from '../../../../../server/features/surveys.features'
 
 import { ShowOptionPropsType } from "../../../../../types/props.types";
 
@@ -14,7 +14,7 @@ const ShowOption = ({ survey, user, option, isVoted, setIsVoted, totalVotes }: S
 
     try {
       const { data } = await voteSurveyApi(option.id, survey.id, user.token)
-      dispatch(getSurveyAction(data))
+      dispatch(updateSurveyAction(data))
       setIsVoted(true)
     } catch (error) {
       console.log(error);
@@ -30,7 +30,7 @@ const ShowOption = ({ survey, user, option, isVoted, setIsVoted, totalVotes }: S
         background: '#ddd'
       },
       ":active": {
-        background: '#fff'
+        background: isVoted ? '#ddd' : '#fff'
       }
     }} onClick={isVoted ? () => { } : voteOption} >
       <Typography variant="h6" color="#f64">

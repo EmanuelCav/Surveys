@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import { Box, Typography } from "@mui/material";
 
-import InfoSurvey from "./components/surveyinfo/components/InfoSurvey"
+import InfoSurvey from "./components/surveyinfo/components/InfoSurvey";
 import OptionsSurvey from "./components/surveyinfo/OptionsSurvey";
 import Remove from "./components/surveyinfo/components/Remove";
 
+import { IVote } from "../../interfaces/Survey";
 import { SurveyInfoPropsType } from "../../types/props.types";
+
 import { totalVotes } from "../../helper/functions";
 
 const SurveyInfo = ({ survey, user }: SurveyInfoPropsType) => {
@@ -21,8 +23,8 @@ const SurveyInfo = ({ survey, user }: SurveyInfoPropsType) => {
   useEffect(() => {
 
     for (let i = 0; i < survey.options.length; i++) {
-      survey.options[i].votes.find((userId) => {
-        if (userId === user.user.id) {
+      survey.options[i].votes.find((vote: IVote) => {
+        if (vote.userId === user.user.id) {
           setIsVoted(true)
           return
         }
@@ -41,7 +43,7 @@ const SurveyInfo = ({ survey, user }: SurveyInfoPropsType) => {
       {
         isRemove && <Remove setIsRemove={setIsRemove} survey={survey} user={user} />
       }
-      <Typography variant="h5" color="#f64">{survey.title}</Typography>
+      <Typography variant="h5">{survey.title}</Typography>
       {
         user.user.id === survey.user.id && <AiOutlineDelete size={18} className="remove-icon" onClick={removeSurvey} />
       }

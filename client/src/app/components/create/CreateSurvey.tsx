@@ -5,23 +5,27 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import FormHeader from '../general/FormHeader';
 import FormTitle from '../general/FormTitle';
-import SelectInput from '../general/SelectInput';
+import SelectCategoryInput from './components/SelectCategoryInput';
+import SelectStateInput from './components/SelectStateInput';
 
 import { ICreateSurvey } from '../../interfaces/Survey';
 import { CreateSurveyPropsType } from '../../types/props.types';
 
 import { surveyCreate } from '../../server/actions/survey.actions';
 
+import { states } from '../../helper/properties';
+
 const CreateSurvey = ({ user, setIsOptions, dispatch, categories }: CreateSurveyPropsType) => {
 
     const initialState: ICreateSurvey = {
         title: "",
-        category: ""
+        category: "",
+        state: ""
     }
 
     const [surveyData, setSurveyData] = useState<ICreateSurvey>(initialState)
 
-    const { title, category } = surveyData
+    const { title, category, state } = surveyData
 
     const getData = async () => {
         dispatch(surveyCreate({
@@ -71,7 +75,8 @@ const CreateSurvey = ({ user, setIsOptions, dispatch, categories }: CreateSurvey
                 }}
                 onChange={handleChange}
             />
-            <SelectInput value={category} array={categories} text='Category' handleChange={handleSelect} />
+            <SelectCategoryInput value={category} array={categories} text='Category' handleChange={handleSelect} />
+            <SelectStateInput value={state} array={states} text='State' handleChange={handleSelect} />
             <Button
                 type="submit"
                 fullWidth

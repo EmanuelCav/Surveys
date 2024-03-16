@@ -2,14 +2,13 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { Box, Button, Checkbox, SelectChangeEvent, TextField, Typography } from '@mui/material'
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-import SelectInput from '../../../general/SelectInput';
-
 import { IRegister } from '../../../../interfaces/User';
 import { FormLAuthPropsType } from '../../../../types/props.types';
 
 import { userRegister } from '../../../../server/actions/user.actions';
 
 import { genders } from '../../../../helper/properties';
+import SelectGenderInput from './components/SelectGenderInput';
 
 const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) => {
 
@@ -101,33 +100,7 @@ const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) 
                 }}
                 onChange={handleChange}
             />
-            <SelectInput array={genders} handleChange={handleSelect} text='Gender' value={gender} />
-            {/* <FormControl fullWidth sx={{
-                mt: 2,
-                mb: 1
-            }}>
-                <InputLabel color='warning'>Gender</InputLabel>
-                <Select
-                    name='gender'
-                    value={gender}
-                    label="Age"
-                    color='warning'
-                    onChange={handleSelect}
-                    sx={{
-                        '&:hover fieldset': {
-                            borderColor: '#f64 !important',
-                        },
-                    }}
-                >
-                    {
-                        genders.map((g) => {
-                            return <MenuItem sx={{ background: gender === g ? '#dddddd !important' : '#ffffff' }} value={g} key={g}>
-                                {g}
-                            </MenuItem>
-                        })
-                    }
-                </Select>
-            </FormControl> */}
+            <SelectGenderInput array={genders} handleChange={handleSelect} text='Gender' value={gender} />
             <Box sx={{ position: 'relative', justifyContent: 'center', alignItems: 'center', display: 'flex', mt: 2 }}>
                 <TextField
                     margin="normal"

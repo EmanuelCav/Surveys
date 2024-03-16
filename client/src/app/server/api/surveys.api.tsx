@@ -69,7 +69,7 @@ export const removeSurveyApi = async (id: number, token: string) => {
 }
 
 export const recommendSurveyApi = async (id: number, token: string) => {
-    return await api.patch(`/surveys/recommend/${id}`, null, {
+    return await api.patch(`/surveys/${id}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
@@ -77,7 +77,7 @@ export const recommendSurveyApi = async (id: number, token: string) => {
 }
 
 export const voteSurveyApi = async (id: number, surveyId: number, token: string) => {
-    return await api.patch(`/options/vote/${id}/${surveyId}`, null, {
+    return await api.patch(`/options/${id}/votes/${surveyId}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

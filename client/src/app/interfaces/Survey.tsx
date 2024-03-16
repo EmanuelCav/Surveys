@@ -10,7 +10,7 @@ export interface ISurvey {
     id: number;
     title: string;
     options: IOption[];
-    recommendations: number[]
+    recommendations: IRecommendation[];
     comments: IComment[];
     category: ICategory;
     user: IUser;
@@ -33,12 +33,18 @@ export interface IOption {
     createdAt: string;
     updatedAt: string;
     name: string;
-    votes: number[];
+    votes: IVote[];
+}
+
+export interface IVote {
+    userId: number;
+    optionId: number;
 }
 
 export interface ICreateSurvey {
     title: string;
     category: string;
+    state: string;
 }
 
 export interface ICreateOption {
@@ -56,4 +62,9 @@ export interface IComment {
 
 export interface ICreateComment {
     comment: string;
+}
+
+export interface IRecommendation {
+    userId: number;
+    surveyId: number;
 }

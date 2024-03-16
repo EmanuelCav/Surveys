@@ -37,10 +37,9 @@ const Remove = ({ setIsRemove, survey, user }: RemovePropsType) => {
             <Box position='absolute' maxWidth='37%' p={2} bgcolor='#fff' top='50%' left='50%' sx={{
                 transform: 'translate(-50%, -50%)',
                 WebkitTransform: 'translate(-50%, -50%)',
-                msTransform: 'translate(-50%, -50%)',
-                wordWrap: 'break-word'
+                msTransform: 'translate(-50%, -50%)'
             }}>
-                <Typography variant="h6" component='h6'>
+                <Typography noWrap variant="h6" component='h6'>
                     The survey will be removed. Do you wish to continue?
                 </Typography>
                 <ActionRemove removeSurvey={removeSurvey} cancelRemove={cancelRemove} />
