@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 
 import ExploreHeader from "../general/ExploreHeader"
-import Categories from "./components/ShowCategories"
+import ShowCategories from "./components/ShowCategories"
 
 import { ICategory } from "../../interfaces/Survey"
 
@@ -11,7 +11,7 @@ const ExploreCategories = ({ categories }: { categories: ICategory[] }) => {
       marginLeft: '294px'
     }}>
       <ExploreHeader />
-      <Categories categories={categories} />
+      <ShowCategories categories={categories} />
     </Box>
   )
 }

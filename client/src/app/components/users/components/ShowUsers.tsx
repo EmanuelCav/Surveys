@@ -3,14 +3,15 @@ import { Grid } from '@mui/material'
 import User from './components/User'
 
 import { IUser } from '../../../interfaces/User'
+import { ShowUsersPropsType } from '../../../types/props.types'
 
-const ShowUsers = ({ users }: { users: IUser[] }) => {
+const ShowUsers = ({ users, redirectUser }: ShowUsersPropsType) => {
     return (
-        <Grid container spacing={1}>
-            <Grid container spacing={6}>
+        <Grid container mt={2} spacing={1}>
+            <Grid container spacing={2}>
                 {
                     users.map((user: IUser) => {
-                        return <User user={user} key={user.id} />
+                        return <User user={user} redirectUser={redirectUser} key={user.id} />
                     })
                 }
             </Grid>

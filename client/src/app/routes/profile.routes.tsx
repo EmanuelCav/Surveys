@@ -21,7 +21,10 @@ const Profile = () => {
   const params = useParams()
 
   const getData = async () => {
-    dispatch(userProfile(params.id!) as any)
+    dispatch(userProfile({
+      id: Number(params.id!),
+      token: user.user.token
+    }) as any)
   }
 
   useEffect(() => {

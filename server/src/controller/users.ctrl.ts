@@ -5,6 +5,7 @@ import { exclude, excludeArray, prisma } from "../helper/prisma";
 import { hashPassword, comparePassword } from "../helper/encrypt";
 import { generateToken } from "../helper/token";
 import { infoEmail } from "../helper/mail";
+import { generateUsers } from "../helper/mocks";
 
 export const users = async (req: Request, res: Response): Promise<Response> => {
 
@@ -12,14 +13,36 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
 
     try {
 
+        const allUsers = await prisma.user.findMany()
+
         const showUsers = await prisma.user.findMany({
             skip: Number(page),
-            take: Number(page) + 25
+            take: Number(page) + 25,
+            select: {
+                id: true,
+                username: true,
+                followers: {
+                    select: {
+                        userId: true
+                    }
+                },
+                surveys: {
+                    select: {
+                        id: true,
+                        recommendations: {
+                            select: {
+                                userId: true
+                            }
+                        }
+                    }
+                }
+            }
         })
 
-        const showUsersFilter = excludeArray(showUsers, ['password', 'role', 'email'])
-
-        return res.status(200).json(showUsersFilter)
+        return res.status(200).json({
+            users: showUsers,
+            length: allUsers.length
+        })
 
     } catch (error) {
         throw (error);

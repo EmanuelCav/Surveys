@@ -1,9 +1,10 @@
-import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material"
+import { Card, CardContent, Grid, Typography } from "@mui/material"
 
 import InfoShowSurvey from "./components/InfoShowSurvey"
+import ListOptionsSurvey from "./components/ListOptionsSurvey"
+import ButtonCard from "../../ButtonCard"
 
 import { SurveyPropsType } from "../../../../types/props.types"
-import ListOptionsSurvey from "./components/ListOptionsSurvey"
 
 const Survey = ({ survey, redirectSurvey }: SurveyPropsType) => {
     return (
@@ -22,9 +23,7 @@ const Survey = ({ survey, redirectSurvey }: SurveyPropsType) => {
                     </Typography>
                     <InfoShowSurvey survey={survey} />
                 </CardContent>
-                <CardActions>
-                    <Button variant="contained" color="warning" fullWidth size="medium" onClick={() => redirectSurvey(survey.id)}>Take part</Button>
-                </CardActions>
+                <ButtonCard id={survey.id} func={redirectSurvey} text="Take part" />
             </Card>
         </Grid>
     )

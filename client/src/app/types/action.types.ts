@@ -55,3 +55,12 @@ export type SurveyGetPropsType = {
     id: number;
     token: string;
 }
+
+export type UserAllActionPropsType = {
+    page: number;
+}
+
+export type UserProfileActionPropsType = {
+    token: string;
+    id: number;
+}

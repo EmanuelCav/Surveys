@@ -6,7 +6,7 @@ import { Location, NavigateFunction } from "react-router-dom";
 import { userReducerType, userType } from "./action.types";
 import { ICategory, IComment, ICreateOption, IOption, ISurvey } from "../interfaces/Survey";
 import { IUser } from "../interfaces/User";
-import { GenderTypeKey, StateTypeKey } from "./key.types";
+import { GenderTypeKey, PageTypeKey, StateTypeKey } from "./key.types";
 
 export type IconPropsType = {
     navigate: NavigateFunction;
@@ -244,4 +244,34 @@ export type CategoryItemsCreatePropsType = {
 export type StateItemsCreatePropsType = {
     value: string;
     item: string;
+}
+
+export type ExploreUsersPropsType = {
+    users: IUser[];
+    handlePage: (pageType: PageTypeKey) => void;
+    page: number;
+    navigate: NavigateFunction;
+    usersLength: number;
+}
+
+export type ChangeUserPropsType = {
+    handlePage: (pageType: PageTypeKey) => void;
+    page: number;
+    usersLength: number;
+}
+
+export type ButtonCardPropsType = {
+    func: (id: number) => void;
+    id: number;
+    text: string;
+}
+
+export type ShowUsersPropsType = {
+    redirectUser: (id: number) => void;
+    users: IUser[];
+}
+
+export type UserPropsType = {
+    redirectUser: (id: number) => void;
+    user: IUser;
 }

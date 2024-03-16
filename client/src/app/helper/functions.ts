@@ -1,4 +1,4 @@
-import { IOption } from "../interfaces/Survey"
+import { IOption, ISurvey } from "../interfaces/Survey"
 
 export const totalVotes = (options: IOption[]): number => {
 
@@ -9,4 +9,17 @@ export const totalVotes = (options: IOption[]): number => {
     }
 
     return total
+}
+
+export const recommendationSurveysUser = (surveys: ISurvey[]) => {
+
+    let totalRecommendations = 0
+
+    for (let i = 0; i < surveys.length; i++) {
+        totalRecommendations+=surveys[i].recommendations.length
+        
+    }
+
+    return totalRecommendations
+
 }

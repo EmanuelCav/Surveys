@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as userApi from '../api/user.api';
 import * as userFeatures from '../features/user.features';
 
-import { UserRegisterActionPropsType, UserLoginActionPropsType } from "../../types/action.types";
+import { UserRegisterActionPropsType, UserLoginActionPropsType, UserAllActionPropsType, UserProfileActionPropsType } from "../../types/action.types";
 
 import { dangerMessage, successMessage } from "../../helper/message";
 
@@ -46,13 +46,13 @@ export const userRegister = createAsyncThunk('user/register', async (userRegiste
 
 })
 
-export const userAll = createAsyncThunk('user/all', async (token: string, { dispatch }) => {
+export const userAll = createAsyncThunk('user/all', async (userData: UserAllActionPropsType, { dispatch }) => {
 
     try {
 
-        const { data } = await userApi.usersApi(token)
+        const { data } = await userApi.usersApi(userData.page)
 
-        dispatch(userFeatures.usersAction(data))
+        dispatch(userFeatures.usersAction(data.users))
 
     } catch (error) {
         console.log(error);
@@ -60,11 +60,11 @@ export const userAll = createAsyncThunk('user/all', async (token: string, { disp
 
 })
 
-export const userProfile = createAsyncThunk('user/profile', async (id: string, { dispatch }) => {
+export const userProfile = createAsyncThunk('user/profile', async (userData: UserProfileActionPropsType, { dispatch }) => {
 
     try {
 
-        const { data } = await userApi.getUserApi(id)
+        const { data } = await userApi.getUserApi(userData.id, userData.token)
 
         dispatch(userFeatures.getUserAction(data))
 
