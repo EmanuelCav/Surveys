@@ -233,9 +233,6 @@ export type NavigationPropsType = {
     isCategories: boolean;
     isUsers: boolean;
     isSurveys: boolean;
-    setIsCategories: (isCategories: boolean) => void;
-    setIsUsers: (isUsers: boolean) => void;
-    setIsSurveys: (isSurveys: boolean) => void;
     navigate: NavigateFunction;
 }
 

@@ -2,7 +2,7 @@ import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/m
 
 import InfoShowSurvey from "./components/InfoShowSurvey"
 
-import { SurveyPropsType } from "../../../types/props.types"
+import { SurveyPropsType } from "../../../../types/props.types"
 import ListOptionsSurvey from "./components/ListOptionsSurvey"
 
 const Survey = ({ survey, redirectSurvey }: SurveyPropsType) => {

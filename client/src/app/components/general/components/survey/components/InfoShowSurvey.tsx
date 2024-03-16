@@ -2,9 +2,9 @@ import { Box, Typography } from '@mui/material'
 import { AiOutlineStar } from 'react-icons/ai'
 import { BiUser } from 'react-icons/bi'
 
-import { ISurvey } from '../../../../interfaces/Survey'
+import { ISurvey } from '../../../../../interfaces/Survey'
 
-import { totalVotes } from '../../../../helper/functions'
+import { totalVotes } from '../../../../../helper/functions'
 
 const InfoShowSurvey = ({ survey }: { survey: ISurvey }) => {
     return (

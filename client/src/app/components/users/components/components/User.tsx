@@ -1,10 +1,10 @@
 import { Card, Grid } from "@mui/material"
 
-import { IUser } from "../../../../../interfaces/User"
+import { IUser } from "../../../../interfaces/User"
 
 const User = ({ user }: { user: IUser }) => {
   return (
-    <Grid item xs={6}>
+    <Grid item xs={3}>
       <Card>
         <p>{user.username}</p>
       </Card>

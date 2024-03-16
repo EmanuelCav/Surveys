@@ -1,6 +1,6 @@
 import { Card, Grid } from '@mui/material'
 
-import { ICategory } from '../../../../../interfaces/Survey'
+import { ICategory } from '../../../../interfaces/Survey'
 
 const Category = ({ category }: { category: ICategory }) => {
   return (

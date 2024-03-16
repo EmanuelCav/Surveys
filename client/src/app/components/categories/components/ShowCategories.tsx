@@ -2,9 +2,9 @@ import { Grid } from '@mui/material'
 
 import Category from './components/Category'
 
-import { ICategory } from '../../../../interfaces/Survey'
+import { ICategory } from '../../../interfaces/Survey'
 
-const Categories = ({ categories }: { categories: ICategory[] }) => {
+const ShowCategories = ({ categories }: { categories: ICategory[] }) => {
   return (
     <Grid container spacing={1}>
       <Grid container spacing={6}>
@@ -18,4 +18,4 @@ const Categories = ({ categories }: { categories: ICategory[] }) => {
   )
 }
 
-export default Categories
+export default ShowCategories

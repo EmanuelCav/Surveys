@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 
-import ExploreHeader from "./components/explore/ExploreHeader"
-import Users from "./components/explore/Users"
+import ExploreHeader from "../general/ExploreHeader"
+import Users from "./components/ShowUsers"
 
 import { IUser } from "../../interfaces/User"
 

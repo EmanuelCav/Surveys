@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 
-import ExploreHeader from "./components/explore/ExploreHeader"
-import Categories from "./components/explore/Categories"
+import ExploreHeader from "../general/ExploreHeader"
+import Categories from "./components/ShowCategories"
 
 import { ICategory } from "../../interfaces/Survey"
 

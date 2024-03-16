@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 
-import ExploreHeader from './components/explore/ExploreHeader'
+import ExploreHeader from '../general/ExploreHeader'
 import ShowSurveys from '../general/ShowSurveys'
 
 import { ShowSurveysPropsType } from '../../types/props.types'

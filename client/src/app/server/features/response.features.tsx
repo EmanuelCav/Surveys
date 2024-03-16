@@ -3,8 +3,8 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { IResponse } from "../../interfaces/Response";
 
-import { userAll, userLogin, userLogout, userProfile, userRegister } from "../actions/user.actions";
-import { surveyAll, surveyCreate, surveyGet, surveyOptions, surveyRemove } from "../actions/survey.actions";
+import * as userAction from "../actions/user.actions";
+import * as surveyAction from "../actions/survey.actions";
 
 const initialState: IResponse = {
     loading: false
@@ -19,65 +19,71 @@ const counterSliceResponse = createSlice({
         }
     },
     extraReducers(builder) {
-        builder.addCase(userLogin.pending, (state) => {
+        builder.addCase(userAction.userLogin.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(userLogin.fulfilled, (state) => {
+        builder.addCase(userAction.userLogin.fulfilled, (state) => {
             state.loading = false
         })
-        builder.addCase(userRegister.pending, (state) => {
+        builder.addCase(userAction.userRegister.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(userRegister.fulfilled, (state) => {
+        builder.addCase(userAction.userRegister.fulfilled, (state) => {
             state.loading = false
         })
-        builder.addCase(userAll.pending, (state) => {
+        builder.addCase(userAction.userAll.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(userAll.fulfilled, (state) => {
+        builder.addCase(userAction.userAll.fulfilled, (state) => {
             state.loading = false
         })
-        builder.addCase(userProfile.pending, (state) => {
+        builder.addCase(userAction.userProfile.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(userProfile.fulfilled, (state) => {
+        builder.addCase(userAction.userProfile.fulfilled, (state) => {
             state.loading = false
         })
-        builder.addCase(userLogout.pending, (state) => {
+        builder.addCase(userAction.userLogout.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(userLogout.fulfilled, (state) => {
+        builder.addCase(userAction.userLogout.fulfilled, (state) => {
             state.loading = false
         })
 
-        builder.addCase(surveyAll.pending, (state) => {
+        builder.addCase(surveyAction.surveyAll.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(surveyAll.fulfilled, (state) => {
+        builder.addCase(surveyAction.surveyAll.fulfilled, (state) => {
             state.loading = false
         })
-        builder.addCase(surveyCreate.pending, (state) => {
+        builder.addCase(surveyAction.surveyCreate.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(surveyCreate.fulfilled, (state) => {
+        builder.addCase(surveyAction.surveyCreate.fulfilled, (state) => {
             state.loading = false
         })
-        builder.addCase(surveyGet.pending, (state) => {
+        builder.addCase(surveyAction.surveyGet.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(surveyGet.fulfilled, (state) => {
+        builder.addCase(surveyAction.surveyGet.fulfilled, (state) => {
             state.loading = false
         })
-        builder.addCase(surveyRemove.pending, (state) => {
+        builder.addCase(surveyAction.surveyRemove.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(surveyRemove.fulfilled, (state) => {
+        builder.addCase(surveyAction.surveyRemove.fulfilled, (state) => {
             state.loading = false
         })
-        builder.addCase(surveyOptions.pending, (state) => {
+        builder.addCase(surveyAction.surveyOptions.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(surveyOptions.fulfilled, (state) => {
+        builder.addCase(surveyAction.surveyOptions.fulfilled, (state) => {
+            state.loading = false
+        })
+        builder.addCase(surveyAction.categoriesAll.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(surveyAction.categoriesAll.fulfilled, (state) => {
             state.loading = false
         })
     },

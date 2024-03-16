@@ -22,6 +22,20 @@ export const surveyAll = createAsyncThunk('survey/all', async (_, { dispatch }) 
 
 })
 
+export const categoriesAll = createAsyncThunk('categories/all', async (_, { dispatch }) => {
+
+    try {
+
+        const { data } = await surveyApi.categoriesApi()
+
+        dispatch(surveyFeatures.categoriesAction(data))
+
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
 export const surveyCreate = createAsyncThunk('survey/create', async (surveyCreateData: SurveyCreateActionPropsType, { dispatch }) => {
 
     try {

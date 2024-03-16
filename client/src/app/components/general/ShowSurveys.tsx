@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material"
 
-import Survey from "./components/Survey"
+import Survey from "./components/survey/Survey"
 
 import { ISurvey } from "../../interfaces/Survey"
 import { ShowSurveysPropsType } from "../../types/props.types"

@@ -8,13 +8,16 @@ import { infoEmail } from "../helper/mail";
 
 export const users = async (req: Request, res: Response): Promise<Response> => {
 
+    const { page } = req.query
+
     try {
 
         const showUsers = await prisma.user.findMany({
-            take: 10
+            skip: Number(page),
+            take: Number(page) + 25
         })
 
-        const showUsersFilter = excludeArray(showUsers, ['password', 'role'])
+        const showUsersFilter = excludeArray(showUsers, ['password', 'role', 'email'])
 
         return res.status(200).json(showUsersFilter)
 

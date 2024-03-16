@@ -2,9 +2,9 @@ import { Grid } from '@mui/material'
 
 import User from './components/User'
 
-import { IUser } from '../../../../interfaces/User'
+import { IUser } from '../../../interfaces/User'
 
-const Users = ({ users }: { users: IUser[] }) => {
+const ShowUsers = ({ users }: { users: IUser[] }) => {
     return (
         <Grid container spacing={1}>
             <Grid container spacing={6}>
@@ -18,4 +18,4 @@ const Users = ({ users }: { users: IUser[] }) => {
     )
 }
 
-export default Users
+export default ShowUsers
