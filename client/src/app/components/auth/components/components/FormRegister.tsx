@@ -89,7 +89,7 @@ const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) 
                 fullWidth
                 label="Email Address"
                 name="email"
-                autoComplete="email"
+                autoComplete="off"
                 value={email}
                 autoFocus
                 color='warning'

@@ -1,29 +1,23 @@
 import { useState, useEffect } from 'react'
+import { Box, Button } from '@mui/material';
 
 import FollowInfo from './components/infoProfile/FollowInfo';
+import Username from './components/infoProfile/Username';
 
 import { InfoProfilePropsType } from '../../types/props.types';
 
 import { followApi } from "../../server/api/user.api";
 import { getUserAction } from "../../server/features/user.features";
-import { userLogout } from '../../server/actions/user.actions';
 
-import { Box, Button, Typography } from '@mui/material';
-
-const InfoProfile = ({ user, loggedUser, dispatch, navigate }: InfoProfilePropsType) => {
+const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }: InfoProfilePropsType) => {
 
     const [isFollowing, setIsFollowing] = useState<boolean>(false)
 
-    const logOut = () => {
-        dispatch(userLogout(navigate) as any)
-    }
-
-    const follow = async () => {
+    const handleFollow = async () => {
 
         try {
             const { data } = await followApi(user.id, loggedUser.token)
             dispatch(getUserAction(data))
-            setIsFollowing(!isFollowing)
         } catch (error) {
             console.log(error);
         }
@@ -35,22 +29,20 @@ const InfoProfile = ({ user, loggedUser, dispatch, navigate }: InfoProfilePropsT
                 setIsFollowing(true)
             }
         })
-    }, [dispatch, user.followers])
+    }, [dispatch, user.followers, isFollowing])
 
     return (
-        <Box>
-            <Typography variant='h3' color='#f76'>
-                {user.username}
-            </Typography>
+        <Box px={4}>
+            <Username user={user} loggedUser={loggedUser} dispatch={dispatch} navigate={navigate} />
             <FollowInfo user={user} />
             {
                 user.id === loggedUser.user.id ? (
-                    <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={logOut}>Edit Profile</Button>
+                    <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={handleEditProfile}>Edit Profile</Button>
                 ) : (
                     isFollowing ? (
-                        <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={follow}>Following</Button>
+                        <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={handleFollow}>Following</Button>
                     ) : (
-                        <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={follow}>Follow</Button>
+                        <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={handleFollow}>Follow</Button>
                     )
                 )
             }

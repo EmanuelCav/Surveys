@@ -78,6 +78,7 @@ export type InfoProfilePropsType = {
     loggedUser: userReducerType;
     dispatch: Dispatch;
     navigate: NavigateFunction;
+    handleEditProfile: () => void;
 }
 
 export type SurveysProfilePropsType = {
@@ -274,4 +275,26 @@ export type ShowUsersPropsType = {
 export type UserPropsType = {
     redirectUser: (id: number) => void;
     user: IUser;
+}
+
+export type UsernamePropsType = {
+    loggedUser: userReducerType;
+    user: IUser;
+    navigate: NavigateFunction;
+    dispatch: Dispatch;
+}
+
+export type EditProfilePropsType = {
+    handleEditProfile: () => void;
+    navigate: NavigateFunction;
+    dispatch: Dispatch;
+    user: userReducerType;
+}
+
+export type PanelPropsType = {
+    anchorEl: null | HTMLElement;
+    open: boolean;
+    handleClose: () => void;
+    navigate: NavigateFunction;
+    dispatch: Dispatch;
 }

@@ -80,7 +80,9 @@ export const userLogout = createAsyncThunk('user/logout', async (navigate: Navig
 
         dispatch(userFeatures.logoutAction())
 
-        navigate('/auth')
+        localStorage.clear()
+
+        navigate('/')
 
     } catch (error) {
         console.log(error);
