@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as userApi from '../api/user.api';
 import * as userFeatures from '../features/user.features';
 
-import { UserRegisterActionPropsType, UserLoginActionPropsType, UserAllActionPropsType, UserProfileActionPropsType } from "../../types/action.types";
+import { UserRegisterActionPropsType, UserLoginActionPropsType, UserAllActionPropsType, UserProfileActionPropsType, UpdateProfileActionPropsType } from "../../types/action.types";
 
 import { dangerMessage, successMessage } from "../../helper/message";
 
@@ -80,10 +80,24 @@ export const userLogout = createAsyncThunk('user/logout', async (navigate: Navig
 
         dispatch(userFeatures.logoutAction())
 
-        localStorage.clear()
-
         navigate('/')
 
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
+export const updateProfile = createAsyncThunk('user/update', async (userData: UpdateProfileActionPropsType, { dispatch }) => {
+
+    try {
+
+        const { data } = await userApi.updateProfileApi(userData.profileData, userData.token)
+
+        userData.setIsEditProfile(false)
+
+        dispatch(userFeatures.getUserAction(data.user))
+        
     } catch (error) {
         console.log(error);
     }

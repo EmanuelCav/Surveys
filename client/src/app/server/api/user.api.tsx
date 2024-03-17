@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ILogin, IRegister } from '../../interfaces/User';
+import { ILogin, IRegister, IUpdateProfile } from '../../interfaces/User';
 
 import { host } from '../../config/import';
 
@@ -38,6 +38,19 @@ export const followApi = async (id: number, token: string) => {
     return await api.patch(`/users/follow/${id}`, null, {
         headers: {
             'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export const countriesApi = async () => {
+    return await api.get('/countries')
+}
+
+export const updateProfileApi = async (profileData: IUpdateProfile, token: string) => {
+    return await api.put('/users/profile', profileData, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
         }
     })
 }

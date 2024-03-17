@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { ICounterUser, IUser } from "../../interfaces/User";
+import { ICounterUser, ICountry, IUser } from "../../interfaces/User";
 
 import { key_persist } from "../../config/import";
 
@@ -9,7 +9,8 @@ const initialState: ICounterUser = {
     user: {},
     isLoggedIn: false,
     profile: {},
-    users: []
+    users: [],
+    countries: []
 }
 
 const counterSliceUser = createSlice({
@@ -31,10 +32,13 @@ const counterSliceUser = createSlice({
         },
         usersAction: (state, action: PayloadAction<IUser[]>) => {
             state.users = action.payload
+        },
+        countriesAction: (state, action: PayloadAction<ICountry[]>) => {
+            state.countries = action.payload
         }
     }
 })
 
-export const { authAction, logoutAction, getUserAction, usersAction } = counterSliceUser.actions
+export const { authAction, logoutAction, getUserAction, usersAction, countriesAction } = counterSliceUser.actions
 
 export default counterSliceUser.reducer

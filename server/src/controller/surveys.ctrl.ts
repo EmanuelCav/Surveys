@@ -300,3 +300,58 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
 
 }
 
+export const changeState = async (req: Request, res: Response): Promise<Response> => {
+
+    const { state } = req.body
+    const { id } = req.params
+
+    try {
+
+        const survey = await prisma.survey.findFirst({
+            where: {
+                id: Number(id)
+            }
+        })
+
+        if(!survey) {
+            return res.status(400).json(({
+                message: "Survey does not exists"
+            }))
+        }
+
+        const surveyUpdated = await prisma.survey.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                state
+            },
+            include: {
+                options: {
+                    select: {
+                        id: true,
+                        name: true,
+                        votes: true
+                    }
+                },
+                recommendations: true,
+                comments: {
+                    include: {
+                        user: true
+                    }
+                },
+                user: true
+            }
+        })
+
+        return res.status(200).json({
+            message: "Survey updated successfully",
+            survey: surveyUpdated
+        })
+
+    } catch (error) {
+        throw (error);
+    }
+
+}
+

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 
 import FollowInfo from './components/infoProfile/FollowInfo';
 import Username from './components/infoProfile/Username';
@@ -34,6 +34,9 @@ const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }
     return (
         <Box px={4}>
             <Username user={user} loggedUser={loggedUser} dispatch={dispatch} navigate={navigate} />
+            <Typography variant='h6' mt={1}>
+                {user.description}
+            </Typography>
             <FollowInfo user={user} />
             {
                 user.id === loggedUser.user.id ? (

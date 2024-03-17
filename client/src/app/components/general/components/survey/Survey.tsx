@@ -6,7 +6,7 @@ import ButtonCard from "../../ButtonCard"
 
 import { SurveyPropsType } from "../../../../types/props.types"
 
-const Survey = ({ survey, redirectSurvey }: SurveyPropsType) => {
+const Survey = ({ survey, redirectSurvey, user }: SurveyPropsType) => {
     return (
         <Grid item xs={6}>
             <Card sx={{
@@ -18,10 +18,10 @@ const Survey = ({ survey, redirectSurvey }: SurveyPropsType) => {
                         {survey.title}
                     </Typography>
                     <ListOptionsSurvey options={survey.options} />
-                    <Typography variant="subtitle1" mt={1}>
+                    <Typography variant="subtitle1">
                         More...
                     </Typography>
-                    <InfoShowSurvey survey={survey} />
+                    <InfoShowSurvey survey={survey} user={user} />
                 </CardContent>
                 <ButtonCard id={survey.id} func={redirectSurvey} text="Take part" />
             </Card>

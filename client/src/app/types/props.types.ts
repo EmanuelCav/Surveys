@@ -5,7 +5,7 @@ import { Location, NavigateFunction } from "react-router-dom";
 
 import { userReducerType, userType } from "./action.types";
 import { ICategory, IComment, ICreateOption, IOption, ISurvey } from "../interfaces/Survey";
-import { IUser } from "../interfaces/User";
+import { ICountry, IUser } from "../interfaces/User";
 import { GenderTypeKey, PageTypeKey, StateTypeKey } from "./key.types";
 
 export type IconPropsType = {
@@ -66,6 +66,7 @@ export type FollowPropsType = {
 export type SurveyPropsType = {
     survey: ISurvey;
     redirectSurvey: (id: number) => void;
+    user: IUser;
 }
 
 export type NoSuveysPropsType = {
@@ -169,7 +170,7 @@ export type ActionSurveyPropsType = {
 
 export type InfoSurveyPropsType = {
     survey: ISurvey;
-    user: userReducerType;
+    user: IUser;
 }
 
 export type ActionRemovePropsType = {
@@ -212,6 +213,7 @@ export type ActionCommentPropsType = {
 export type ShowSurveysPropsType = {
     surveys: ISurvey[];
     redirectSurvey: (id: number) => void;
+    user: IUser;
 }
 
 export type ActionSurveyProfilePropsType = {
@@ -288,7 +290,8 @@ export type EditProfilePropsType = {
     handleEditProfile: () => void;
     navigate: NavigateFunction;
     dispatch: Dispatch;
-    user: userReducerType;
+    user: userType;
+    setIsEditProfile: (isEditProfile: boolean) => void;
 }
 
 export type PanelPropsType = {
@@ -297,4 +300,16 @@ export type PanelPropsType = {
     handleClose: () => void;
     navigate: NavigateFunction;
     dispatch: Dispatch;
+}
+
+export type InfoShowSurveyPropsType = {
+    survey: ISurvey;
+    user: IUser;
+}
+
+export type SelectCountryInputPropsType = {
+    text: string; 
+    value: string; 
+    handleChange: (e: SelectChangeEvent<string>) => void; 
+    array: ICountry[];
 }

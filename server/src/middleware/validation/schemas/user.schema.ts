@@ -21,8 +21,18 @@ export const registerSchema = z.object({
     }).trim(),
     confirm: z.string().trim().min(1, {
         message: "Confirm password field is required"
-    }),
-}).required({username: true, email: true, gender: true, password: true, confirm: true})
+    })
+}).superRefine(({ password, confirm }, ctx) => {
+
+    if (password !== confirm) {
+        ctx.addIssue({
+            code: "custom",
+            message: "The passwords do not match",
+            path: ["password"]
+        })
+    }
+
+})
 
 export const loginSchema = z.object({
     email: z.string().min(1, {
@@ -33,4 +43,20 @@ export const loginSchema = z.object({
     password: z.string().trim().min(1, {
         message: "Password field is required"
     })
-}).required({email: true, password: true })
+}).required({ email: true, password: true })
+
+export const updateProfileSchema = z.object({
+    username: z.string().min(3, {
+        message: "Username must have at least 3 characters"
+    }).max(35, {
+        message: "Username must have less than 35 characters"
+    }).trim().refine((value) => /^[a-zA-Z0-9ñÑ]+$/.test(value), {
+        message: "Username only accepts letters and numbers continuously"
+    }),
+    description: z.string().trim().max(200, {
+        message: "The description must have less than 200 characters"
+    }).refine((value) => /[^<>]/g.test(value), {
+        message: "Characters like <, > are not allowed in description field"
+    }).optional().or(z.literal('')),
+    country: z.string().trim()
+})

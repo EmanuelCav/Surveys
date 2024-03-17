@@ -15,6 +15,7 @@ import { selector } from "../helper/selector";
 const Surveys = () => {
 
   const surveys = useSelector((state: IReducer) => selector(state).surveys)
+  const user = useSelector((state: IReducer) => selector(state).user)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -34,7 +35,7 @@ const Surveys = () => {
   return (
     <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
       <Navigation isCategories={false} isUsers={false} isSurveys={true} navigate={navigate} />
-      <ExploreSurveys surveys={surveys.surveys} redirectSurvey={redirectSurvey} />
+      <ExploreSurveys surveys={surveys.surveys} redirectSurvey={redirectSurvey} user={user.user.user} />
     </Box>
   )
 }

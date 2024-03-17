@@ -41,7 +41,7 @@ const Profile = () => {
   return (
     <>
       {
-        isEditProfile && <EditProfile navigate={navigate} dispatch={dispatch} handleEditProfile={handleEditProfile} user={user.user} />
+        isEditProfile && <EditProfile navigate={navigate} dispatch={dispatch} handleEditProfile={handleEditProfile} user={user} setIsEditProfile={setIsEditProfile} />
       }
       {
         user.profile.id && (

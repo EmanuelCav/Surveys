@@ -12,6 +12,7 @@ import userRoute from './router/user.routes';
 import optionRoute from './router/option.routes';
 import commentRoute from './router/comment.routes';
 import categoryRoute from './router/category.routes';
+import countryRoute from './router/country.routes'
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.use(userRoute)
 app.use(optionRoute)
 app.use(commentRoute)
 app.use(categoryRoute)
+app.use(countryRoute)
 
 app.listen(port, () => {
     console.log("Server on port", port);

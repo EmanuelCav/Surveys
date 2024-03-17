@@ -1,21 +1,24 @@
 import { ChangeEvent } from "react";
-
-import { ILogin, IRegister, IUser } from "../interfaces/User";
-import { ICreateOption, ICreateSurvey, ISurvey } from "../interfaces/Survey";
 import { NavigateFunction } from "react-router-dom";
+
+import { ICountry, ILogin, IRegister, IUpdateProfile, IUser } from "../interfaces/User";
+import { ICreateOption, ICreateSurvey, ISurvey } from "../interfaces/Survey";
 
 export type userType = {
     user: userReducerType;
     isLoggedIn: boolean;
     profile: IUser;
     users: IUser[];
+    countries: ICountry[];
 }
+
 export type isAccountType = {
     typeAuth: string;
     textAccount: string;
     setIsLogin: (isLogin: boolean) => void;
     isLogin: boolean;
 }
+
 export type genderType = {
     gender: string;
     handleChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
@@ -63,4 +66,10 @@ export type UserAllActionPropsType = {
 export type UserProfileActionPropsType = {
     token: string;
     id: number;
+}
+
+export type UpdateProfileActionPropsType = {
+    profileData: IUpdateProfile;
+    token: string;
+    setIsEditProfile: (isEditProfile: boolean) => void;
 }

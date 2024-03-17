@@ -9,7 +9,7 @@ import { generateUsers } from "../helper/mocks";
 
 export const users = async (req: Request, res: Response): Promise<Response> => {
 
-    const { page } = req.query
+    const { page = "0" } = req.query
 
     try {
 
@@ -17,7 +17,7 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
 
         const showUsers = await prisma.user.findMany({
             skip: Number(page),
-            take: Number(page) + 25,
+            take: Number(page) + 30,
             select: {
                 id: true,
                 username: true,
@@ -73,6 +73,7 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
                         recommendations: true
                     }
                 },
+                country: true,
                 followers: {
                     select: {
                         userId: true
@@ -92,7 +93,7 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
             })
         }
 
-        const showUserFilter = exclude(showUser, ['password', 'role'])
+        const showUserFilter = exclude(showUser, ['password', 'role', 'email'])
 
         return res.status(200).json(showUserFilter)
 
@@ -118,7 +119,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
                 gender,
                 email,
                 password: pass,
-                role: role && role
+                role: role ? role : 'USER'
             }
         })
 
@@ -164,10 +165,13 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
         const userLoggedIn = await prisma.user.findUnique({
             where: {
                 email
+            },
+            include: {
+                country: true
             }
         })
 
-        const showUserFilter = exclude(userLoggedIn, ['password', 'role'])
+        const showUserFilter = exclude(userLoggedIn, ['password', 'role', 'email'])
 
         return res.status(200).json({
             user: showUserFilter,
@@ -374,4 +378,93 @@ export const changeStatus = async (req: Request, res: Response): Promise<Respons
     }
 
 }
+
+export const changeProfile = async (req: Request, res: Response): Promise<Response> => {
+
+    const { username, description, country } = req.body
+
+    try {
+
+        const user = await prisma.user.findFirst({
+            where: {
+                id: req.user
+            }
+        })
+
+        if (!user) {
+            return res.status(400).json({
+                message: "User does not exists."
+            })
+        }
+
+        let countryUpdated
+
+        if(country) {
+
+            countryUpdated = await prisma.country.findFirst({
+                where: {
+                    country
+                }
+            })
+    
+            if(!countryUpdated) {
+                return res.status(400).json({
+                    message: "Country does not exists."
+                })
+            }
+
+        }
+
+        const userUpdated = await prisma.user.update({
+            where: {
+                id: req.user
+            },
+            data: {
+                username,
+                description: description ? description : null,
+                countryId: country ? countryUpdated?.id : null
+            },
+            include: {
+                surveys: {
+                    include: {
+                        options: {
+                            select: {
+                                id: true,
+                                name: true,
+                                votes: true
+                            }
+                        },
+                        recommendations: true
+                    }
+                },
+                country: true,
+                followers: {
+                    select: {
+                        userId: true
+                    }
+                },
+                following: {
+                    select: {
+                        userId: true
+                    }
+                }
+            }
+        })
+
+        const showUserFilter = exclude(userUpdated, ['password', 'role', 'email'])
+
+        const token = generateToken(user.id)
+
+        return res.status(200).json({
+            token,
+            user: showUserFilter,
+            message: "Welcome to Surfrage!"
+        })
+
+    } catch (error) {
+        throw (error);
+    }
+
+}
+
 

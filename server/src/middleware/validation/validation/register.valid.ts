@@ -7,28 +7,20 @@ import { prisma } from '../../../helper/prisma'
 
 export const registerValid = async (req: Request, res: Response, next: NextFunction) => {
 
-    const { username, email, password, confirm } = req.body
-    
+    const { email, username } = req.body
+
     try {
 
         registerSchema.parse(req.body)
-
-        if(password !== confirm) {
-            return res.status(400).json({
-                message: "Passwords do no match"
-            })
-        }
 
         const emailExists = await prisma.user.findUnique({
             where: {
                 email
             }
         })
-    
+
         if (emailExists) {
-            return res.status(400).json({
-                message: "Email already exists"
-            })
+            return res.status(400).json({ message: "The email has been already registered" })
         }
 
         const usernameExists = await prisma.user.findUnique({
@@ -36,11 +28,9 @@ export const registerValid = async (req: Request, res: Response, next: NextFunct
                 username
             }
         })
-    
+
         if (usernameExists) {
-            return res.status(400).json({
-                message: "user name already exists"
-            })
+            return res.status(400).json({ message: "The username has been already registered" })
         }
 
         next()

@@ -49,6 +49,12 @@ const counterSliceResponse = createSlice({
         builder.addCase(userAction.userLogout.fulfilled, (state) => {
             state.loading = false
         })
+        builder.addCase(userAction.updateProfile.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(userAction.updateProfile.fulfilled, (state) => {
+            state.loading = false
+        })
 
         builder.addCase(surveyAction.surveyAll.pending, (state) => {
             state.loading = true

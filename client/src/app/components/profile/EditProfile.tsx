@@ -9,7 +9,7 @@ import FormProfile from "./components/editProfile/FormProfile";
 
 import { EditProfilePropsType } from "../../types/props.types";
 
-const EditProfile = ({ navigate, dispatch, handleEditProfile, user }: EditProfilePropsType) => {
+const EditProfile = ({ navigate, dispatch, handleEditProfile, user, setIsEditProfile }: EditProfilePropsType) => {
     return (
         <Box position='fixed' display="flex" justifyContent='center' alignItems='center' sx={{
             top: 0,
@@ -37,7 +37,7 @@ const EditProfile = ({ navigate, dispatch, handleEditProfile, user }: EditProfil
                 <CloseForm func={handleEditProfile} />
                 <FormHeader />
                 <FormTitle title="Update profile" />
-                <FormProfile navigate={navigate} dispatch={dispatch} handleEditProfile={handleEditProfile} user={user} />
+                <FormProfile navigate={navigate} dispatch={dispatch} handleEditProfile={handleEditProfile} user={user} setIsEditProfile={setIsEditProfile} />
             </Box>
         </Box>
     )

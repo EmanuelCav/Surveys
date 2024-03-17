@@ -6,6 +6,7 @@ export interface ICounterUser {
     isLoggedIn: boolean;
     profile: object;
     users: IUser[]
+    countries: ICountry[];
 }
 
 export interface IUser {
@@ -19,6 +20,8 @@ export interface IUser {
     followers: IUser[];
     following: IUser[];
     surveys: ISurvey[];
+    description: string;
+    country: ICountry;
 }
 
 export interface ILogin {
@@ -33,4 +36,17 @@ export interface IRegister {
     password: string;
     confirm: string;
     status: boolean;
+}
+
+export interface IUpdateProfile {
+    username: string;
+    description: string;
+    country: string;
+}
+
+export interface ICountry {
+    id: number;
+    country: string;
+    createdAt: string;
+    updatedAt: string;
 }

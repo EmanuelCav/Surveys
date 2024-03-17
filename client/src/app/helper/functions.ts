@@ -1,4 +1,5 @@
-import { IOption, ISurvey } from "../interfaces/Survey"
+import { IOption, ISurvey, IVote } from "../interfaces/Survey"
+import { IUser } from "../interfaces/User"
 
 export const totalVotes = (options: IOption[]): number => {
 
@@ -21,5 +22,17 @@ export const recommendationSurveysUser = (surveys: ISurvey[]) => {
     }
 
     return totalRecommendations
+
+}
+
+export const hasUserParticipate = (options: IOption[], user: IUser): boolean => {
+
+    for (let i = 0; i < options.length; i++) {
+        const isFound = options[i].votes.find((vote: IVote) => vote.userId === user.id)
+
+        if(isFound) return true
+    }
+
+    return false
 
 }

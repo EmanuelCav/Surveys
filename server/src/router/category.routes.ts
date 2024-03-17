@@ -10,7 +10,7 @@ import admin from '../middleware/auth/admin'
 const router = Router()
 
 router.get('/categories', categoryCtrl.categories)
-router.post('/categories', categoryValid, categoryCtrl.createCategory)
-router.delete('/categories/:id', categoryCtrl.removeCategory)
+router.post('/categories', [auth, admin], categoryValid, categoryCtrl.createCategory)
+router.delete('/categories/:id', [auth, admin], categoryCtrl.removeCategory)
 
 export default router
