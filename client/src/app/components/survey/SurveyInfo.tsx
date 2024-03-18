@@ -1,23 +1,43 @@
 import { useState, useEffect } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
 import { Box, Typography } from "@mui/material";
 
 import InfoSurvey from "./components/surveyinfo/components/InfoSurvey";
 import OptionsSurvey from "./components/surveyinfo/OptionsSurvey";
-import Remove from "./components/surveyinfo/components/Remove";
+import TitleSurvey from "./components/surveyinfo/TitleSurvey";
+import ActionPrivateSurvey from "./components/surveyinfo/components/ActionPrivateSurvey";
 
 import { IVote } from "../../interfaces/Survey";
 import { SurveyInfoPropsType } from "../../types/props.types";
 
+import { surveyRemove, surveyUpdateState } from "../../server/actions/survey.actions";
+
 import { totalVotes } from "../../helper/functions";
 
-const SurveyInfo = ({ survey, user }: SurveyInfoPropsType) => {
+const SurveyInfo = ({ survey, user, dispatch, navigate }: SurveyInfoPropsType) => {
 
   const [isRemove, setIsRemove] = useState<boolean>(false)
+  const [isState, setIsState] = useState<boolean>(false)
   const [isVoted, setIsVoted] = useState<boolean>(false)
 
-  const removeSurvey = () => {
-    setIsRemove(!isRemove)
+  const removeSurvey = async () => {
+    dispatch(surveyRemove({
+      id: user.user.id,
+      token: user.token,
+      survey,
+      setIsRemove,
+      navigate
+    }) as any)
+  }
+
+  const handleState = () => {
+    dispatch(surveyUpdateState({
+      id: survey.id,
+      token: user.token,
+      stateData: {
+        state: survey.state === "PUBLIC" ? "PRIVATE" : "PUBLIC"
+      },
+      setIsState
+    }) as any)
   }
 
   useEffect(() => {
@@ -41,12 +61,13 @@ const SurveyInfo = ({ survey, user }: SurveyInfoPropsType) => {
       textAlign: 'center'
     }}>
       {
-        isRemove && <Remove setIsRemove={setIsRemove} survey={survey} user={user} />
+        isRemove && <ActionPrivateSurvey setIsAction={setIsRemove} func={removeSurvey} text="A survey will be removed. Do you wish continue?" buttonText="Remove" />
       }
-      <Typography variant="h5">{survey.title}</Typography>
       {
-        user.user.id === survey.user.id && <AiOutlineDelete size={18} className="remove-icon" onClick={removeSurvey} />
+        isState && <ActionPrivateSurvey setIsAction={setIsState} func={handleState} text="Are you sure to change the visibility?" buttonText="Accept" />
       }
+      <TitleSurvey survey={survey} user={user} setIsState={setIsState} setIsRemove={setIsRemove} />
+      <Typography variant="h5">{survey.title}</Typography>
       <OptionsSurvey survey={survey} isVoted={isVoted} setIsVoted={setIsVoted} totalVotes={totalVotes(survey.options)} user={user} />
       <InfoSurvey survey={survey} user={user} />
       <Typography variant="h6" align="center" mt={2} color="#f64">

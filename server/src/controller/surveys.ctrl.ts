@@ -158,13 +158,10 @@ export const removeSurvey = async (req: Request, res: Response): Promise<Respons
     const { id } = req.params
 
     try {
-
+        
         const survey = await prisma.survey.findFirst({
             where: {
                 id: Number(id)
-            },
-            select: {
-                userId: true
             }
         })
 
@@ -179,17 +176,6 @@ export const removeSurvey = async (req: Request, res: Response): Promise<Respons
                 message: "You cannot remove this survey"
             })
         }
-
-        await prisma.comment.deleteMany({
-            where: {
-                surveyId: Number(id)
-            }
-        })
-        await prisma.option.deleteMany({
-            where: {
-                surveyId: Number(id)
-            }
-        })
 
         await prisma.survey.delete({
             where: {

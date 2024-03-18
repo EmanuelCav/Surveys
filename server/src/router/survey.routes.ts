@@ -14,5 +14,6 @@ router.get('/surveys/:id', auth, surveysCtrl.survey)
 router.post('/surveys', auth, createValid, surveysCtrl.createSurvey)
 router.delete('/surveys/:id', auth, surveysCtrl.removeSurvey)
 router.patch('/surveys/:id', auth, surveysCtrl.recommendSurvey)
+router.put('/surveys/:id', auth, surveysCtrl.changeState)
 
 export default router

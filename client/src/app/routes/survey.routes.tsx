@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 
 import { IReducer } from "../interfaces/Reducer";
@@ -18,6 +19,7 @@ const Survey = () => {
 
   const params = useParams()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const getData = async () => {
     dispatch(surveyGet({
@@ -35,7 +37,7 @@ const Survey = () => {
       {
         surveys.survey.id &&
         <>
-          <SurveyInfo survey={surveys.survey} user={user.user} />
+          <SurveyInfo survey={surveys.survey} user={user.user} dispatch={dispatch} navigate={navigate} />
           <Comments user={user.user} survey={surveys.survey} />
         </>
       }

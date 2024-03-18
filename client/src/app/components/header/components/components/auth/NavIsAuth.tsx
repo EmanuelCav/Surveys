@@ -13,7 +13,7 @@ const NavIsAuth = ({ navigate, id }: NavIsAuthPropsType) => {
     }
 
     const redirectSurveys = () => {
-        navigate('/surveys')
+        navigate('/explore/surveys')
     }
 
     const redirectCreate = () => {

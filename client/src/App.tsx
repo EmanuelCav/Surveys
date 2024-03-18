@@ -35,7 +35,6 @@ function App() {
             <Box mt={12}>
               <Routes>
                 <Route path="/" element={<Index />} />
-                <Route path="/surveys" element={<Explore />} />
                 <Route path="/surveys/create" element={<PrivateRoute />}>
                   <Route path="/surveys/create" element={<Create />} />
                 </Route>

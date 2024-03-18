@@ -259,6 +259,7 @@ export const removeAllOptions = async (req: Request, res: Response): Promise<Res
 
         await prisma.vote.deleteMany()
         await prisma.option.deleteMany()
+        await prisma.recommendation.deleteMany()
         
         return res.status(200).json("json")
 

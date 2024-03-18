@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ICreateComment, ICreateOption, ICreateSurvey } from '../../interfaces/Survey';
+import { ICreateComment, ICreateOption, ICreateSurvey, IUpdateState } from '../../interfaces/Survey';
 
 import { host } from '../../config/import';
 
@@ -111,4 +111,13 @@ export const likeCommentApi = async (id: number, token: string) => {
 
 export const categoriesApi = async () => {
     return await api.get('/categories')
+}
+
+export const updateStateApi = async (stateData: IUpdateState, id: number, token: string) => {
+    return await api.put(`/surveys/${id}`, stateData, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
 }

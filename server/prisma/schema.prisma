@@ -67,9 +67,9 @@ model Option {
   id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(75)
   votes     Vote[]
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int
-  survey    Survey   @relation(fields: [surveyId], references: [id])
+  survey    Survey   @relation(fields: [surveyId], references: [id], onDelete: Cascade)
   surveyId  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -96,8 +96,8 @@ model Country {
 model Recommendation {
   surveyId Int
   userId   Int
-  User     User   @relation(fields: [userId], references: [id])
-  Survey   Survey @relation(fields: [surveyId], references: [id])
+  User     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Survey   Survey @relation(fields: [surveyId], references: [id], onDelete: Cascade)
 
   @@id([surveyId, userId])
 }
@@ -105,8 +105,8 @@ model Recommendation {
 model LikeComment {
   commentId Int
   userId    Int
-  User      User    @relation(fields: [userId], references: [id])
-  Comment   Comment @relation(fields: [commentId], references: [id])
+  User      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
 
   @@id([commentId, userId])
 }

@@ -1,3 +1,4 @@
+import { StateTypeKey } from "../types/key.types";
 import { IUser } from "./User";
 
 export interface ICounterSurvey {
@@ -14,6 +15,7 @@ export interface ISurvey {
     comments: IComment[];
     category: ICategory;
     user: IUser;
+    state: StateTypeKey;
     createdAt: string;
     updatedAt: string;
 }
@@ -67,4 +69,8 @@ export interface ICreateComment {
 export interface IRecommendation {
     userId: number;
     surveyId: number;
+}
+
+export interface IUpdateState {
+    state: StateTypeKey;
 }

@@ -4,7 +4,7 @@ import * as surveyApi from '../api/surveys.api';
 import * as surveyFeatures from '../features/surveys.features';
 
 import { surveyRemoveType } from "../../types/survey.types";
-import { SurveyCreateActionPropsType, SurveyGetPropsType, SurveyOptionActionPropsType } from "../../types/action.types";
+import { SurveyCreateActionPropsType, SurveyGetActionPropsType, SurveyOptionActionPropsType, UpdateStateActionPropsType } from "../../types/action.types";
 
 import { dangerMessage, successMessage } from "../../helper/message";
 
@@ -73,7 +73,7 @@ export const surveyOptions = createAsyncThunk('survey/option', async (surveyOpti
 
 })
 
-export const surveyGet = createAsyncThunk('survey/get', async (surveyData: SurveyGetPropsType, { dispatch }) => {
+export const surveyGet = createAsyncThunk('survey/get', async (surveyData: SurveyGetActionPropsType, { dispatch }) => {
 
     try {
 
@@ -104,4 +104,24 @@ export const surveyRemove = createAsyncThunk('survey/remove', async (surveyData:
     }
 
 })
+
+export const surveyUpdateState = createAsyncThunk('survey/state', async (surveyData: UpdateStateActionPropsType, { dispatch }) => {
+
+    try {
+
+        const { data } = await surveyApi.updateStateApi(surveyData.stateData, surveyData.id, surveyData.token)
+
+        dispatch(surveyFeatures.getSurveyAction(data.survey))
+
+        surveyData.setIsState(false)
+        
+        successMessage(data.message)
+
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
+
 

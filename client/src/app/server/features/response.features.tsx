@@ -92,6 +92,12 @@ const counterSliceResponse = createSlice({
         builder.addCase(surveyAction.categoriesAll.fulfilled, (state) => {
             state.loading = false
         })
+        builder.addCase(surveyAction.surveyUpdateState.pending, (state) => {
+            state.loading = true
+        })
+        builder.addCase(surveyAction.surveyUpdateState.fulfilled, (state) => {
+            state.loading = false
+        })
     },
 })
 

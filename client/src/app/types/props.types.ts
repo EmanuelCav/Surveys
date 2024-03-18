@@ -137,6 +137,8 @@ export type ActionOptionPropsType = {
 export type SurveyInfoPropsType = {
     survey: ISurvey;
     user: userReducerType;
+    dispatch: Dispatch;
+    navigate: NavigateFunction;
 }
 
 export type OptionsSurveyPropsType = {
@@ -156,10 +158,11 @@ export type ShowOptionPropsType = {
     option: IOption;
 }
 
-export type RemovePropsType = {
-    setIsRemove: (isRemove: boolean) => void;
-    survey: ISurvey;
-    user: userReducerType;
+export type ActionPrivateSurveyPropsType = {
+    setIsAction: (isRemove: boolean) => void;
+    func: () => void;
+    text: string;
+    buttonText: string;
 }
 
 export type ActionSurveyPropsType = {
@@ -170,12 +173,13 @@ export type ActionSurveyPropsType = {
 
 export type InfoSurveyPropsType = {
     survey: ISurvey;
-    user: IUser;
+    user: userReducerType;
 }
 
 export type ActionRemovePropsType = {
-    removeSurvey: () => void;
-    cancelRemove: () => void;
+    func: () => void;
+    cancelAction: () => void;
+    buttonText: string;
 }
 
 export type ActionsOptionPropsType = {
@@ -302,6 +306,14 @@ export type PanelPropsType = {
     dispatch: Dispatch;
 }
 
+export type PanelSurveyPropsType = {
+    anchorEl: null | HTMLElement;
+    open: boolean;
+    handleClose: () => void;
+    setIsRemove: (isRemove: boolean) => void;
+    setIsState: (isState: boolean) => void;
+}
+
 export type InfoShowSurveyPropsType = {
     survey: ISurvey;
     user: IUser;
@@ -312,4 +324,11 @@ export type SelectCountryInputPropsType = {
     value: string; 
     handleChange: (e: SelectChangeEvent<string>) => void; 
     array: ICountry[];
+}
+
+export type TitleSurveyPropsType = {
+    user: userReducerType;
+    survey: ISurvey;
+    setIsRemove: (isRemove: boolean) => void;
+    setIsState: (isState: boolean) => void;
 }

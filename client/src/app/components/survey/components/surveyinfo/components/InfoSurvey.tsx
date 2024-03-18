@@ -7,11 +7,11 @@ import { BiCommentDetail, BiUser } from "react-icons/bi";
 
 import ActionSurvey from "./components/ActionSurvey";
 
+import { IRecommendation } from "../../../../../interfaces/Survey";
 import { InfoSurveyPropsType } from "../../../../../types/props.types";
 
 import { recommendSurveyApi } from "../../../../../server/api/surveys.api";
 import { updateSurveyAction } from "../../../../../server/features/surveys.features";
-import { IRecommendation } from "../../../../../interfaces/Survey";
 
 const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
 

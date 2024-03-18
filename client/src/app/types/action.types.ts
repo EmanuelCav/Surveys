@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import { NavigateFunction } from "react-router-dom";
 
 import { ICountry, ILogin, IRegister, IUpdateProfile, IUser } from "../interfaces/User";
-import { ICreateOption, ICreateSurvey, ISurvey } from "../interfaces/Survey";
+import { ICreateOption, ICreateSurvey, ISurvey, IUpdateState } from "../interfaces/Survey";
 
 export type userType = {
     user: userReducerType;
@@ -54,7 +54,7 @@ export type SurveyOptionActionPropsType = {
     navigate: NavigateFunction;
 }
 
-export type SurveyGetPropsType = {
+export type SurveyGetActionPropsType = {
     id: number;
     token: string;
 }
@@ -72,4 +72,11 @@ export type UpdateProfileActionPropsType = {
     profileData: IUpdateProfile;
     token: string;
     setIsEditProfile: (isEditProfile: boolean) => void;
+}
+
+export type UpdateStateActionPropsType = {
+    token: string;
+    stateData: IUpdateState;
+    id: number;
+    setIsState: (isState: boolean) => void;
 }
