@@ -23,7 +23,7 @@ const SurveysProfile = ({ user, navigate }: SurveysProfilePropsType) => {
       padding: 3
     }}>
       <ActionSurveyProfile user={user} redirectCreate={redirectCreate} />
-      <ShowSurveys surveys={user.profile.surveys} redirectSurvey={redirectSurvey} user={user.user.user} />
+      <ShowSurveys surveys={user.profile.surveys} redirectSurvey={redirectSurvey} user={user.user} />
     </Box>
   )
 }

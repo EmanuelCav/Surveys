@@ -1,3 +1,4 @@
+import { Paper, Typography } from '@mui/material';
 import { TbWorldCheck } from 'react-icons/tb';
 import { RiSurveyLine } from "react-icons/ri";
 
@@ -5,13 +6,21 @@ import { cardType } from "../../../../types/index.types";
 
 const CardData = ({ header, text, card }: cardType) => {
     return (
-        <div className="container-card-data">
+        <Paper elevation={3} sx={{
+            padding: 3,
+            width: 320,
+            height: '66.66%',
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            flexDirection: 'column'
+        }}>
             {
-                card ? <RiSurveyLine size={70} /> : <TbWorldCheck size={70} />
+                card ? <RiSurveyLine size={70} color={'#f64'} /> : <TbWorldCheck size={70} color={'#f64'} />
             }
-            <h1 className='header-card'>{header}</h1>
-            <p className='text-card'>{text}</p>
-        </div>
+            <Typography variant='h4' textAlign='center'>{header}</Typography>
+            <Typography variant='h5' textAlign='center'>{text}</Typography>
+        </Paper>
     )
 }
 

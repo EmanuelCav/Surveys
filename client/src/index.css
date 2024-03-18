@@ -24,3 +24,7 @@ body {
 .full-screen {
   height: calc(100vh - 7em);
 }
+
+.swiper-grid-column>.swiper-wrapper {
+  flex-direction: unset !important;
+}

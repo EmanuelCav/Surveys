@@ -6,7 +6,7 @@ import ButtonCard from "../../ButtonCard"
 
 import { SurveyPropsType } from "../../../../types/props.types"
 
-const Survey = ({ survey, redirectSurvey, user }: SurveyPropsType) => {
+const ShowSurvey = ({ survey, redirectSurvey, user }: SurveyPropsType) => {
     return (
         <Grid item xs={6}>
             <Card sx={{
@@ -29,4 +29,4 @@ const Survey = ({ survey, redirectSurvey, user }: SurveyPropsType) => {
     )
 }
 
-export default Survey
+export default ShowSurvey

@@ -1,9 +1,16 @@
+import { Box } from "@mui/material"
 
 const ImageStart = () => {
     return (
-        <div className="container-image-start">
-            <img src="/start.png" alt="start_index" className="image-start" />
-        </div>
+        <Box width='50%' p={3} height='100%' display="flex" justifyContent="center" alignItems='center'>
+            <Box
+                component='img'
+                width={500}
+                height={365}
+                src="/start.png" 
+                alt="start_index"
+            />
+        </Box>
     )
 }
 

@@ -66,7 +66,7 @@ export type FollowPropsType = {
 export type SurveyPropsType = {
     survey: ISurvey;
     redirectSurvey: (id: number) => void;
-    user: IUser;
+    user: userReducerType;
 }
 
 export type NoSuveysPropsType = {
@@ -217,7 +217,7 @@ export type ActionCommentPropsType = {
 export type ShowSurveysPropsType = {
     surveys: ISurvey[];
     redirectSurvey: (id: number) => void;
-    user: IUser;
+    user: userReducerType;
 }
 
 export type ActionSurveyProfilePropsType = {
@@ -331,4 +331,11 @@ export type TitleSurveyPropsType = {
     survey: ISurvey;
     setIsRemove: (isRemove: boolean) => void;
     setIsState: (isState: boolean) => void;
+}
+
+export type SurveySliderPropsType = {
+    surveys: ISurvey[];
+    redirectSurvey: (id: number) => void;
+    user: userReducerType;
+    redirectSurveys: () => void;
 }

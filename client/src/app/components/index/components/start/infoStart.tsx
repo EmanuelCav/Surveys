@@ -1,18 +1,27 @@
-import { useNavigate } from 'react-router-dom';
+import { Box, Button, Typography } from '@mui/material';
 
-const InfoStart = () => {
+import { NavigateFunction } from 'react-router-dom';
 
-    const navigate = useNavigate()
+const InfoStart = ({ navigate }: { navigate: NavigateFunction }) => {
 
     const redirectLogin = () => {
-        navigate('/auth')
+        navigate('/explore/surveys')
     }
-    
+
     return (
-        <div className="container-info-start">
-            <h1 className="header-info-start">Create and take part in surveys in a simple way</h1>
-            <button className="button-form" onClick={redirectLogin}>Start Now ➜</button>
-        </div>
+        <Box width='50%' p={3} height='100%' display="flex" justifyContent="center" alignItems='center' flexDirection='column' sx={{
+            wordWrap: 'break-word'
+        }}>
+            <Typography variant='h4' textAlign='center'>
+                Create and take part in surveys in a simple way
+            </Typography>
+            <Button variant='contained' color='warning' size='large' onClick={redirectLogin} sx={{
+                mt: 3,
+                width: '66.66%'
+            }}>
+                Start Now ➜
+            </Button>
+        </Box>
     )
 }
 

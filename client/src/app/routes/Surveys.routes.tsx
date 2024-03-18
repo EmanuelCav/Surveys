@@ -35,7 +35,7 @@ const Surveys = () => {
   return (
     <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
       <Navigation isCategories={false} isUsers={false} isSurveys={true} navigate={navigate} />
-      <ExploreSurveys surveys={surveys.surveys} redirectSurvey={redirectSurvey} user={user.user.user} />
+      <ExploreSurveys surveys={surveys.surveys} redirectSurvey={redirectSurvey} user={user.user} />
     </Box>
   )
 }

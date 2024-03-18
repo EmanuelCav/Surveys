@@ -60,7 +60,7 @@ const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
                     <ActionSurvey data={`Recommendations: ${survey.recommendations.length}`} Icon={AiOutlineStar} func={likeSurvey} />
                 )
             }
-            <ActionSurvey data={`Comments: ${survey.comments.length}`} Icon={BiCommentDetail} func={likeSurvey} />
+            <ActionSurvey data={`Comments: ${survey.comments.length}`} Icon={BiCommentDetail} func={() => {}} />
             <ActionSurvey data={`From: ${survey.user.username}`} Icon={BiUser} func={redirectProfile} />
             <Typography variant="h6">
                 Creation date: {survey.createdAt.split("T")[0]}
