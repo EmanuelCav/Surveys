@@ -13,7 +13,11 @@ const CardData = ({ header, text, card }: cardType) => {
             display: 'flex',
             justifyContent: 'space-around',
             alignItems: 'center',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            userSelect: 'none',
+            msUserSelect: 'none',
+            MozUserSelect: 'none',
+            WebkitUserSelect: 'none'
         }}>
             {
                 card ? <RiSurveyLine size={70} color={'#f64'} /> : <TbWorldCheck size={70} color={'#f64'} />

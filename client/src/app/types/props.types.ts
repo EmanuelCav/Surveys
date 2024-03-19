@@ -339,3 +339,26 @@ export type SurveySliderPropsType = {
     user: userReducerType;
     redirectSurveys: () => void;
 }
+
+export type UserSliderPropsType = {
+    user: userType; 
+    redirectUsers: () => void;
+    redirectUser: (id: number) => void;
+}
+
+export type SurveysFollowPropsType = {
+    surveys: ISurvey[];
+    user: userReducerType;
+    redirectSurvey: (id: number) => void;
+}
+
+export type SurveyFollowPropsType = {
+    survey: ISurvey;
+    user: userReducerType;
+    redirectSurvey: (id: number) => void;
+}
+
+export type DataPropsType = {
+    amountUsers: number;
+    amountSurveys: number;
+}

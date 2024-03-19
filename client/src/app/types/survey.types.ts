@@ -5,6 +5,7 @@ import { ICategory, ISurvey } from "../interfaces/Survey";
 export type surveyType = {
     surveys: ISurvey[];
     survey: ISurvey;
+    surveysFollowing: ISurvey[];
     categories: ICategory[];
 }
 

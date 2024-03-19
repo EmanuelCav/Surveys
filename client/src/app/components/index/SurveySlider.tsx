@@ -9,11 +9,11 @@ import 'swiper/css/pagination';
 import Survey from '../general/components/survey/Survey';
 
 import { ISurvey } from '../../interfaces/Survey';
-import { ShowSurveysPropsType, SurveySliderPropsType } from '../../types/props.types';
+import { SurveySliderPropsType } from '../../types/props.types';
 
 const SurveySlider = ({ surveys, user, redirectSurvey, redirectSurveys }: SurveySliderPropsType) => {
     return (
-        <Box>
+        <Box my={4}>
             <Swiper
                 slidesPerView={3}
                 grid={{
@@ -30,7 +30,7 @@ const SurveySlider = ({ surveys, user, redirectSurvey, redirectSurveys }: Survey
                 {
                     surveys.map((survey: ISurvey) => {
                         return (
-                            <SwiperSlide>
+                            <SwiperSlide key={survey.id}>
                                 <Survey survey={survey} user={user} redirectSurvey={redirectSurvey} />
                             </SwiperSlide>
                         )

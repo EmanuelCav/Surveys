@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { Box } from "@mui/material";
@@ -6,9 +6,14 @@ import { Box } from "@mui/material";
 import Data from "../components/index/Data"
 import Start from "../components/index/Start"
 import SurveySlider from "../components/index/SurveySlider";
+import UserSlider from "../components/index/UserSlider";
+import ShowSurveys from "../components/general/ShowSurveys";
+import SurveysFollow from "../components/index/SurveysFollow";
 
-import { categoriesAction } from '../../app/server/features/surveys.features'
-import { categoriesApi } from "../server/api/surveys.api";
+import { usersApi } from "../server/api/user.api";
+import { surveysApi, surveysFollowApi } from "../server/api/surveys.api";
+import { surveysAction, surveysFollowAction } from "../server/features/surveys.features";
+import { usersAction } from "../server/features/user.features";
 
 import { IReducer } from "../interfaces/Reducer";
 
@@ -22,9 +27,21 @@ const Index = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
+  const [amountUsers, setAmountUsers] = useState<number>(0)
+
   const getData = async () => {
-    const { data } = await categoriesApi()
-    dispatch(categoriesAction(data) as any)
+    const surveysData = await surveysApi()
+    const usersData = await usersApi(0)
+
+    if(user.isLoggedIn) {
+        const surveysFollowData = await surveysFollowApi(user.user.token)
+        dispatch(surveysFollowAction(surveysFollowData.data))
+    }
+
+    dispatch(surveysAction(surveysData.data))
+    dispatch(usersAction(usersData.data.users))
+
+    setAmountUsers(usersData.data.length)
   }
 
   const redirectSurvey = (id: number) => {
@@ -35,15 +52,44 @@ const Index = () => {
     navigate(`/explore/surveys`)
   }
 
+  const redirectUsers = () => {
+    navigate(`/explore/users`)
+  }
+
+  const redirectUser = (id: number) => {
+    navigate(`/profile/${id}`)
+  }
+
   useEffect(() => {
     getData()
   }, [dispatch])
 
   return (
     <Box position="relative" my={4}>
-      <Start navigate={navigate} />
-      <SurveySlider redirectSurvey={redirectSurvey} user={user.user} surveys={surveys.surveys} redirectSurveys={redirectSurveys} />
-      <Data />
+      {
+        user.isLoggedIn && 
+        <>
+          {
+            user.user.user.following.length > 0 ? <SurveysFollow surveys={user.user.user.surveys} redirectSurvey={redirectSurvey} user={user.user} />
+            : <SurveysFollow surveys={user.user.user.surveys} redirectSurvey={redirectSurvey} user={user.user} />
+          }
+        </>
+      }
+      {
+        !user.isLoggedIn && <Start navigate={navigate} />
+      }
+      {
+        surveys.surveys.length > 0 && <SurveySlider redirectSurvey={redirectSurvey} user={user.user} surveys={surveys.surveys} redirectSurveys={redirectSurveys} />
+      }
+      {
+        !user.isLoggedIn && <Data amountUsers={amountUsers} amountSurveys={surveys.surveys.length} />
+      }
+      {
+        user.users.length > 0 && <UserSlider user={user} redirectUsers={redirectUsers} redirectUser={redirectUser} />
+      }
+      {
+        surveys.surveys.length > 0 && <ShowSurveys redirectSurvey={redirectSurvey} surveys={surveys.surveys} user={user.user} />
+      }
     </Box>
   )
 }

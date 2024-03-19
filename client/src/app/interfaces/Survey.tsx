@@ -4,7 +4,8 @@ import { IUser } from "./User";
 export interface ICounterSurvey {
     surveys: ISurvey[];
     survey: object;
-    categories: ICategory[]
+    categories: ICategory[];
+    surveysFollowing: ISurvey[];
 }
 
 export interface ISurvey {

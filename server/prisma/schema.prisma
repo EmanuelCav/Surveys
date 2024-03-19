@@ -54,9 +54,9 @@ model Survey {
 model Comment {
   id        Int           @id @default(autoincrement())
   comment   String        @db.Text
-  user      User          @relation(fields: [userId], references: [id])
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int
-  survey    Survey        @relation(fields: [surveyId], references: [id])
+  survey    Survey        @relation(fields: [surveyId], references: [id], onDelete: Cascade)
   surveyId  Int
   likes     LikeComment[]
   createdAt DateTime      @default(now())

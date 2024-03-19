@@ -15,7 +15,13 @@ export const surveys = async (req: Request, res: Response): Promise<Response> =>
                         votes: true
                     }
                 },
-                recommendations: true
+                recommendations: true,
+                user: {
+                    select: {
+                        id: true,
+                        username: true
+                    }
+                }
             },
             take: 25
         })
@@ -48,7 +54,7 @@ export const surveysFollow = async (req: Request, res: Response): Promise<Respon
         if (!user) {
             return res.status(200).json({ message: "User does not exists" })
         }
-
+        
         const surveys = await prisma.survey.findMany({
             where: {
                 userId: {

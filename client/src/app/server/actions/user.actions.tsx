@@ -18,7 +18,7 @@ export const userLogin = createAsyncThunk('user/login', async (userLoginData: Us
 
         userLoginData.handleIsAuth()
 
-        userLoginData.navigate('/surveys')
+        userLoginData.navigate('/explore/surveys')
 
     } catch (error: any) {
         dangerMessage(error.response.data[0].message)

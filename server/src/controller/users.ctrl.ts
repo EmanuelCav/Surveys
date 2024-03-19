@@ -167,7 +167,12 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
                 email
             },
             include: {
-                country: true
+                country: true,
+                following: {
+                    select: {
+                        userId: true
+                    }
+                }
             }
         })
 
