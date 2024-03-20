@@ -13,7 +13,7 @@ const ShowOption = ({ survey, user, option, isVoted, setIsVoted, totalVotes }: S
   const voteOption = async () => {
 
     try {
-      const { data } = await voteSurveyApi(option.id, survey.id, user.token)
+      const { data } = await voteSurveyApi(option.id, survey.id!, user.token!)
       dispatch(updateSurveyAction(data))
       setIsVoted(true)
     } catch (error) {

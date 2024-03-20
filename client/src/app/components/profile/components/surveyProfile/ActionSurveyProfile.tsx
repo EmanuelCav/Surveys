@@ -11,10 +11,10 @@ const ActionSurveyProfile = ({ user, redirectCreate }: ActionSurveyProfilePropsT
                 user.profile.surveys.length === 0 &&
                 <Box width='100%'>
                     {
-                        user.profile.id === user.user.user.id ? (
-                            <NoSurveys isUser={user.profile.id === user.user.user.id} redirectCreate={redirectCreate} />
+                        user.profile.id === user.user.user?.id ? (
+                            <NoSurveys isUser={user.profile.id === user.user.user?.id} redirectCreate={redirectCreate} />
                         ) : (
-                            <NoSurveys isUser={user.profile.id === user.user.user.id} redirectCreate={redirectCreate} />
+                            <NoSurveys isUser={user.profile.id === user.user.user?.id} redirectCreate={redirectCreate} />
                         )
                     }
                 </Box>

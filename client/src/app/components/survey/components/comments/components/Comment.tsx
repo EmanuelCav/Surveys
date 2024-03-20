@@ -19,7 +19,7 @@ const Comment = ({ comment, user }: CommentPropsType) => {
   const removeComment = async () => {
 
     try {
-      const { data } = await removeCommentApi(comment.id, user.token)
+      const { data } = await removeCommentApi(comment.id, user.token!)
       dispatch(getSurveyAction(data))
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ const Comment = ({ comment, user }: CommentPropsType) => {
 
     try {
 
-      const { data } = await likeCommentApi(comment.id, user.token)
+      const { data } = await likeCommentApi(comment.id, user.token!)
       dispatch(getSurveyAction(data))
       setIsLiked(!isLiked)
 
@@ -43,7 +43,7 @@ const Comment = ({ comment, user }: CommentPropsType) => {
 
   useEffect(() => {
     comment.likes.find((userId) => {
-      if (userId === user.user.id) {
+      if (userId === user.user?.id) {
         setIsLiked(true)
       }
     })

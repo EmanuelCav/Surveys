@@ -4,10 +4,9 @@ import { useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { ICreateOption, IOption } from "../../interfaces/Survey";
+import { ICreateOption } from "../../interfaces/Survey";
 import { CreateOptionPropsType } from "../../types/props.types";
 
-import InputOption from "./components/components/InputOption";
 import ActionsOption from "./components/ActionsOption";
 import ShowOptions from "./components/ShowOptions";
 
@@ -32,12 +31,12 @@ const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
       name: ""
     }])
 
-    const { data } = await createOptionApi(survey.id, user.token)
+    const { data } = await createOptionApi(survey.id!, user.token!)
     dispatch(getSurveyAction(data))
   }
 
   const removeOption = async () => {
-    const { data } = await removeOptionApi(survey.options[survey.options.length - 1].id, survey.id, user.token)
+    const { data } = await removeOptionApi(survey.options![survey.options!.length - 1].id, survey.id!, user.token!)
     dispatch(getSurveyAction(data))
 
     setOptionData(optionData.slice(0, -1))
@@ -53,7 +52,7 @@ const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
     let items = [...optionData];
-    let item = {...items[index]};
+    let item = { ...items[index] };
     item.name = e.target.value;
     items[index] = item;
     setOptionData(items);
@@ -62,13 +61,13 @@ const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
   const handleSumbit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    if(survey.options.length < 2) {
+    if (survey.options!.length < 2) {
       dangerMessage("You must to upload at least two options")
       return
     }
 
     dispatch(surveyOptions({
-      token: user.token,
+      token: user.token!,
       optionData,
       survey,
       navigate
@@ -81,8 +80,8 @@ const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
       height: '100%'
     }} noValidate onSubmit={handleSumbit}>
       <ToastContainer />
-      <ShowOptions optionData={optionData} handleChange={handleChange} options={survey.options} />
-      <ActionsOption handleOptionAction={handleOptionAction} options={survey.options} />
+      <ShowOptions optionData={optionData} handleChange={handleChange} options={survey.options!} />
+      <ActionsOption handleOptionAction={handleOptionAction} options={survey.options!} />
     </Box>
   )
 }

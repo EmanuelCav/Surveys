@@ -10,7 +10,7 @@ const OptionsSurvey = ({ survey, isVoted, setIsVoted, user, totalVotes }: Option
     return (
         <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column" p={2}>
             {
-                survey.options.map((option: IOption) => {
+                survey.options!.map((option: IOption) => {
                     return <ShowOption survey={survey} user={user} option={option}
                         isVoted={isVoted} setIsVoted={setIsVoted} totalVotes={totalVotes} key={option.id} />
                 })

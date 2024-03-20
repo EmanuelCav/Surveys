@@ -24,7 +24,7 @@ const Survey = () => {
   const getData = async () => {
     dispatch(surveyGet({
       id: Number(params.id),
-      token: user.user.token
+      token: user.user.token!
     }) as any)
   }
 

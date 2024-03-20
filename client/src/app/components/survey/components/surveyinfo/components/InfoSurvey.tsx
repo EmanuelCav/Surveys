@@ -23,7 +23,7 @@ const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
     const getData = async () => {
 
         try {
-            const { data } = await recommendSurveyApi(survey.id, user.token)
+            const { data } = await recommendSurveyApi(survey.id!, user.token!)
             dispatch(updateSurveyAction(data))
         } catch (error) {
             console.log(error);
@@ -36,12 +36,12 @@ const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
     }
 
     const redirectProfile = () => {
-        navigate(`/profile/${survey.user.id}`)
+        navigate(`/profile/${survey.user!.id}`)
     }
 
     useEffect(() => {
-        survey.recommendations.find((recommendation: IRecommendation) => {
-            if (recommendation.userId === user.user.id) {
+        survey.recommendations!.find((recommendation: IRecommendation) => {
+            if (recommendation.userId === user.user?.id) {
                 setIsLiked(true)
             }
         })
@@ -55,15 +55,15 @@ const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
         }}>
             {
                 isLiked ? (
-                    <ActionSurvey data={`Recommendations: ${survey.recommendations.length}`} Icon={AiFillStar} func={likeSurvey} />
+                    <ActionSurvey data={`Recommendations: ${survey.recommendations!.length}`} Icon={AiFillStar} func={likeSurvey} />
                 ) : (
-                    <ActionSurvey data={`Recommendations: ${survey.recommendations.length}`} Icon={AiOutlineStar} func={likeSurvey} />
+                    <ActionSurvey data={`Recommendations: ${survey.recommendations!.length}`} Icon={AiOutlineStar} func={likeSurvey} />
                 )
             }
-            <ActionSurvey data={`Comments: ${survey.comments.length}`} Icon={BiCommentDetail} func={() => {}} />
-            <ActionSurvey data={`From: ${survey.user.username}`} Icon={BiUser} func={redirectProfile} />
+            <ActionSurvey data={`Comments: ${survey.comments!.length}`} Icon={BiCommentDetail} func={() => {}} />
+            <ActionSurvey data={`From: ${survey.user!.username}`} Icon={BiUser} func={redirectProfile} />
             <Typography variant="h6">
-                Creation date: {survey.createdAt.split("T")[0]}
+                Creation date: {survey.createdAt!.split("T")[0]}
             </Typography>
         </Box>
     )

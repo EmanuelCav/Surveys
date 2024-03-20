@@ -21,8 +21,8 @@ const SurveyInfo = ({ survey, user, dispatch, navigate }: SurveyInfoPropsType) =
 
   const removeSurvey = async () => {
     dispatch(surveyRemove({
-      id: user.user.id,
-      token: user.token,
+      id: user.user?.id!,
+      token: user.token!,
       survey,
       setIsRemove,
       navigate
@@ -31,8 +31,8 @@ const SurveyInfo = ({ survey, user, dispatch, navigate }: SurveyInfoPropsType) =
 
   const handleState = () => {
     dispatch(surveyUpdateState({
-      id: survey.id,
-      token: user.token,
+      id: survey.id!,
+      token: user.token!,
       stateData: {
         state: survey.state === "PUBLIC" ? "PRIVATE" : "PUBLIC"
       },
@@ -42,9 +42,9 @@ const SurveyInfo = ({ survey, user, dispatch, navigate }: SurveyInfoPropsType) =
 
   useEffect(() => {
 
-    for (let i = 0; i < survey.options.length; i++) {
-      survey.options[i].votes.find((vote: IVote) => {
-        if (vote.userId === user.user.id) {
+    for (let i = 0; i < survey.options!.length; i++) {
+      survey.options![i].votes.find((vote: IVote) => {
+        if (vote.userId === user.user?.id) {
           setIsVoted(true)
           return
         }
@@ -68,10 +68,10 @@ const SurveyInfo = ({ survey, user, dispatch, navigate }: SurveyInfoPropsType) =
       }
       <TitleSurvey survey={survey} user={user} setIsState={setIsState} setIsRemove={setIsRemove} />
       <Typography variant="h5">{survey.title}</Typography>
-      <OptionsSurvey survey={survey} isVoted={isVoted} setIsVoted={setIsVoted} totalVotes={totalVotes(survey.options)} user={user} />
+      <OptionsSurvey survey={survey} isVoted={isVoted} setIsVoted={setIsVoted} totalVotes={totalVotes(survey.options!)} user={user} />
       <InfoSurvey survey={survey} user={user} />
       <Typography variant="h6" align="center" mt={2} color="#f64">
-        Votes: {totalVotes(survey.options)}
+        Votes: {totalVotes(survey.options!)}
       </Typography>
     </Box>
   )

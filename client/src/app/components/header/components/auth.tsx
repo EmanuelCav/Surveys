@@ -30,7 +30,7 @@ const Auth = ({ user, setIsLogin, navigate }: AuthPropsType) => {
     }}>
       {
         user.isLoggedIn ?
-          <NavIsAuth navigate={navigate} id={user.user.user.id} />
+          <NavIsAuth navigate={navigate} id={user.user.user?.id!} />
           :
           <ButtonNav func={redirectAuth} ComponentIcon={AiOutlineUser} text='Sign in' />
       }

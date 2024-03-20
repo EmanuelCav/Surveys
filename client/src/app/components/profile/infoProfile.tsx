@@ -7,7 +7,7 @@ import Username from './components/infoProfile/Username';
 import { InfoProfilePropsType } from '../../types/props.types';
 
 import { followApi } from "../../server/api/user.api";
-import { getUserAction } from "../../server/features/user.features";
+import { getUserAction, userAction } from "../../server/features/user.features";
 
 const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }: InfoProfilePropsType) => {
 
@@ -17,8 +17,9 @@ const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }
 
         try {
 
-            const { data } = await followApi(user.id, loggedUser.token)
-            dispatch(getUserAction(data))
+            const { data } = await followApi(user.id, loggedUser.token!)
+            dispatch(getUserAction(data.user))
+            dispatch(userAction(data.userLoggedIn))
 
             setIsFollowing(!isFollowing)
 
@@ -29,7 +30,7 @@ const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }
 
     useEffect(() => {
         user.followers.find((u) => {
-            if (u.followingId === loggedUser.user.id) {
+            if (u.followingId === loggedUser.user?.id) {
                 setIsFollowing(true)
             }
         })
@@ -43,7 +44,7 @@ const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }
             </Typography>
             <FollowInfo user={user} />
             {
-                user.id === loggedUser.user.id ? (
+                user.id === loggedUser.user?.id ? (
                     <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={handleEditProfile}>Edit Profile</Button>
                 ) : (
                     isFollowing ? (

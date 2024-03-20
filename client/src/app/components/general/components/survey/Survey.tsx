@@ -17,13 +17,13 @@ const ShowSurvey = ({ survey, redirectSurvey, user }: SurveyPropsType) => {
                     <Typography noWrap variant="h6" align="center" component="div">
                         {survey.title}
                     </Typography>
-                    <ListOptionsSurvey options={survey.options} />
+                    <ListOptionsSurvey options={survey.options!} />
                     <Typography variant="subtitle1">
                         More...
                     </Typography>
                     <InfoShowSurvey survey={survey} user={user} />
                 </CardContent>
-                <ButtonCard id={survey.id} func={redirectSurvey} text="Take part" />
+                <ButtonCard id={survey.id!} func={redirectSurvey} text="Take part" />
             </Card>
         </Grid>
     )

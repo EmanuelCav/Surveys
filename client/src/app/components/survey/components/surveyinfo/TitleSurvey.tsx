@@ -26,7 +26,7 @@ const TitleSurvey = ({ user, survey, setIsRemove, setIsState }: TitleSurveyProps
                 {survey.title}
             </Typography>
             {
-                user.user.id === survey.user.id &&
+                user.user?.id === survey.user!.id &&
                 <MdMoreVert
                     size={28}
                     style={{ cursor: 'pointer' }}

@@ -7,10 +7,11 @@ import registerValid from '../middleware/validation/validation/register.valid';
 import profileValid from "../middleware/validation/validation/profile.valid";
 
 import auth from '../middleware/auth/auth'
+import permission from "../middleware/auth/permission";
 
 const router = Router()
 
-router.get('/users', userCtrl.users)
+router.get('/users', permission, userCtrl.users)
 router.get('/users/:id', auth, userCtrl.user)
 router.post('/register', registerValid, userCtrl.register)
 router.post('/login', loginValid, userCtrl.login)

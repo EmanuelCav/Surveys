@@ -9,6 +9,7 @@ import SurveySlider from "../components/index/SurveySlider";
 import UserSlider from "../components/index/UserSlider";
 import ShowSurveys from "../components/general/ShowSurveys";
 import SurveysFollow from "../components/index/SurveysFollow";
+import DontFollow from "../components/index/DontFollow";
 
 import { usersApi } from "../server/api/user.api";
 import { surveysApi, surveysFollowApi } from "../server/api/surveys.api";
@@ -30,11 +31,11 @@ const Index = () => {
   const [amountUsers, setAmountUsers] = useState<number>(0)
 
   const getData = async () => {
-    const surveysData = await surveysApi()
-    const usersData = await usersApi(0)
+    const surveysData = await surveysApi(user.isLoggedIn ? user.user.token! : undefined)
+    const usersData = await usersApi(0, user.isLoggedIn ? user.user.token! : undefined)
 
     if(user.isLoggedIn) {
-        const surveysFollowData = await surveysFollowApi(user.user.token)
+        const surveysFollowData = await surveysFollowApi(user.user.token!)
         dispatch(surveysFollowAction(surveysFollowData.data))
     }
 
@@ -70,8 +71,8 @@ const Index = () => {
         user.isLoggedIn && 
         <>
           {
-            user.user.user.following.length > 0 ? <SurveysFollow surveys={surveys.surveys} redirectSurvey={redirectSurvey} user={user.user} />
-            : <SurveysFollow surveys={surveys.surveys} redirectSurvey={redirectSurvey} user={user.user} />
+            user.user.user?.following.length! > 0 ? <SurveysFollow surveys={surveys.surveysFollowing} redirectSurvey={redirectSurvey} user={user.user} />
+            : <DontFollow redirectUsers={redirectUsers} />
           }
         </>
       }

@@ -1,10 +1,10 @@
-import { genderType } from "../types/action.types";
+import { genderType, userReducerType } from "../types/action.types";
 import { ISurvey } from "./Survey";
 
 export interface ICounterUser {
-    user: object;
+    user: userReducerType;
     isLoggedIn: boolean;
-    profile: object;
+    profile: IUser;
     users: IUser[]
     countries: ICountry[];
 }

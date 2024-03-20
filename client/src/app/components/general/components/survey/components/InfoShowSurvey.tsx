@@ -12,22 +12,22 @@ const InfoShowSurvey = ({ survey, user }: InfoSurveyPropsType) => {
     return (
         <Box display="flex" justifyContent='flex-start' alignItems='center' mt={1}>
             {
-                hasUserParticipate(survey.options, user) && <MdDone size={24} color={'#f64'} />
+                hasUserParticipate(survey.options!, user.user!) && <MdDone size={24} color={'#f64'} />
             }
             <Box display="flex" justifyContent='flex-start' alignItems='center' ml={4}>
                 <BiUser size={20} color={'#f64'} />
                 <Typography variant='subtitle1' ml={1}>
-                    {totalVotes(survey.options)}
+                    {totalVotes(survey.options!)}
                 </Typography>
             </Box>
             <Box display="flex" justifyContent='flex-start' alignItems='center' ml={4}>
                 {
-                    survey.recommendations.find((recommendation: IRecommendation) => recommendation.userId === user.id) ?
+                    survey.recommendations!.find((recommendation: IRecommendation) => recommendation.userId === user.user?.id) ?
                         <AiFillStar size={20} color={'#f64'} /> :
                         <AiOutlineStar size={20} color={'#f64'} />
                 }
                 <Typography variant='subtitle1' ml={1}>
-                    {survey.recommendations.length}
+                    {survey.recommendations!.length}
                 </Typography>
             </Box>
         </Box>

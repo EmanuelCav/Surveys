@@ -26,7 +26,7 @@ const Profile = () => {
   const getData = async () => {
     dispatch(userProfile({
       id: Number(params.id!),
-      token: user.user.token
+      token: user.user.token!
     }) as any)
   }
 

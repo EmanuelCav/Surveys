@@ -25,7 +25,7 @@ const Surveys = () => {
   }
 
   const getData = async () => {
-    dispatch(surveyAll() as any)
+    dispatch(surveyAll(user) as any)
   }
 
   useEffect(() => {

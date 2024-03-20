@@ -40,7 +40,7 @@ const Users = () => {
     const defineUsersLength = async () => {
 
         try {
-            const { data } = await usersApi((page - 1)*30)
+            const { data } = await usersApi((page - 1)*30, user.isLoggedIn ? user.user.token! : undefined)
             setUsersLength(Math.ceil(data.length / 30))
         } catch (error) {
             console.log(error);
@@ -49,7 +49,8 @@ const Users = () => {
 
     const getData = async () => {
         dispatch(userAll({
-            page: (page - 1)*30
+            page: (page - 1)*30,
+            token: user.isLoggedIn ? user.user.token! : undefined
         }) as any)
     }
 

@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Box, Button, SelectChangeEvent, TextField } from '@mui/material';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +12,8 @@ import { ICreateSurvey } from '../../interfaces/Survey';
 import { CreateSurveyPropsType } from '../../types/props.types';
 
 import { surveyCreate } from '../../server/actions/survey.actions';
+import { categoriesApi } from '../../server/api/surveys.api';
+import { categoriesAction } from '../../server/features/surveys.features';
 
 import { states } from '../../helper/properties';
 
@@ -31,7 +33,7 @@ const CreateSurvey = ({ user, setIsOptions, dispatch, categories }: CreateSurvey
         dispatch(surveyCreate({
             setIsOptions,
             surveyData,
-            token: user.token
+            token: user.token!
         }) as any)
     }
 
@@ -49,6 +51,15 @@ const CreateSurvey = ({ user, setIsOptions, dispatch, categories }: CreateSurvey
         e.preventDefault()
         getData()
     }
+
+    const getCategories = async () => {
+        const { data } = await categoriesApi()
+        dispatch(categoriesAction(data))
+    }
+
+    useEffect(() => {
+        getCategories()
+    }, [])
 
     return (
         <Box component="form" noValidate sx={{

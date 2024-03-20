@@ -25,8 +25,8 @@ export type genderType = {
 }
 
 export type userReducerType = {
-    user: IUser;
-    token: string;
+    user?: IUser;
+    token?: string;
 }
 
 export type UserLoginActionPropsType = {
@@ -61,6 +61,7 @@ export type SurveyGetActionPropsType = {
 
 export type UserAllActionPropsType = {
     page: number;
+    token: string | undefined;
 }
 
 export type UserProfileActionPropsType = {

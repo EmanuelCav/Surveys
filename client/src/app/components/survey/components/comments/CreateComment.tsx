@@ -25,7 +25,7 @@ const CreateComment = ({ user, survey }: CommentsPropsType) => {
 
     try {
 
-      const { data } = await commentSurveyApi(survey.id, commentData, user.token)
+      const { data } = await commentSurveyApi(survey.id!, commentData, user.token!)
       dispatch(getSurveyAction(data))
 
     } catch (error) {

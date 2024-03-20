@@ -3,22 +3,22 @@ import { IUser } from "./User";
 
 export interface ICounterSurvey {
     surveys: ISurvey[];
-    survey: object;
+    survey: ISurvey;
     categories: ICategory[];
     surveysFollowing: ISurvey[];
 }
 
 export interface ISurvey {
-    id: number;
-    title: string;
-    options: IOption[];
-    recommendations: IRecommendation[];
-    comments: IComment[];
-    category: ICategory;
-    user: IUser;
-    state: StateTypeKey;
-    createdAt: string;
-    updatedAt: string;
+    id?: number;
+    title?: string;
+    options?: IOption[];
+    recommendations?: IRecommendation[];
+    comments?: IComment[];
+    category?: ICategory;
+    user?: IUser;
+    state?: StateTypeKey;
+    createdAt?: string;
+    updatedAt?: string;
 }
 
 export interface ICategory {

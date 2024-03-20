@@ -50,7 +50,7 @@ export const userAll = createAsyncThunk('user/all', async (userData: UserAllActi
 
     try {
 
-        const { data } = await userApi.usersApi(userData.page)
+        const { data } = await userApi.usersApi(userData.page, userData.token)
 
         dispatch(userFeatures.usersAction(data.users))
 

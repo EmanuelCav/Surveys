@@ -8,11 +8,13 @@ import { SurveyCreateActionPropsType, SurveyGetActionPropsType, SurveyOptionActi
 
 import { dangerMessage, successMessage } from "../../helper/message";
 
-export const surveyAll = createAsyncThunk('survey/all', async (_, { dispatch }) => {
+import { ICounterUser } from "../../interfaces/User";
+
+export const surveyAll = createAsyncThunk('survey/all', async (user: ICounterUser, { dispatch }) => {
 
     try {
 
-        const { data } = await surveyApi.surveysApi()
+        const { data } = await surveyApi.surveysApi(user.isLoggedIn ? user.user.token! : undefined)
 
         dispatch(surveyFeatures.surveysAction(data))
 
@@ -58,10 +60,10 @@ export const surveyOptions = createAsyncThunk('survey/option', async (surveyOpti
     try {        
 
         for (let i = 0; i < surveyOptionData.optionData.length; i++) {
-            await surveyApi.updateOptionApi(surveyOptionData.survey.options[i].id, surveyOptionData.optionData[i], surveyOptionData.token)
+            await surveyApi.updateOptionApi(surveyOptionData.survey.options![i].id, surveyOptionData.optionData[i], surveyOptionData.token)
         }
 
-        const { data } = await surveyApi.getSurveyApi(surveyOptionData.survey.id, surveyOptionData.token)
+        const { data } = await surveyApi.getSurveyApi(surveyOptionData.survey.id!, surveyOptionData.token)
 
         dispatch(surveyFeatures.getSurveyAction(data))
 
@@ -91,7 +93,7 @@ export const surveyRemove = createAsyncThunk('survey/remove', async (surveyData:
 
     try {
 
-        const { data } = await surveyApi.removeSurveyApi(surveyData.survey.id, surveyData.token)
+        const { data } = await surveyApi.removeSurveyApi(surveyData.survey.id!, surveyData.token)
 
         dispatch(surveyFeatures.removeSurveyAction(surveyData.survey))
 

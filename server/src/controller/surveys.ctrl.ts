@@ -7,6 +7,12 @@ export const surveys = async (req: Request, res: Response): Promise<Response> =>
     try {
 
         const showSurveys = await prisma.survey.findMany({
+            where: {
+                state: 'PUBLIC',
+                userId: {
+                    not: req.permission
+                }
+            },
             include: {
                 options: {
                     select: {
@@ -49,17 +55,34 @@ export const surveysFollow = async (req: Request, res: Response): Promise<Respon
                         followingId: true
                     }
                 }
-            }
+            },
         })
 
         if (!user) {
             return res.status(200).json({ message: "User does not exists" })
         }
-        
+
         const surveys = await prisma.survey.findMany({
             where: {
                 userId: {
-                    in: user.following.map(u => u.followingId)
+                    in: user.following.map(u => u.followerId)
+                },
+                state: 'PUBLIC'
+            },
+            include: {
+                options: {
+                    select: {
+                        id: true,
+                        name: true,
+                        votes: true
+                    }
+                },
+                recommendations: true,
+                user: {
+                    select: {
+                        id: true,
+                        username: true
+                    }
                 }
             }
         })
@@ -165,7 +188,7 @@ export const removeSurvey = async (req: Request, res: Response): Promise<Respons
     const { id } = req.params
 
     try {
-        
+
         const survey = await prisma.survey.findFirst({
             where: {
                 id: Number(id)
@@ -306,7 +329,7 @@ export const changeState = async (req: Request, res: Response): Promise<Response
             }
         })
 
-        if(!survey) {
+        if (!survey) {
             return res.status(400).json(({
                 message: "Survey does not exists"
             }))

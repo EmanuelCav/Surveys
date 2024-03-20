@@ -26,7 +26,7 @@ const Username = ({ user, loggedUser, dispatch, navigate }: UsernamePropsType) =
                 {user.username}
             </Typography>
             {
-                user.id === loggedUser.user.id &&
+                user.id === loggedUser.user?.id &&
                 <MdMoreVert
                     size={28}
                     style={{ cursor: 'pointer' }}

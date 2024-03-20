@@ -30,8 +30,12 @@ export const getUserApi = async (id: number, token: string) => {
     })
 }
 
-export const usersApi = async (page: number) => {
-    return await api.get(`/users?page=${page}`)
+export const usersApi = async (page: number, token: string | undefined) => {
+    return await api.get(`/users?page=${page}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
 }
 
 export const followApi = async (id: number, token: string) => {

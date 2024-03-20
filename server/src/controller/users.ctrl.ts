@@ -16,6 +16,11 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
         const allUsers = await prisma.user.findMany()
 
         const showUsers = await prisma.user.findMany({
+            where: {
+                id: {
+                    not: req.permission
+                }
+            },
             skip: Number(page),
             take: Number(page) + 30,
             select: {
@@ -277,7 +282,7 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
 
         let userUpdated
 
-        if(user.followers.find((follow) => follow.followingId === req.user)) {
+        if (user.followers.find((follow) => follow.followingId === req.user)) {
 
             userUpdated = await prisma.user.update({
                 where: {
@@ -319,9 +324,9 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
                     }
                 }
             })
-            
+
         } else {
-            
+
             userUpdated = await prisma.user.update({
                 where: {
                     id: Number(id)
@@ -363,7 +368,24 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
             })
         }
 
-        return res.status(200).json(userUpdated)
+        const userLoggedIn = await prisma.user.findUnique({
+            where: {
+                id: req.user
+            },
+            include: {
+                country: true,
+                following: {
+                    select: {
+                        followingId: true
+                    }
+                }
+            }
+        })
+
+        return res.status(200).json({
+            user: userUpdated,
+            userLoggedIn
+        })
 
     } catch (error) {
         throw (error);

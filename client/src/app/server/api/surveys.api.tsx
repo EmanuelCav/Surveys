@@ -6,8 +6,12 @@ import { host } from '../../config/import';
 
 const api = axios.create({ baseURL: `${host}` })
 
-export const surveysApi = async () => {
-    return await api.get('/surveys')
+export const surveysApi = async (token: string | undefined) => {
+    return await api.get('/surveys', {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
 }
 
 export const surveysFollowApi = async (token: string) => {
