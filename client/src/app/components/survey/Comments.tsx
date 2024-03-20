@@ -10,7 +10,7 @@ const Comments = ({ user, survey }: CommentsPropsType) => {
     return (
         <Box className="container-comments">
             <CreateComment user={user} survey={survey} />
-            <SurveyComments user={user} comments={survey.comments} />
+            <SurveyComments user={user} comments={survey.comments!} />
         </Box>
     )
 }

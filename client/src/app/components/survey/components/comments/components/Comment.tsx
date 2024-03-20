@@ -4,6 +4,8 @@ import { AiOutlineStar, AiFillStar, AiOutlineDelete } from 'react-icons/ai';
 import { Box, Typography } from '@mui/material';
 
 import ActionComment from './ActionComment';
+import NicknameComment from './NicknameComment';
+import ActionPrivateSurvey from '../../surveyinfo/components/ActionPrivateSurvey';
 
 import { likeCommentApi, removeCommentApi } from "../../../../../server/api/surveys.api";
 import { getSurveyAction } from "../../../../../server/features/surveys.features";
@@ -15,12 +17,20 @@ const Comment = ({ comment, user }: CommentPropsType) => {
   const dispatch = useDispatch()
 
   const [isLiked, setIsLiked] = useState<boolean>(false)
+  const [isRemove, setIsRemove] = useState<boolean>(false)
+
+  const handleRemove = () => {
+    setIsRemove(true)
+  }
 
   const removeComment = async () => {
 
     try {
+
       const { data } = await removeCommentApi(comment.id, user.token!)
-      dispatch(getSurveyAction(data))
+      dispatch(getSurveyAction(data.survey))
+      setIsRemove(false)
+
     } catch (error) {
       console.log(error);
     }
@@ -50,11 +60,14 @@ const Comment = ({ comment, user }: CommentPropsType) => {
   }, [isLiked, comment.likes])
 
   return (
-    <Box width='100%' mt={2} sx={{
+    <Box width='100%' position='relative' mt={2} sx={{
       wordWrap: 'break-word'
     }}>
-      <ActionComment Icon={AiOutlineDelete} handleAction={removeComment} info={`${comment.user.username}`} />
-      <Typography variant='h6' mb={1}>
+      {
+        isRemove && <ActionPrivateSurvey buttonText='Remove' text='Are you sure to remove the comment?' func={removeComment} setIsAction={setIsRemove} />
+      }
+      <NicknameComment Icon={AiOutlineDelete} handleAction={handleRemove} info={comment.user.username} />
+      <Typography variant='subtitle1' my={2}>
         {comment.comment}
       </Typography>
       {

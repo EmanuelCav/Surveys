@@ -169,6 +169,7 @@ export type ActionSurveyPropsType = {
     Icon: any;
     data: string;
     func: () => void;
+    isHover: boolean;
 }
 
 export type InfoSurveyPropsType = {

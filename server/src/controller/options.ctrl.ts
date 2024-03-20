@@ -236,8 +236,21 @@ export const vote = async (req: Request, res: Response): Promise<Response> => {
                     }
                 },
                 comments: {
-                    include: {
-                        user: true
+                    select: {
+                        id: true,
+                        comment: true,
+                        user: {
+                            select: {
+                                id: true,
+                                username: true
+                            }
+                        },
+                        likes: {
+                            select: {
+                                userId: true,
+                                commentId: true
+                            }
+                        }
                     }
                 },
                 user: true,

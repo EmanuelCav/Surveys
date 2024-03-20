@@ -114,15 +114,26 @@ export const survey = async (req: Request, res: Response): Promise<Response> => 
                 },
                 recommendations: true,
                 comments: {
-                    include: {
-                        user: true
+                    select: {
+                        id: true,
+                        comment: true,
+                        user: {
+                            select: {
+                                id: true,
+                                username: true
+                            }
+                        },
+                        likes: {
+                            select: {
+                                userId: true,
+                                commentId: true
+                            }
+                        }
                     }
                 },
                 user: true
             }
         })
-
-        // const showSurveyFilter = exclude(showSurvey, ['password', 'role'])
 
         if (!showSurvey) {
             return res.status(400).json({
@@ -266,8 +277,21 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
                         }
                     },
                     comments: {
-                        include: {
-                            user: true
+                        select: {
+                            id: true,
+                            comment: true,
+                            user: {
+                                select: {
+                                    id: true,
+                                    username: true
+                                }
+                            },
+                            likes: {
+                                select: {
+                                    userId: true,
+                                    commentId: true
+                                }
+                            }
                         }
                     },
                     user: true,
@@ -297,8 +321,21 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
                         }
                     },
                     comments: {
-                        include: {
-                            user: true
+                        select: {
+                            id: true,
+                            comment: true,
+                            user: {
+                                select: {
+                                    id: true,
+                                    username: true
+                                }
+                            },
+                            likes: {
+                                select: {
+                                    userId: true,
+                                    commentId: true
+                                }
+                            }
                         }
                     },
                     user: true,
@@ -352,8 +389,21 @@ export const changeState = async (req: Request, res: Response): Promise<Response
                 },
                 recommendations: true,
                 comments: {
-                    include: {
-                        user: true
+                    select: {
+                        id: true,
+                        comment: true,
+                        user: {
+                            select: {
+                                id: true,
+                                username: true
+                            }
+                        },
+                        likes: {
+                            select: {
+                                userId: true,
+                                commentId: true
+                            }
+                        }
                     }
                 },
                 user: true

@@ -34,3 +34,11 @@ export const updateOptionsSchema = z.object({
         message: "Characters like <, > are not allowed"
     })
 })
+
+export const createCommentSchema = z.object({
+    comment: z.string().min(1, {
+        message: "There are empty fields"
+    }).trim().refine((value) => /^[^<>]+$/.test(value), {
+        message: "Characters like <, > are not allowed"
+    })
+})

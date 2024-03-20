@@ -12,6 +12,9 @@ export const createComment = async (req: Request, res: Response): Promise<Respon
         const survey = await prisma.survey.findFirst({
             where: {
                 id: Number(id)
+            },
+            include: {
+                comments: true
             }
         })
 
@@ -21,39 +24,52 @@ export const createComment = async (req: Request, res: Response): Promise<Respon
             })
         }
 
+        if (survey.comments.filter((c) => c.userId === req.user).length >= 2) {
+            return res.status(400).json({
+                message: "You cannot upload more than 2 comments"
+            })
+        }
+
         const surveyUpdated = await prisma.survey.update({
             where: {
                 id: Number(id)
             },
             data: {
                 comments: {
-                    create: [{
+                    create: {
                         comment,
                         userId: Number(req.user)
-                    }]
+                    }
                 }
             },
             include: {
                 options: {
                     select: {
+                        id: true,
                         name: true,
                         votes: true
                     }
                 },
+                recommendations: true,
                 comments: {
-                    include: {
+                    select: {
+                        id: true,
+                        comment: true,
                         user: {
                             select: {
-                                password: false
+                                id: true,
+                                username: true
+                            }
+                        },
+                        likes: {
+                            select: {
+                                userId: true,
+                                commentId: true
                             }
                         }
                     }
                 },
-                user: {
-                    select: {
-                        password: false
-                    }
-                }
+                user: true
             }
         })
 
@@ -89,7 +105,7 @@ export const removeComment = async (req: Request, res: Response): Promise<Respon
             })
         }
 
-        await prisma.survey.update({
+        const surveyUpdated = await prisma.survey.update({
             where: {
                 id: comment.surveyId
             },
@@ -103,34 +119,38 @@ export const removeComment = async (req: Request, res: Response): Promise<Respon
             include: {
                 options: {
                     select: {
+                        id: true,
                         name: true,
                         votes: true
                     }
                 },
+                recommendations: true,
                 comments: {
-                    include: {
+                    select: {
+                        id: true,
+                        comment: true,
                         user: {
                             select: {
-                                password: false
+                                id: true,
+                                username: true
+                            }
+                        },
+                        likes: {
+                            select: {
+                                userId: true,
+                                commentId: true
                             }
                         }
                     }
                 },
-                user: {
-                    select: {
-                        password: false
-                    }
-                }
+                user: true
             }
         })
 
-        await prisma.comment.delete({
-            where: {
-                id: Number(id)
-            }
+        return res.status(200).json({
+            message: "Comment removed successfully",
+            survey: surveyUpdated
         })
-
-        return res.status(200).json({ message: "Comment removed successfully" })
 
     } catch (error) {
         throw (error);

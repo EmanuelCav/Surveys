@@ -28,6 +28,10 @@ const CreateComment = ({ user, survey }: CommentsPropsType) => {
       const { data } = await commentSurveyApi(survey.id!, commentData, user.token!)
       dispatch(getSurveyAction(data))
 
+      setCommentData({
+        comment: ""
+      })
+
     } catch (error) {
       console.log(error);
     }
@@ -41,9 +45,6 @@ const CreateComment = ({ user, survey }: CommentsPropsType) => {
   const handleSumbit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     getData()
-    setCommentData({
-      comment: ""
-    })
   }
 
   return (
@@ -64,7 +65,7 @@ const CreateComment = ({ user, survey }: CommentsPropsType) => {
           },
         }}
       />
-      <Button variant='contained' color='warning' disabled={comment.length === 0}>SEND</Button>
+      <Button type="submit" variant='contained' color='warning' disabled={comment.length === 0}>SEND</Button>
     </Box>
   )
 }

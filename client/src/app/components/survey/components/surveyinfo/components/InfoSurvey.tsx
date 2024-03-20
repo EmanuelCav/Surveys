@@ -55,13 +55,13 @@ const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
         }}>
             {
                 isLiked ? (
-                    <ActionSurvey data={`Recommendations: ${survey.recommendations!.length}`} Icon={AiFillStar} func={likeSurvey} />
+                    <ActionSurvey data={`Recommendations: ${survey.recommendations!.length}`} Icon={AiFillStar} func={likeSurvey} isHover={true} />
                 ) : (
-                    <ActionSurvey data={`Recommendations: ${survey.recommendations!.length}`} Icon={AiOutlineStar} func={likeSurvey} />
+                    <ActionSurvey data={`Recommendations: ${survey.recommendations!.length}`} Icon={AiOutlineStar} func={likeSurvey} isHover={true} />
                 )
             }
-            <ActionSurvey data={`Comments: ${survey.comments!.length}`} Icon={BiCommentDetail} func={() => {}} />
-            <ActionSurvey data={`From: ${survey.user!.username}`} Icon={BiUser} func={redirectProfile} />
+            <ActionSurvey data={`Comments: ${survey.comments!.length}`} Icon={BiCommentDetail} func={() => {}} isHover={false} />
+            <ActionSurvey data={`From: ${survey.user!.username}`} Icon={BiUser} func={redirectProfile} isHover={true} />
             <Typography variant="h6">
                 Creation date: {survey.createdAt!.split("T")[0]}
             </Typography>

@@ -2,12 +2,12 @@ import { Box, Typography } from "@mui/material"
 
 import { ActionSurveyPropsType } from "../../../../../../types/props.types"
 
-const ActionSurvey = ({ data, Icon, func }: ActionSurveyPropsType) => {
+const ActionSurvey = ({ data, Icon, func, isHover }: ActionSurveyPropsType) => {
     return (
         <Box display='flex' justifyContent='center' alignItems='center' sx={{
-            cursor: 'pointer',
+            cursor: isHover ? 'pointer' : 'default',
             ":hover": {
-                color: '#f64'
+                color: isHover ? '#f64' : '#000'
             },
             ":active": {
                 color: '#000'

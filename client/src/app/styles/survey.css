@@ -269,6 +269,8 @@
 
 .remove-icon-comment {
     cursor: pointer;
+    position: absolute;
+    left: 100%;
 }
 
 .remove-icon-comment:hover {
