@@ -17,11 +17,16 @@ export interface IUser {
     email: string;
     gender: genderType;
     status: boolean;
-    followers: IUser[];
-    following: IUser[];
+    followers: IFollow[];
+    following: IFollow[];
     surveys: ISurvey[];
     description: string;
     country: ICountry;
+}
+
+export interface IFollow {
+    followerId: number;
+    followingId: number;
 }
 
 export interface ILogin {

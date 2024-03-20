@@ -70,8 +70,8 @@ const Index = () => {
         user.isLoggedIn && 
         <>
           {
-            user.user.user.following.length > 0 ? <SurveysFollow surveys={user.user.user.surveys} redirectSurvey={redirectSurvey} user={user.user} />
-            : <SurveysFollow surveys={user.user.user.surveys} redirectSurvey={redirectSurvey} user={user.user} />
+            user.user.user.following.length > 0 ? <SurveysFollow surveys={surveys.surveys} redirectSurvey={redirectSurvey} user={user.user} />
+            : <SurveysFollow surveys={surveys.surveys} redirectSurvey={redirectSurvey} user={user.user} />
           }
         </>
       }

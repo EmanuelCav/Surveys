@@ -23,7 +23,7 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
                 username: true,
                 followers: {
                     select: {
-                        userId: true
+                        followerId: true
                     }
                 },
                 surveys: {
@@ -76,12 +76,14 @@ export const user = async (req: Request, res: Response): Promise<Response> => {
                 country: true,
                 followers: {
                     select: {
-                        userId: true
+                        followerId: true,
+                        followingId: true
                     }
                 },
                 following: {
                     select: {
-                        userId: true
+                        followerId: true,
+                        followingId: true
                     }
                 }
             }
@@ -170,7 +172,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
                 country: true,
                 following: {
                     select: {
-                        userId: true
+                        followingId: true
                     }
                 }
             }
@@ -254,7 +256,8 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
             include: {
                 followers: {
                     select: {
-                        userId: true
+                        followerId: true,
+                        followingId: true
                     }
                 }
             }
@@ -272,68 +275,95 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
             })
         }
 
-        let userFollowed;
+        let userUpdated
 
-        if (user.followers.find((u) => Number(u.userId) === req.user)) {
+        if(user.followers.find((follow) => follow.followingId === req.user)) {
 
-            await prisma.user.update({
-                where: {
-                    id: req.user
-                },
-                data: {
-                    following: {
-                        delete: [{
-                            userId: Number(id)
-                        }]
-                    }
-                }
-            })
-
-            userFollowed = await prisma.user.update({
+            userUpdated = await prisma.user.update({
                 where: {
                     id: Number(id)
                 },
                 data: {
                     followers: {
-                        delete: [{
-                            userId: req.user
-                        }]
+                        deleteMany: {
+                            followerId: Number(id),
+                            followingId: req.user
+                        }
+                    }
+                },
+                include: {
+                    surveys: {
+                        include: {
+                            options: {
+                                select: {
+                                    id: true,
+                                    name: true,
+                                    votes: true
+                                }
+                            },
+                            recommendations: true
+                        }
+                    },
+                    country: true,
+                    followers: {
+                        select: {
+                            followerId: true,
+                            followingId: true
+                        }
+                    },
+                    following: {
+                        select: {
+                            followerId: true,
+                            followingId: true
+                        }
                     }
                 }
             })
-
+            
         } else {
-
-            await prisma.user.update({
-                where: {
-                    id: req.user
-                },
-                data: {
-                    following: {
-                        create: [{
-                            userId: Number(id)
-                        }]
-                    }
-                }
-            })
-
-
-            await prisma.user.update({
+            
+            userUpdated = await prisma.user.update({
                 where: {
                     id: Number(id)
                 },
                 data: {
                     followers: {
-                        create: [{
-                            userId: req.user
-                        }]
+                        create: {
+                            followingId: req.user
+                        }
+                    }
+                },
+                include: {
+                    surveys: {
+                        include: {
+                            options: {
+                                select: {
+                                    id: true,
+                                    name: true,
+                                    votes: true
+                                }
+                            },
+                            recommendations: true
+                        }
+                    },
+                    country: true,
+                    followers: {
+                        select: {
+                            followerId: true,
+                            followingId: true
+                        }
+                    },
+                    following: {
+                        select: {
+                            followerId: true,
+                            followingId: true
+                        }
                     }
                 }
             })
-
         }
 
-        return res.status(200).json(userFollowed)
+        return res.status(200).json(userUpdated)
 
     } catch (error) {
         throw (error);
@@ -404,15 +434,15 @@ export const changeProfile = async (req: Request, res: Response): Promise<Respon
 
         let countryUpdated
 
-        if(country) {
+        if (country) {
 
             countryUpdated = await prisma.country.findFirst({
                 where: {
                     country
                 }
             })
-    
-            if(!countryUpdated) {
+
+            if (!countryUpdated) {
                 return res.status(400).json({
                     message: "Country does not exists."
                 })
@@ -445,12 +475,12 @@ export const changeProfile = async (req: Request, res: Response): Promise<Respon
                 country: true,
                 followers: {
                     select: {
-                        userId: true
+                        followerId: true
                     }
                 },
                 following: {
                     select: {
-                        userId: true
+                        followingId: true
                     }
                 }
             }

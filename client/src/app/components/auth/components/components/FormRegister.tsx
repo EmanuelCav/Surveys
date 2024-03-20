@@ -2,13 +2,14 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { Box, Button, Checkbox, SelectChangeEvent, TextField, Typography } from '@mui/material'
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
+import SelectGenderInput from './components/SelectGenderInput';
+
 import { IRegister } from '../../../../interfaces/User';
 import { FormLAuthPropsType } from '../../../../types/props.types';
 
 import { userRegister } from '../../../../server/actions/user.actions';
 
 import { genders } from '../../../../helper/properties';
-import SelectGenderInput from './components/SelectGenderInput';
 
 const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) => {
 

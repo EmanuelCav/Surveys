@@ -31,7 +31,7 @@ export const userRegister = createAsyncThunk('user/register', async (userRegiste
 
     try {
 
-        const { data } = await userApi.loginApi(userRegisterData.userData)
+        const { data } = await userApi.registerApi(userRegisterData.userData)
 
         dispatch(userFeatures.authAction(data.user))
 

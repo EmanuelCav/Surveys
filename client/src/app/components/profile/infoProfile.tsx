@@ -16,8 +16,12 @@ const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }
     const handleFollow = async () => {
 
         try {
+
             const { data } = await followApi(user.id, loggedUser.token)
             dispatch(getUserAction(data))
+
+            setIsFollowing(!isFollowing)
+
         } catch (error) {
             console.log(error);
         }
@@ -25,7 +29,7 @@ const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }
 
     useEffect(() => {
         user.followers.find((u) => {
-            if (u.id === loggedUser.user.id) {
+            if (u.followingId === loggedUser.user.id) {
                 setIsFollowing(true)
             }
         })
@@ -43,7 +47,7 @@ const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }
                     <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={handleEditProfile}>Edit Profile</Button>
                 ) : (
                     isFollowing ? (
-                        <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={handleFollow}>Following</Button>
+                        <Button color='warning' variant='outlined' sx={{ mt: 2 }} onClick={handleFollow}>Following</Button>
                     ) : (
                         <Button color='warning' variant='contained' sx={{ mt: 2 }} onClick={handleFollow}>Follow</Button>
                     )

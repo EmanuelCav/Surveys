@@ -45,7 +45,8 @@ export const surveysFollow = async (req: Request, res: Response): Promise<Respon
             include: {
                 following: {
                     select: {
-                        userId: true
+                        followerId: true,
+                        followingId: true
                     }
                 }
             }
@@ -58,7 +59,7 @@ export const surveysFollow = async (req: Request, res: Response): Promise<Respon
         const surveys = await prisma.survey.findMany({
             where: {
                 userId: {
-                    in: user.following.map(u => u.userId)
+                    in: user.following.map(u => u.followingId)
                 }
             }
         })
