@@ -10,7 +10,10 @@ import ActionPrivateSurvey from '../../surveyinfo/components/ActionPrivateSurvey
 import { likeCommentApi, removeCommentApi } from "../../../../../server/api/surveys.api";
 import { getSurveyAction } from "../../../../../server/features/surveys.features";
 
+import { ILike } from '../../../../../interfaces/Survey';
 import { CommentPropsType } from '../../../../../types/props.types';
+
+import { dangerMessage } from '../../../../../helper/message';
 
 const Comment = ({ comment, user }: CommentPropsType) => {
 
@@ -31,8 +34,8 @@ const Comment = ({ comment, user }: CommentPropsType) => {
       dispatch(getSurveyAction(data.survey))
       setIsRemove(false)
 
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      dangerMessage(error.response.data.message)
     }
 
   }
@@ -52,8 +55,8 @@ const Comment = ({ comment, user }: CommentPropsType) => {
   }
 
   useEffect(() => {
-    comment.likes.find((userId) => {
-      if (userId === user.user?.id) {
+    comment.likes.find((like: ILike) => {
+      if (like.userId === user.user?.id) {
         setIsLiked(true)
       }
     })

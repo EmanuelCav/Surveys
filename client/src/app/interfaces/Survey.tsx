@@ -59,8 +59,13 @@ export interface IComment {
     createdAt: string;
     updatedAt: string;
     comment: string;
-    likes: number[];
+    likes: ILike[];
     user: IUser
+}
+
+export interface ILike {
+    userId: number,
+    commentId: number;
 }
 
 export interface ICreateComment {

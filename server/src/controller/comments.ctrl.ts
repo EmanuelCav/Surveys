@@ -184,18 +184,19 @@ export const likeComment = async (req: Request, res: Response): Promise<Response
         }
 
         if (comment.likes.find((u) => u.userId === req.user)) {
-            // await prisma.comment.update({
-            //     where: {
-            //         id: Number(id)
-            //     },
-            //     data: {
-            //         likes: {
-            //             delete: {
-            //                 userId: req.user
-            //             }
-            //         }
-            //     }
-            // })
+            await prisma.comment.update({
+                where: {
+                    id: Number(id)
+                },
+                data: {
+                    likes: {
+                        deleteMany: {
+                            userId: req.user,
+                            commentId: Number(id)
+                        }
+                    }
+                }
+            })
         } else {
             await prisma.comment.update({
                 where: {
@@ -218,24 +219,31 @@ export const likeComment = async (req: Request, res: Response): Promise<Response
             include: {
                 options: {
                     select: {
+                        id: true,
                         name: true,
                         votes: true
                     }
                 },
+                recommendations: true,
                 comments: {
-                    include: {
+                    select: {
+                        id: true,
+                        comment: true,
                         user: {
                             select: {
-                                password: false
+                                id: true,
+                                username: true
+                            }
+                        },
+                        likes: {
+                            select: {
+                                userId: true,
+                                commentId: true
                             }
                         }
                     }
                 },
-                user: {
-                    select: {
-                        password: false
-                    }
-                }
+                user: true
             }
         })
 
