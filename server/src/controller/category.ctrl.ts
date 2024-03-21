@@ -9,7 +9,64 @@ export const categories = async (req: Request, res: Response): Promise<Response>
         const categories = await prisma.category.findMany()
 
         return res.status(200).json(categories)
-        
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const categoriesSurvey = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
+
+    try {
+
+        const category = await prisma.category.findFirst({
+            where: {
+                id: Number(id)
+            },
+            include: {
+                surveys: {
+                    include: {
+                        options: {
+                            select: {
+                                id: true,
+                                name: true,
+                                votes: true
+                            }
+                        },
+                        comments: {
+                            select: {
+                                id: true,
+                                comment: true,
+                                user: {
+                                    select: {
+                                        id: true,
+                                        username: true
+                                    }
+                                },
+                                likes: {
+                                    select: {
+                                        userId: true,
+                                        commentId: true
+                                    }
+                                }
+                            }
+                        },
+                        user: true,
+                        recommendations: true
+                    }
+                }
+            }
+        })
+
+        if(!category) {
+            return res.status(400).json({ message: "Category does not exists" })
+        }
+
+        return res.status(200).json(category.surveys)
+
     } catch (error) {
         throw error
     }
@@ -28,7 +85,7 @@ export const createCategory = async (req: Request, res: Response): Promise<Respo
             }
         })
 
-        if(categoryFound) {
+        if (categoryFound) {
             return res.status(400).json({ message: "Category already exists" })
         }
 
@@ -42,7 +99,7 @@ export const createCategory = async (req: Request, res: Response): Promise<Respo
         return res.status(200).json({
             message: "Category created successfully"
         })
-        
+
     } catch (error) {
         throw error
     }
@@ -55,13 +112,13 @@ export const removeCategory = async (req: Request, res: Response): Promise<Respo
 
     try {
 
-        const categoryFound = await prisma.category.findFirst({
+        const category = await prisma.category.findFirst({
             where: {
                 id: Number(id)
             }
         })
 
-        if(!categoryFound) {
+        if (!category) {
             return res.status(400).json({ message: "Category does not exists" })
         }
 
@@ -74,7 +131,7 @@ export const removeCategory = async (req: Request, res: Response): Promise<Respo
         return res.status(200).json({
             message: "Category removed successfully"
         })
-        
+
     } catch (error) {
         throw error
     }

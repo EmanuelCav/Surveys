@@ -125,5 +125,20 @@ export const surveyUpdateState = createAsyncThunk('survey/state', async (surveyD
 
 })
 
+export const categorySurveys = createAsyncThunk('survey/state', async (surveyData: UpdateStateActionPropsType, { dispatch }) => {
 
+    try {
 
+        const { data } = await surveyApi.updateStateApi(surveyData.stateData, surveyData.id, surveyData.token)
+
+        dispatch(surveyFeatures.getSurveyAction(data.survey))
+
+        surveyData.setIsState(false)
+        
+        successMessage(data.message)
+
+    } catch (error) {
+        console.log(error);
+    }
+
+})

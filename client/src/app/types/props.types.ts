@@ -363,3 +363,13 @@ export type DataPropsType = {
     amountUsers: number;
     amountSurveys: number;
 }
+
+export type ShowCategoriesPropsType = {
+    getCategory: () => void;
+    categories: ICategory[];
+}
+
+export type CategoryPropsType = {
+    getCategory: () => void;
+    category: ICategory;
+}

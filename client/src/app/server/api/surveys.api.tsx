@@ -125,3 +125,11 @@ export const updateStateApi = async (stateData: IUpdateState, id: number, token:
         }
     })
 }
+
+export const categoriesSurveyApi = async (id: number, token: string) => {
+    return await api.get(`/categories/${id}/surveys`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

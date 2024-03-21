@@ -17,14 +17,12 @@ export const createSurveySchema = z.object({
 export const createCategorySchema = z.object({
     category: z.string().min(1, {
         message: "There are empty fields"
-    }).trim().refine((value) => /^[a-zA-Z]+$/.test(value), {
+    }).trim().refine((value) => /^[a-zA-Z ]+$/.test(value), {
         message: "Only letters are allowed"
     }),
     icon: z.string().min(1, {
         message: "There are empty fields"
-    }).trim().refine((value) => /^[a-zA-Z]+$/.test(value), {
-        message: "Only letters are allowed"
-    }),
+    }).trim()
 })
 
 export const updateOptionsSchema = z.object({

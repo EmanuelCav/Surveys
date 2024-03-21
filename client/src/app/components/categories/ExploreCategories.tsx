@@ -3,15 +3,15 @@ import { Box } from "@mui/material"
 import ExploreHeader from "../general/ExploreHeader"
 import ShowCategories from "./components/ShowCategories"
 
-import { ICategory } from "../../interfaces/Survey"
+import { ShowCategoriesPropsType } from "../../types/props.types"
 
-const ExploreCategories = ({ categories }: { categories: ICategory[] }) => {
+const ExploreCategories = ({ categories, getCategory }: ShowCategoriesPropsType) => {
   return (
     <Box width='100%' p={2} sx={{
       marginLeft: '294px'
     }}>
       <ExploreHeader />
-      <ShowCategories categories={categories} />
+      <ShowCategories categories={categories} getCategory={getCategory} />
     </Box>
   )
 }

@@ -22,6 +22,10 @@ const Categories = () => {
         dispatch(categoriesAll() as any)
     }
 
+    const getCategory = () => {
+        console.log("getCategory");
+    }
+
     useEffect(() => {
         getData()
     }, [])
@@ -29,7 +33,7 @@ const Categories = () => {
     return (
         <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
             <Navigation isCategories={true} isUsers={false} isSurveys={false} navigate={navigate} />
-            <ExploreCategories categories={surveys.categories} />
+            <ExploreCategories categories={surveys.categories} getCategory={getCategory} />
         </Box>
     )
 }
