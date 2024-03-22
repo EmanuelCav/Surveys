@@ -3,14 +3,14 @@ import { Box } from "@mui/material"
 import ExploreHeader from "../general/ExploreHeader"
 import ShowCategories from "./components/ShowCategories"
 
-import { ShowCategoriesPropsType } from "../../types/props.types"
+import { ExploreCategoriesPropsType } from "../../types/props.types"
 
-const ExploreCategories = ({ categories, getCategory }: ShowCategoriesPropsType) => {
+const ExploreCategories = ({ categories, getCategory, handleFilter }: ExploreCategoriesPropsType) => {
   return (
     <Box width='100%' p={2} sx={{
       marginLeft: '294px'
     }}>
-      <ExploreHeader />
+      <ExploreHeader handleFilter={handleFilter} />
       <ShowCategories categories={categories} getCategory={getCategory} />
     </Box>
   )

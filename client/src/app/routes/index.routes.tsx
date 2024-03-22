@@ -31,7 +31,7 @@ const Index = () => {
   const [amountUsers, setAmountUsers] = useState<number>(0)
 
   const getData = async () => {
-    const surveysData = await surveysApi(user.isLoggedIn ? user.user.token! : undefined)
+    const surveysData = await surveysApi(user.isLoggedIn ? user.user.token! : undefined, 'random')
     const usersData = await usersApi(0, user.isLoggedIn ? user.user.token! : undefined)
 
     if(user.isLoggedIn) {

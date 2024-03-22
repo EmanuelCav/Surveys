@@ -6,7 +6,7 @@ import { Location, NavigateFunction } from "react-router-dom";
 import { userReducerType, userType } from "./action.types";
 import { ICategory, IComment, ICreateOption, IOption, ISurvey } from "../interfaces/Survey";
 import { ICountry, IUser } from "../interfaces/User";
-import { GenderTypeKey, PageTypeKey, StateTypeKey } from "./key.types";
+import { GenderTypeKey, PageTypeKey, OrderTypeKey, StateTypeKey, DateTypeKey } from "./key.types";
 
 export type IconPropsType = {
     navigate: NavigateFunction;
@@ -215,6 +215,13 @@ export type ActionCommentPropsType = {
     Icon: any;
 }
 
+export type ExploreSurveysPropsType = {
+    surveys: ISurvey[];
+    redirectSurvey: (id: number) => void;
+    user: userReducerType;
+    handleFilter: () => void;
+}
+
 export type ShowSurveysPropsType = {
     surveys: ISurvey[];
     redirectSurvey: (id: number) => void;
@@ -260,6 +267,7 @@ export type ExploreUsersPropsType = {
     page: number;
     navigate: NavigateFunction;
     usersLength: number;
+    handleFilter: () => void;
 }
 
 export type ChangeUserPropsType = {
@@ -369,7 +377,45 @@ export type ShowCategoriesPropsType = {
     categories: ICategory[];
 }
 
+export type ExploreCategoriesPropsType = {
+    getCategory: () => void;
+    categories: ICategory[];
+    handleFilter: () => void;
+}
+
 export type CategoryPropsType = {
     getCategory: () => void;
     category: ICategory;
+}
+
+export type FilterPropsType = {
+    isSurvey: boolean;
+    handleFilter: () => void;
+    handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
+    order: OrderTypeKey;
+    handleDate: (e: ChangeEvent<HTMLInputElement>) => void;
+    date: DateTypeKey;
+}
+
+export type FilterSurveyPropsType = {
+    handleFilter: () => void;
+    handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
+    order: OrderTypeKey;
+    handleDate: (e: ChangeEvent<HTMLInputElement>) => void;
+    date: DateTypeKey;
+}
+
+export type ButtonFilterPropsType = {
+    handleFilter: () => void;
+    handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export type OrderPropsType = {
+    handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
+    value: OrderTypeKey;
+}
+
+export type DatePropsType = {
+    value: DateTypeKey;
+    handleDate: (e: ChangeEvent<HTMLInputElement>) => void;
 }

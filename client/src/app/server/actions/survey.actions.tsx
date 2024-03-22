@@ -4,17 +4,15 @@ import * as surveyApi from '../api/surveys.api';
 import * as surveyFeatures from '../features/surveys.features';
 
 import { surveyRemoveType } from "../../types/survey.types";
-import { SurveyCreateActionPropsType, SurveyGetActionPropsType, SurveyOptionActionPropsType, UpdateStateActionPropsType } from "../../types/action.types";
+import { SurveyCreateActionPropsType, SurveyDataActionPropsType, SurveyGetActionPropsType, SurveyOptionActionPropsType, UpdateStateActionPropsType } from "../../types/action.types";
 
 import { dangerMessage, successMessage } from "../../helper/message";
 
-import { ICounterUser } from "../../interfaces/User";
-
-export const surveyAll = createAsyncThunk('survey/all', async (user: ICounterUser, { dispatch }) => {
+export const surveyAll = createAsyncThunk('survey/all', async (surveyData: SurveyDataActionPropsType, { dispatch }) => {
 
     try {
 
-        const { data } = await surveyApi.surveysApi(user.isLoggedIn ? user.user.token! : undefined)
+        const { data } = await surveyApi.surveysApi(surveyData.user.isLoggedIn ? surveyData.user.user.token! : undefined, surveyData.order)
 
         dispatch(surveyFeatures.surveysAction(data))
 

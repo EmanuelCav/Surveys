@@ -5,6 +5,7 @@ import { Box } from "@mui/material";
 
 import Navigation from "../components/general/Navigation";
 import ExploreUsers from "../components/users/ExploreUsers";
+import Filter from "../components/general/Filter";
 
 import { userAll } from "../server/actions/user.actions";
 import { usersApi } from "../server/api/user.api";
@@ -21,9 +22,14 @@ const Users = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const [isFilter, setIsFilter] = useState<boolean>(false)
     const [page, setPage] = useState<number>(1)
     const [usersLength, setUsersLength] = useState<number>(0)
 
+    const handleFilter = () => {
+        setIsFilter(!isFilter)
+    }
+    
     const handlePage = (pageType: PageTypeKey) => {
         if (page === 1 && pageType === 'BACK') return
 
@@ -61,8 +67,11 @@ const Users = () => {
 
     return (
         <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
+            {
+                isFilter && <Filter isSurvey={false} handleFilter={handleFilter} />
+            }
             <Navigation isCategories={false} isUsers={true} isSurveys={false} navigate={navigate} />
-            <ExploreUsers users={user.users} handlePage={handlePage} page={page} navigate={navigate} usersLength={usersLength} />
+            <ExploreUsers users={user.users} handlePage={handlePage} page={page} navigate={navigate} usersLength={usersLength} handleFilter={handleFilter} />
         </Box>
     )
 }

@@ -6,7 +6,7 @@ import ChangeUsers from "./components/ChangeUsers"
 
 import { ExploreUsersPropsType } from "../../types/props.types"
 
-const ExploreUsers = ({ users, handlePage, page, navigate, usersLength }: ExploreUsersPropsType) => {
+const ExploreUsers = ({ users, handlePage, page, navigate, usersLength, handleFilter }: ExploreUsersPropsType) => {
 
   const redirectUser = (id: number) => {
     navigate(`/profile/${id}`)
@@ -16,7 +16,7 @@ const ExploreUsers = ({ users, handlePage, page, navigate, usersLength }: Explor
     <Box width='100%' p={2} sx={{
       marginLeft: '294px'
     }}>
-      <ExploreHeader />
+      <ExploreHeader handleFilter={handleFilter} />
       <ShowUsers users={users} redirectUser={redirectUser} />
       <ChangeUsers handlePage={handlePage} page={page} usersLength={usersLength} />
     </Box>

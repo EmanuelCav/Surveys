@@ -1,13 +1,14 @@
 import axios from 'axios';
 
 import { ICreateComment, ICreateOption, ICreateSurvey, IUpdateState } from '../../interfaces/Survey';
+import { SortTypeKey } from '../../types/key.types';
 
 import { host } from '../../config/import';
 
 const api = axios.create({ baseURL: `${host}` })
 
-export const surveysApi = async (token: string | undefined) => {
-    return await api.get('/surveys', {
+export const surveysApi = async (token: string | undefined, sort: SortTypeKey) => {
+    return await api.get(`/surveys?sort=${sort}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }
