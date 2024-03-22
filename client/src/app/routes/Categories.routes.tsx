@@ -40,7 +40,7 @@ const Categories = () => {
     return (
         <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
             {
-                isFilter && <Filter isSurvey={true} handleFilter={handleFilter} />
+                // isFilter && <Filter isSurvey={true} handleFilter={handleFilter} />
             }
             <Navigation isCategories={true} isUsers={false} isSurveys={false} navigate={navigate} />
             <ExploreCategories categories={surveys.categories} getCategory={getCategory} handleFilter={handleFilter} />

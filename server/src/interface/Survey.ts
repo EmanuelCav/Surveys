@@ -1,34 +1,56 @@
-import { Document, ObjectId } from 'mongoose'
+import { IUser } from "./User";
 
-export interface ISurvey extends Document {
-    _id: string;
+export interface ISurvey {
+    id: number;
     title: string;
-    recommendations: ObjectId[];
-    options: ObjectId[];
-    comments: ObjectId[];
-    user: ObjectId;
-    created_at: NativeDate;
-    updated_at: NativeDate;
+    options: IOption[];
+    recommendations: IRecommendation[];
+    comments: IComment[];
+    category: ICategory;
+    user: IUser;
+    state: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
-export interface IOption extends Document {
-    _id: string;
+export interface ICategory {
+    id: number;
+    category: string;
+    iconCategory: string;
+    isSelect: boolean;
+    surveys: ISurvey[];
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface IOption {
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
     name: string;
-    votes: ObjectId[];
-    created_at: NativeDate;
-    updated_at: NativeDate;
-    user: ObjectId;
+    votes: IVote[];
 }
 
-export interface IComment extends Document {
-    _id: string;
+export interface IVote {
+    userId: number;
+    optionId: number;
+}
+
+export interface IComment {
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
     comment: string;
-    likes: ObjectId[];
-    user: ObjectId;
-    survey: ObjectId;
-    created_at: NativeDate;
-    updated_at: NativeDate;
+    likes: ILike[];
+    user: IUser;
 }
 
+export interface ILike {
+    userId: number,
+    commentId: number;
+}
 
-
+export interface IRecommendation {
+    userId: number;
+    surveyId: number;
+}

@@ -12,7 +12,7 @@ export const surveyAll = createAsyncThunk('survey/all', async (surveyData: Surve
 
     try {
 
-        const { data } = await surveyApi.surveysApi(surveyData.user.isLoggedIn ? surveyData.user.user.token! : undefined, surveyData.order)
+        const { data } = await surveyApi.surveysApi(surveyData.user.isLoggedIn ? surveyData.user.user.token! : undefined, surveyData.order, surveyData.date)
 
         dispatch(surveyFeatures.surveysAction(data))
 

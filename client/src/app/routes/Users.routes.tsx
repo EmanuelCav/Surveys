@@ -68,7 +68,7 @@ const Users = () => {
     return (
         <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
             {
-                isFilter && <Filter isSurvey={false} handleFilter={handleFilter} />
+                // isFilter && <Filter isSurvey={false} handleFilter={handleFilter}  />
             }
             <Navigation isCategories={false} isUsers={true} isSurveys={false} navigate={navigate} />
             <ExploreUsers users={user.users} handlePage={handlePage} page={page} navigate={navigate} usersLength={usersLength} handleFilter={handleFilter} />

@@ -3,7 +3,7 @@ import { NavigateFunction } from "react-router-dom";
 
 import { ICounterUser, ICountry, ILogin, IRegister, IUpdateProfile, IUser } from "../interfaces/User";
 import { ICreateOption, ICreateSurvey, ISurvey, IUpdateState } from "../interfaces/Survey";
-import { SortTypeKey } from "./key.types";
+import { DateTypeKey, OrderTypeKey } from "./key.types";
 
 export type userType = {
     user: userReducerType;
@@ -44,7 +44,8 @@ export type UserRegisterActionPropsType = {
 
 export type SurveyDataActionPropsType = {
     user: ICounterUser;
-    order: SortTypeKey;
+    order: OrderTypeKey;
+    date: DateTypeKey;
 }
 
 export type SurveyCreateActionPropsType = {

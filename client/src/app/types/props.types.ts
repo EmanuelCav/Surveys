@@ -395,6 +395,7 @@ export type FilterPropsType = {
     order: OrderTypeKey;
     handleDate: (e: ChangeEvent<HTMLInputElement>) => void;
     date: DateTypeKey;
+    handleSumbitFilter: () => void;
 }
 
 export type FilterSurveyPropsType = {
@@ -403,11 +404,12 @@ export type FilterSurveyPropsType = {
     order: OrderTypeKey;
     handleDate: (e: ChangeEvent<HTMLInputElement>) => void;
     date: DateTypeKey;
+    handleSumbitFilter: () => void;
 }
 
 export type ButtonFilterPropsType = {
     handleFilter: () => void;
-    handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
+    handleSumbitFilter: () => void;
 }
 
 export type OrderPropsType = {

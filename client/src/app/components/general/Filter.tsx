@@ -5,7 +5,7 @@ import FilterUser from "./components/filter/FilterUser"
 
 import { FilterPropsType } from "../../types/props.types"
 
-const Filter = ({ isSurvey, handleFilter, handleOrder, order, handleDate, date }: FilterPropsType) => {
+const Filter = ({ isSurvey, handleFilter, handleOrder, order, handleDate, date, handleSumbitFilter }: FilterPropsType) => {
     return (
         <Box position='fixed' display="flex" justifyContent='center' alignItems='center' sx={{
             top: 0,
@@ -17,7 +17,7 @@ const Filter = ({ isSurvey, handleFilter, handleOrder, order, handleDate, date }
             overflow: 'hidden'
         }}>
             {
-                isSurvey ? <FilterSurvey handleFilter={handleFilter} handleOrder={handleOrder} order={order} handleDate={handleDate} date={date} />
+                isSurvey ? <FilterSurvey handleFilter={handleFilter} handleOrder={handleOrder} order={order} handleDate={handleDate} date={date} handleSumbitFilter={handleSumbitFilter} />
                 : <FilterUser />
             }
         </Box>

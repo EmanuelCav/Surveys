@@ -23,12 +23,17 @@ const Surveys = () => {
   const navigate = useNavigate()
 
   const [isFilter, setIsFilter] = useState<boolean>(false)
+  const [isSumbitFilter, setIsSumbitFilter] = useState<boolean>(false)
 
   const [order, setOrder] = useState<OrderTypeKey>('random')
   const [date, setDate] = useState<DateTypeKey>('total')
 
   const handleFilter = () => {
     setIsFilter(!isFilter)
+  }
+
+  const handleSumbitFilter = () => {
+    setIsSumbitFilter(!isSumbitFilter)
   }
 
   const handleOrder = (e: ChangeEvent<HTMLInputElement>) => {
@@ -48,18 +53,19 @@ const Surveys = () => {
   const getData = async () => {
     dispatch(surveyAll({
       user,
-      order
+      order,
+      date
     }) as any)
   }
 
   useEffect(() => {
     getData()
-  }, [])
+  }, [order, date])
 
   return (
     <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
       {
-        isFilter && <Filter isSurvey={true} handleFilter={handleFilter} handleOrder={handleOrder} order={order} handleDate={handleDate} date={date} />
+        isFilter && <Filter isSurvey={true} handleFilter={handleFilter} handleOrder={handleOrder} order={order} handleDate={handleDate} date={date} handleSumbitFilter={handleSumbitFilter!} />
       }
       <Navigation isCategories={false} isUsers={false} isSurveys={true} navigate={navigate} />
       <ExploreSurveys surveys={surveys.surveys} redirectSurvey={redirectSurvey} user={user.user} handleFilter={handleFilter} />

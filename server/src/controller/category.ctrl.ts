@@ -6,7 +6,11 @@ export const categories = async (req: Request, res: Response): Promise<Response>
 
     try {
 
-        const categories = await prisma.category.findMany()
+        const categories = await prisma.category.findMany({
+            orderBy: {
+                category: 'desc'
+            }
+        })
 
         return res.status(200).json(categories)
 

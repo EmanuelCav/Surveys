@@ -1,16 +1,24 @@
 import { Request, Response } from "express";
 
 import { prisma } from "../helper/prisma";
+import { filterDate, orderSurveys } from "../helper/filter";
 
 export const surveys = async (req: Request, res: Response): Promise<Response> => {
 
+    const { order, date } = req.query
+
     try {
+
+        const dateFiltered = filterDate(date as string)
 
         const showSurveys = await prisma.survey.findMany({
             where: {
                 state: 'PUBLIC',
                 userId: {
                     not: req.permission
+                },
+                createdAt: {
+                    gte: dateFiltered
                 }
             },
             include: {
@@ -32,7 +40,9 @@ export const surveys = async (req: Request, res: Response): Promise<Response> =>
             take: 25
         })
 
-        return res.status(200).json(showSurveys)
+        const sortedSurveys = orderSurveys(showSurveys as any[], order as string)
+
+        return res.status(200).json(sortedSurveys)
 
     } catch (error) {
         throw (error);
