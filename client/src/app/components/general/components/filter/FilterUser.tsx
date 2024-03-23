@@ -1,23 +1,37 @@
-import { Box, Typography } from "@mui/material"
+import { Box } from "@mui/material"
 
-const FilterUser = () => {
+import ButtonFilter from "./components/ButtonFilter"
+import OrderUser from "./components/filterUser/OrderUser"
+
+import { FilterUserPropsType } from "../../../../types/props.types"
+
+const FilterUser = ({ handleFilter, handleSumbitFilter, handleOrder, order }: FilterUserPropsType) => {
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                background: '#ffffff',
-                width: '28%',
-                px: 4,
-                py: 2,
-                userSelect: 'none',
-                position: 'relative'
-            }}
-        >
-            <Typography>
-                FilterUser
-            </Typography>
+        <Box position='fixed' display="flex" justifyContent='center' alignItems='center' sx={{
+            top: 0,
+            left: 0,
+            height: '100vh',
+            width: '100%',
+            background: 'rgba(0,0,0,0.4)',
+            zIndex: 12,
+            overflow: 'hidden'
+        }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    background: '#ffffff',
+                    width: '28%',
+                    px: 4,
+                    py: 2,
+                    userSelect: 'none',
+                    position: 'relative'
+                }}
+            >
+                <OrderUser handleOrder={handleOrder} value={order} />
+                <ButtonFilter handleFilter={handleFilter} handleSumbitFilter={handleSumbitFilter} />
+            </Box>
         </Box>
     )
 }

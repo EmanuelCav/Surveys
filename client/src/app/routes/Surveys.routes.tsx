@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 
 import Navigation from "../components/general/Navigation";
 import ExploreSurveys from "../components/surveys/ExploreSurveys";
-import Filter from "../components/general/Filter";
+import FilterSurvey from "../components/general/components/filter/FilterSurvey";
 
 import { surveyAll } from "../server/actions/survey.actions";
 
@@ -34,6 +34,7 @@ const Surveys = () => {
 
   const handleSumbitFilter = () => {
     setIsSumbitFilter(!isSumbitFilter)
+    setIsFilter(false)
   }
 
   const handleOrder = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,12 +61,12 @@ const Surveys = () => {
 
   useEffect(() => {
     getData()
-  }, [order, date])
+  }, [isSumbitFilter])
 
   return (
     <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
       {
-        isFilter && <Filter isSurvey={true} handleFilter={handleFilter} handleOrder={handleOrder} order={order} handleDate={handleDate} date={date} handleSumbitFilter={handleSumbitFilter!} />
+        isFilter && <FilterSurvey handleFilter={handleFilter} handleOrder={handleOrder} order={order} handleDate={handleDate} date={date} handleSumbitFilter={handleSumbitFilter!} />
       }
       <Navigation isCategories={false} isUsers={false} isSurveys={true} navigate={navigate} />
       <ExploreSurveys surveys={surveys.surveys} redirectSurvey={redirectSurvey} user={user.user} handleFilter={handleFilter} />

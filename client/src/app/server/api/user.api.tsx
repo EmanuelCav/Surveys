@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { ILogin, IRegister, IUpdateProfile } from '../../interfaces/User';
+import { OrderUserTypeKey } from '../../types/key.types';
 
 import { host } from '../../config/import';
 
@@ -30,8 +31,8 @@ export const getUserApi = async (id: number, token: string) => {
     })
 }
 
-export const usersApi = async (page: number, token: string | undefined) => {
-    return await api.get(`/users?page=${page}`, {
+export const usersApi = async (page: number, order: OrderUserTypeKey, token: string | undefined) => {
+    return await api.get(`/users?page=${page}&order=${order}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }

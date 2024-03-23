@@ -1,4 +1,5 @@
 import { ISurvey } from "interface/Survey";
+import { IUser } from "interface/User";
 
 export const filterDate = (date: string): Date => {
 
@@ -80,6 +81,26 @@ export const orderSurveys = (surveys: ISurvey[], order: string): ISurvey[] => {
     }
 
     return shuffle(surveys)
+
+}
+
+export const orderUsers = (users: IUser[], order: string): IUser[] => {
+
+    switch (order) {
+        case 'random':
+            return shuffle(users)
+
+        case 'followers':
+            return users.sort((a, b) => b.followers.length - a.followers.length)
+
+        case 'surveys':
+            return users.sort((a, b) => b.surveys.length - a.surveys.length)
+
+        default:
+            break;
+    }
+
+    return shuffle(users)
 
 }
 

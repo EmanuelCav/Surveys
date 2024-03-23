@@ -6,10 +6,11 @@ import { hashPassword, comparePassword } from "../helper/encrypt";
 import { generateToken } from "../helper/token";
 import { infoEmail } from "../helper/mail";
 import { generateUsers } from "../helper/mocks";
+import { orderUsers } from "../helper/filter";
 
 export const users = async (req: Request, res: Response): Promise<Response> => {
 
-    const { page = "0" } = req.query
+    const { page = "0", order } = req.query
 
     try {
 
@@ -44,8 +45,10 @@ export const users = async (req: Request, res: Response): Promise<Response> => {
             }
         })
 
+        const sortedUsers = orderUsers(showUsers as any[], order as string)
+
         return res.status(200).json({
-            users: showUsers,
+            users: sortedUsers,
             length: allUsers.length
         })
 

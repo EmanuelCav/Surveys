@@ -6,7 +6,7 @@ import { Location, NavigateFunction } from "react-router-dom";
 import { userReducerType, userType } from "./action.types";
 import { ICategory, IComment, ICreateOption, IOption, ISurvey } from "../interfaces/Survey";
 import { ICountry, IUser } from "../interfaces/User";
-import { GenderTypeKey, PageTypeKey, OrderTypeKey, StateTypeKey, DateTypeKey } from "./key.types";
+import { GenderTypeKey, PageTypeKey, OrderTypeKey, StateTypeKey, DateTypeKey, OrderUserTypeKey } from "./key.types";
 
 export type IconPropsType = {
     navigate: NavigateFunction;
@@ -190,7 +190,7 @@ export type ActionsOptionPropsType = {
 
 export type ShowOptionsPropsType = {
     options: IOption[];
-    optionData: ICreateOption[]; 
+    optionData: ICreateOption[];
     handleChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => void;
 }
 
@@ -329,9 +329,9 @@ export type InfoShowSurveyPropsType = {
 }
 
 export type SelectCountryInputPropsType = {
-    text: string; 
-    value: string; 
-    handleChange: (e: SelectChangeEvent<string>) => void; 
+    text: string;
+    value: string;
+    handleChange: (e: SelectChangeEvent<string>) => void;
     array: ICountry[];
 }
 
@@ -350,7 +350,7 @@ export type SurveySliderPropsType = {
 }
 
 export type UserSliderPropsType = {
-    user: userType; 
+    user: userType;
     redirectUsers: () => void;
     redirectUser: (id: number) => void;
 }
@@ -388,16 +388,6 @@ export type CategoryPropsType = {
     category: ICategory;
 }
 
-export type FilterPropsType = {
-    isSurvey: boolean;
-    handleFilter: () => void;
-    handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
-    order: OrderTypeKey;
-    handleDate: (e: ChangeEvent<HTMLInputElement>) => void;
-    date: DateTypeKey;
-    handleSumbitFilter: () => void;
-}
-
 export type FilterSurveyPropsType = {
     handleFilter: () => void;
     handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -420,4 +410,16 @@ export type OrderPropsType = {
 export type DatePropsType = {
     value: DateTypeKey;
     handleDate: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export type FilterUserPropsType = {
+    handleFilter: () => void;
+    handleSumbitFilter: () => void;
+    handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
+    order: OrderUserTypeKey;
+}
+
+export type OrderUserPropsType = {
+    value: OrderUserTypeKey;
+    handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
 }
