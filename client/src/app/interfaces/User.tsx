@@ -10,18 +10,18 @@ export interface ICounterUser {
 }
 
 export interface IUser {
-    id: number;
-    createdAt: string;
-    updatedAt: string;
-    username: string;
-    email: string;
-    gender: genderType;
-    status: boolean;
-    followers: IFollow[];
-    following: IFollow[];
-    surveys: ISurvey[];
-    description: string;
-    country: ICountry;
+    id?: number;
+    createdAt?: string;
+    updatedAt?: string;
+    username?: string;
+    email?: string;
+    gender?: genderType;
+    status?: boolean;
+    followers?: IFollow[];
+    following?: IFollow[];
+    surveys?: ISurvey[];
+    description?: string;
+    country?: ICountry;
 }
 
 export interface IFollow {

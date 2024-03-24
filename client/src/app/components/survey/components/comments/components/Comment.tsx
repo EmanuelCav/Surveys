@@ -69,7 +69,7 @@ const Comment = ({ comment, user }: CommentPropsType) => {
       {
         isRemove && <ActionPrivateSurvey buttonText='Remove' text='Are you sure to remove the comment?' func={removeComment} setIsAction={setIsRemove} />
       }
-      <NicknameComment Icon={AiOutlineDelete} handleAction={handleRemove} info={comment.user.username} />
+      <NicknameComment Icon={AiOutlineDelete} handleAction={handleRemove} info={comment.user.username!} />
       <Typography variant='subtitle1' my={2}>
         {comment.comment}
       </Typography>

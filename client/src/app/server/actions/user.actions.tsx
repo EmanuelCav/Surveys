@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as userApi from '../api/user.api';
 import * as userFeatures from '../features/user.features';
 
-import { UserRegisterActionPropsType, UserLoginActionPropsType, UserAllActionPropsType, UserProfileActionPropsType, UpdateProfileActionPropsType } from "../../types/action.types";
+import { UserRegisterActionPropsType, UserLoginActionPropsType, UserAllActionPropsType, UserProfileActionPropsType, UpdateProfileActionPropsType, UpdateStatusActionPropsType } from "../../types/action.types";
 
 import { dangerMessage, successMessage } from "../../helper/message";
 
@@ -33,7 +33,7 @@ export const userRegister = createAsyncThunk('user/register', async (userRegiste
 
         const { data } = await userApi.registerApi(userRegisterData.userData)
 
-        dispatch(userFeatures.authAction(data.user))
+        dispatch(userFeatures.userAction(data.user))
 
         userRegisterData.handleIsAuth()
 
@@ -97,6 +97,24 @@ export const updateProfile = createAsyncThunk('user/update', async (userData: Up
         userData.setIsEditProfile(false)
 
         dispatch(userFeatures.getUserAction(data.user))
+        
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
+export const updateStatus = createAsyncThunk('user/status', async (userData: UpdateStatusActionPropsType, { dispatch }) => {
+
+    try {
+
+        const { data } = await userApi.changeStatusApi(userData.id)
+
+        dispatch(userFeatures.authAction(data.user))
+
+        userData.setIsStatus(true)
+
+        successMessage(data.message)
         
     } catch (error) {
         console.log(error);

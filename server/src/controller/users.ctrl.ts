@@ -121,7 +121,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
         const pass = await hashPassword(password)
 
-        // await infoEmail(email)
+        await infoEmail(email)
 
         const user = await prisma.user.create({
             data: {
@@ -159,6 +159,13 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
         if (!user) {
             return res.status(400).json({
                 message: "User does not exists"
+            })
+        }
+
+        if(!user.status) {
+            await infoEmail(email)
+            return res.status(400).json({
+                message: "You have to verify your user. Check yuor email"
             })
         }
 
@@ -216,24 +223,6 @@ export const removeUser = async (req: Request, res: Response): Promise<Response>
                 message: "User does not exists"
             })
         }
-
-        await prisma.survey.deleteMany({
-            where: {
-                userId: Number(id)
-            }
-        })
-
-        await prisma.survey.deleteMany({
-            where: {
-                userId: Number(id)
-            }
-        })
-
-        await prisma.survey.deleteMany({
-            where: {
-                userId: Number(id)
-            }
-        })
 
         await prisma.user.delete({
             where: {
@@ -420,6 +409,14 @@ export const changeStatus = async (req: Request, res: Response): Promise<Respons
             },
             data: {
                 status: true
+            },
+            include: {
+                country: true,
+                following: {
+                    select: {
+                        followingId: true
+                    }
+                }
             }
         })
 
@@ -428,8 +425,10 @@ export const changeStatus = async (req: Request, res: Response): Promise<Respons
         const token = generateToken(user.id)
 
         return res.status(200).json({
-            token,
-            user: showUserFilter,
+            user: {
+                token,
+                user: showUserFilter
+            },
             message: "Welcome to Surfrage!"
         })
 

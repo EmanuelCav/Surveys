@@ -16,18 +16,18 @@ const SurveyFollow = ({ survey, redirectSurvey, user }: SurveyFollowPropsType) =
         }}>
             <CardContent>
                 <Typography noWrap variant="h6" component="div">
-                    {survey.user.username}
+                    {survey.user!.username}
                 </Typography>
                 <Typography noWrap variant="h6" align="center" component="div">
                     {survey.title}
                 </Typography>
-                <ListOptionsSurvey options={survey.options} />
+                <ListOptionsSurvey options={survey.options!} />
                 <Typography variant="subtitle1">
                     More...
                 </Typography>
                 <InfoShowSurvey survey={survey} user={user} />
             </CardContent>
-            <ButtonCard id={survey.id} func={redirectSurvey} text="Take part" />
+            <ButtonCard id={survey.id!} func={redirectSurvey} text="Take part" />
         </Card>
     )
 }

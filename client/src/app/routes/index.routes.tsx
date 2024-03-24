@@ -32,7 +32,7 @@ const Index = () => {
 
   const getData = async () => {
     const surveysData = await surveysApi(user.isLoggedIn ? user.user.token! : undefined, 'random', 'total')
-    const usersData = await usersApi(0, user.isLoggedIn ? user.user.token! : undefined)
+    const usersData = await usersApi(0, 'random', user.isLoggedIn ? user.user.token! : undefined)
 
     if(user.isLoggedIn) {
         const surveysFollowData = await surveysFollowApi(user.user.token!)
@@ -71,7 +71,7 @@ const Index = () => {
         user.isLoggedIn && 
         <>
           {
-            user.user.user?.following.length! > 0 ? <SurveysFollow surveys={surveys.surveysFollowing} redirectSurvey={redirectSurvey} user={user.user} />
+            user.user.user?.following?.length! > 0 ? <SurveysFollow surveys={surveys.surveysFollowing} redirectSurvey={redirectSurvey} user={user.user} />
             : <DontFollow redirectUsers={redirectUsers} />
           }
         </>

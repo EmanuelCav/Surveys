@@ -8,7 +8,7 @@ const ActionSurveyProfile = ({ user, redirectCreate }: ActionSurveyProfilePropsT
     return (
         <Box>
             {
-                user.profile.surveys.length === 0 &&
+                user.profile.surveys!.length === 0 &&
                 <Box width='100%'>
                     {
                         user.profile.id === user.user.user?.id ? (

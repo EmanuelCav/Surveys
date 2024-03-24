@@ -13,7 +13,7 @@ import { updateProfile } from '../../../../server/actions/user.actions'
 const FormProfile = ({ dispatch, user, setIsEditProfile }: EditProfilePropsType) => {
 
     const initialState: IUpdateProfile = {
-        username: user.profile.username,
+        username: user.profile.username!,
         description: user.profile.description ? user.profile.description : "",
         country: user.profile.country ? user.profile.country.country : ""
     }

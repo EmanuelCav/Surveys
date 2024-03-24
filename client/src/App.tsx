@@ -8,7 +8,6 @@ import Header from "./app/components/header/Header";
 import Loading from "./app/components/message/loading";
 
 import Index from "./app/routes/Index.routes";
-import Explore from "./app/routes/Surveys.routes";
 import Create from "./app/routes/Create.routes";
 import Survey from "./app/routes/Survey.routes";
 import Profile from "./app/routes/Profile.routes";
@@ -20,6 +19,7 @@ import PrivateRoute from "./app/routes/PrivateRoute";
 import NotFountPage from "./app/routes/Notfound.routes";
 
 import { store } from "./app/server/store";
+import Status from "./app/routes/Status.routes";
 
 const persistor = persistStore(store)
 
@@ -51,6 +51,7 @@ function App() {
                   <Route path="/surveys/:id" element={<Survey />} />
                 </Route>
                 <Route path="/profile/:id" element={<Profile />} />
+                <Route path="/status" element={<Status />} />
                 <Route path="*" element={<NotFountPage />} />
               </Routes>
             </Box>

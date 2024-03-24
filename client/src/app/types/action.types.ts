@@ -83,6 +83,11 @@ export type UpdateProfileActionPropsType = {
     setIsEditProfile: (isEditProfile: boolean) => void;
 }
 
+export type UpdateStatusActionPropsType = {
+    id: number;
+    setIsStatus: (isStatus: boolean) => void;
+}
+
 export type UpdateStateActionPropsType = {
     token: string;
     stateData: IUpdateState;

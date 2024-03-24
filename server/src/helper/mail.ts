@@ -22,10 +22,21 @@ export const infoEmail = async (email: string) => {
         await transport.sendMail({
             from: `'EMAILS' ${my_mail}`,
             to: email,
-            subject: "Surveys - Confirm authentication",
-            html: "<b>Confirm email</b>"
+            subject: "Surfrage - Confirm authentication",
+            html: `
+            <div style="margin: 0 auto;">
+                <h1 style="color: #f64; font-size: 34px; font-weight: 600;">Welcome to Surfrage</h1>
+                <p style="font-size: 24px;">Start to take part and create surveys</p>
+                <img src="https://res.cloudinary.com/projects-emanuek/image/upload/v1709490095/portfolio/icon_qfb1dl.png" alt="surfrage_icon">
+                <a href="http://localhost:5173/status" style="text-decoration: none;">
+                    <button style="margin-top: 20px; width: 245px; border-radius: 8px; background-color: #f64; outline: none; padding: 7px; border: none; font-size: 24px; color: #fff; cursor: pointer;">
+                        Confirm account
+                    </button>
+                </a>
+            </div>
+            `
         })
-        
+
     } catch (error) {
         throw (error)
     }

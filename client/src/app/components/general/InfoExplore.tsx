@@ -12,15 +12,15 @@ const InfoExplore = ({ data }: { data: IUser }) => {
         <Box display='flex' justifyContent='space-around' alignItems='flex-start' flexDirection='column'>
             <Box display='inline-flex' mt={1}>
                 <RiSurveyLine size={22} color={'#f64'} />
-                <Typography ml={1}>{data.surveys.length}</Typography>
+                <Typography ml={1}>{data.surveys!.length}</Typography>
             </Box>
             <Box display='inline-flex' mt={1}>
                 <BiUser size={22} color={'#f64'} />
-                <Typography ml={1}>{data.followers.length}</Typography>
+                <Typography ml={1}>{data.followers!.length}</Typography>
             </Box>
             <Box display='inline-flex' mt={1}>
                 <AiOutlineStar size={22} color={'#f64'} />
-                <Typography ml={1}>{recommendationSurveysUser(data.surveys)}</Typography>
+                <Typography ml={1}>{recommendationSurveysUser(data.surveys!)}</Typography>
             </Box>
         </Box>
     )

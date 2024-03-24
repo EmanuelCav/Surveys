@@ -59,3 +59,7 @@ export const updateProfileApi = async (profileData: IUpdateProfile, token: strin
         }
     })
 }
+
+export const changeStatusApi = async (id: number) => {
+    return await api.put(`/users/${id}/status`, null)
+}

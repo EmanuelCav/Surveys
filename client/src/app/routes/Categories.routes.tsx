@@ -5,7 +5,6 @@ import { Box } from "@mui/material";
 
 import Navigation from "../components/general/Navigation";
 import ExploreCategories from "../components/categories/ExploreCategories";
-import Filter from "../components/general/Filter";
 
 import { IReducer } from '../interfaces/Reducer';
 
@@ -39,9 +38,6 @@ const Categories = () => {
 
     return (
         <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
-            {
-                // isFilter && <Filter isSurvey={true} handleFilter={handleFilter} />
-            }
             <Navigation isCategories={true} isUsers={false} isSurveys={false} navigate={navigate} />
             <ExploreCategories categories={surveys.categories} getCategory={getCategory} handleFilter={handleFilter} />
         </Box>

@@ -17,7 +17,7 @@ const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }
 
         try {
 
-            const { data } = await followApi(user.id, loggedUser.token!)
+            const { data } = await followApi(user.id!, loggedUser.token!)
             dispatch(getUserAction(data.user))
             dispatch(userAction(data.userLoggedIn))
 
@@ -29,7 +29,7 @@ const InfoProfile = ({ user, loggedUser, dispatch, navigate, handleEditProfile }
     }
 
     useEffect(() => {
-        user.followers.find((u) => {
+        user.followers!.find((u) => {
             if (u.followingId === loggedUser.user?.id) {
                 setIsFollowing(true)
             }

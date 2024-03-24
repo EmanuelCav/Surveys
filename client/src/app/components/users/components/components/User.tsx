@@ -18,7 +18,7 @@ const User = ({ user, redirectUser }: UserPropsType) => {
           </Typography>
           <InfoExplore data={user} />
         </CardContent>
-        <ButtonCard id={user.id} func={redirectUser} text="View" />
+        <ButtonCard id={user.id!} func={redirectUser} text="View" />
       </Card>
     </Grid>
   )
