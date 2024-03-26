@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { NavigateFunction } from "react-router-dom";
 
-import { ICounterUser, ICountry, ILogin, IRegister, IUpdateProfile, IUser } from "../interfaces/User";
+import { ICounterUser, ICountry, ILogin, IPassword, IRegister, IUpdateProfile, IUser } from "../interfaces/User";
 import { ICreateOption, ICreateSurvey, ISurvey, IUpdateState } from "../interfaces/Survey";
 import { DateTypeKey, OrderTypeKey, OrderUserTypeKey } from "./key.types";
 
@@ -87,6 +87,13 @@ export type UpdateStatusActionPropsType = {
     id: number;
     setIsStatus: (isStatus: boolean) => void;
 }
+
+export type UpdatePasswordActionPropsType = {
+    passwordData: IPassword;
+    email: string | null;
+    navigate: NavigateFunction;
+}
+
 
 export type UpdateStateActionPropsType = {
     token: string;

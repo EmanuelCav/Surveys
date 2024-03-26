@@ -3,7 +3,7 @@ import { ZodError } from 'zod'
 
 import { updateOptionsSchema } from '../schemas/survey.schema'
 
-export const optionValid = async (req: Request, res: Response, next: NextFunction) => {
+const optionValid = async (req: Request, res: Response, next: NextFunction) => {
     
     try {
 

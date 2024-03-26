@@ -10,7 +10,7 @@ import FormTitle from "../../general/FormTitle";
 
 import { LoginPropsType } from '../../../types/props.types';
 
-const Login = ({ navigate, handleIsAuth, dispatch, registerVisibility }: LoginPropsType) => {
+const Login = ({ navigate, handleIsAuth, dispatch, registerVisibility, handleResetPassword }: LoginPropsType) => {
 
     return (
         <Box
@@ -31,7 +31,7 @@ const Login = ({ navigate, handleIsAuth, dispatch, registerVisibility }: LoginPr
             <FormHeader />
             <FormTitle title="Sign in" />
             <FormLogin dispatch={dispatch} navigate={navigate} handleIsAuth={handleIsAuth} />
-            <FormVisibility registerVisibility={registerVisibility} />
+            <FormVisibility registerVisibility={registerVisibility} handleResetPassword={handleResetPassword} />
         </Box>
     )
 }

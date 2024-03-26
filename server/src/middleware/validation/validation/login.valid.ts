@@ -3,7 +3,7 @@ import { ZodError } from 'zod'
 
 import { loginSchema } from '../schemas/user.schema'
 
-export const loginValid = async (req: Request, res: Response, next: NextFunction) => {
+const loginValid = async (req: Request, res: Response, next: NextFunction) => {
     
     try {
 

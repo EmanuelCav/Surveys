@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { Box, Button, Checkbox, SelectChangeEvent, TextField, Typography } from '@mui/material'
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import SelectGenderInput from './components/SelectGenderInput';
+import InputPassword from '../../../general/InputPassword';
 
 import { IRegister } from '../../../../interfaces/User';
 import { FormLAuthPropsType } from '../../../../types/props.types';
@@ -102,52 +102,8 @@ const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) 
                 onChange={handleChange}
             />
             <SelectGenderInput array={genders} handleChange={handleSelect} text='Gender' value={gender} />
-            <Box sx={{ position: 'relative', justifyContent: 'center', alignItems: 'center', display: 'flex', mt: 2 }}>
-                <TextField
-                    margin="normal"
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type={showPassword ? 'text' : 'password'}
-                    color='warning'
-                    value={password}
-                    sx={{
-                        '&:hover fieldset': {
-                            borderColor: '#f64 !important'
-                        },
-                        m: 0
-                    }}
-                    onChange={handleChange}
-                />
-                {
-                    showPassword ?
-                        <AiFillEyeInvisible color='#f64' size={24} className='eye-icon' onClick={setPassword} />
-                        : <AiFillEye color='#f64' size={24} className='eye-icon' onClick={setPassword} />
-                }
-            </Box>
-            <Box sx={{ position: 'relative', justifyContent: 'center', alignItems: 'center', display: 'flex', mt: 3 }}>
-                <TextField
-                    margin="normal"
-                    fullWidth
-                    name="confirm"
-                    label="Confirm password"
-                    type={showConfirm ? 'text' : 'password'}
-                    color='warning'
-                    value={confirm}
-                    sx={{
-                        '&:hover fieldset': {
-                            borderColor: '#f64 !important',
-                        },
-                        m: 0
-                    }}
-                    onChange={handleChange}
-                />
-                {
-                    showConfirm ?
-                        <AiFillEyeInvisible color='#f64' size={24} className='eye-icon' onClick={setConfirm} />
-                        : <AiFillEye color='#f64' size={24} className='eye-icon' onClick={setConfirm} />
-                }
-            </Box>
+            <InputPassword value={password} handleChange={handleChange} setPassword={setPassword} showPassword={showPassword} />
+            <InputPassword value={confirm} handleChange={handleChange} setPassword={setConfirm} showPassword={showConfirm} />
             <Box mt={2} display='flex' justifyContent='flex-start' alignItems='center'>
                 <Checkbox color='warning' name='status' value={status} checked={status} onChange={handleChecked} />
                 <Typography component='h6' color='#f64' sx={{

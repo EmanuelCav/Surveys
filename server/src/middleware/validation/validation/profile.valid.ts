@@ -3,7 +3,7 @@ import { ZodError } from 'zod'
 
 import { updateProfileSchema } from '../schemas/user.schema'
 
-export const profileValid = async (req: Request, res: Response, next: NextFunction) => {
+const profileValid = async (req: Request, res: Response, next: NextFunction) => {
     
     try {
 

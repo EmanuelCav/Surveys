@@ -3,7 +3,7 @@ import { ZodError } from 'zod'
 
 import { createCategorySchema } from '../schemas/survey.schema'
 
-export const categoryValid = async (req: Request, res: Response, next: NextFunction) => {
+const categoryValid = async (req: Request, res: Response, next: NextFunction) => {
     
     try {
 

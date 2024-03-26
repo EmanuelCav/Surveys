@@ -1,11 +1,7 @@
-import axios from 'axios';
+import { api } from './api';
 
 import { ICreateComment, ICreateOption, ICreateSurvey, IUpdateState } from '../../interfaces/Survey';
 import { DateTypeKey, OrderTypeKey } from '../../types/key.types';
-
-import { host } from '../../config/import';
-
-const api = axios.create({ baseURL: `${host}` })
 
 export const surveysApi = async (token: string | undefined, order: OrderTypeKey, date: DateTypeKey) => {
     return await api.get(`/surveys?order=${order}&date=${date}`, {

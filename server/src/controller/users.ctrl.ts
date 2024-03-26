@@ -4,7 +4,7 @@ import { exclude, excludeArray, prisma } from "../helper/prisma";
 
 import { hashPassword, comparePassword } from "../helper/encrypt";
 import { generateToken } from "../helper/token";
-import { infoEmail } from "../helper/mail";
+import { infoEmail, resetPassword } from "../helper/mail";
 import { generateUsers } from "../helper/mocks";
 import { orderUsers } from "../helper/filter";
 
@@ -162,7 +162,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
             })
         }
 
-        if(!user.status) {
+        if (!user.status) {
             await infoEmail(email)
             return res.status(400).json({
                 message: "You have to verify your user. Check yuor email"
@@ -526,4 +526,68 @@ export const changeProfile = async (req: Request, res: Response): Promise<Respon
 
 }
 
+export const emailPassword = async (req: Request, res: Response): Promise<Response> => {
 
+    const { email } = req.body
+
+    try {
+
+        const user = await prisma.user.findFirst({
+            where: {
+                email
+            }
+        })
+
+        if (!user) {
+            return res.status(400).json({ message: "User does not exists" })
+        }
+
+        await resetPassword(email)
+
+        return res.status(200).json({
+            message: "Check your email"
+        })
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const updatePassword = async (req: Request, res: Response): Promise<Response> => {
+
+    const { email } = req.params
+    const { password } = req.body
+
+    try {
+
+        const hashedPassword = await hashPassword(password)
+
+        const user = await prisma.user.findFirst({
+            where: {
+                email
+            }
+        })
+
+        if (!user) {
+            return res.status(400).json({ message: "User does not exists" })
+        }
+
+        await prisma.user.update({
+            where: {
+                email
+            },
+            data: {
+                password: hashedPassword
+            }
+        })
+
+        return res.status(200).json({
+            message: "Password updated successfully"
+        })
+
+    } catch (error) {
+        throw error
+    }
+
+}

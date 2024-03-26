@@ -1,14 +1,22 @@
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Box } from "@mui/material"
 
-import { ContainerAuthPropsType } from "../../types/props.types"
-
 import Login from "./components/Login"
 import Register from "./components/Register"
+import EmailPassword from './components/EmailPassword'
 
-const ContainerAuth = ({ navigate, setIsLogin, setIsRegister, isLogin, isRegister }: ContainerAuthPropsType) => {
+import { ContainerAuthPropsType } from "../../types/props.types"
+
+const ContainerAuth = ({ navigate, setIsLogin, setIsRegister, isLogin, isRegister, setEmail }: ContainerAuthPropsType) => {
 
   const dispatch = useDispatch()
+
+  const [isResetPassword, setIsResetPassword] = useState<boolean>(false)
+
+  const handleResetPassword = () => {
+    setIsResetPassword(!isResetPassword)
+  }
 
   const registerVisibility = () => {
     setIsLogin(false)
@@ -31,7 +39,10 @@ const ContainerAuth = ({ navigate, setIsLogin, setIsRegister, isLogin, isRegiste
       overflow: 'hidden'
     }}>
       {
-        isLogin && <Login navigate={navigate} handleIsAuth={handleIsAuth} dispatch={dispatch} registerVisibility={registerVisibility} />
+        isResetPassword && <EmailPassword handleResetPassword={handleResetPassword} setEmail={setEmail} />
+      }
+      {
+        isLogin && <Login navigate={navigate} handleIsAuth={handleIsAuth} dispatch={dispatch} registerVisibility={registerVisibility} handleResetPassword={handleResetPassword} />
       }
       {
         isRegister && <Register navigate={navigate} handleIsAuth={handleIsAuth} dispatch={dispatch} />

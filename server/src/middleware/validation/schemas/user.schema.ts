@@ -60,3 +60,28 @@ export const updateProfileSchema = z.object({
     }).optional().or(z.literal('')),
     country: z.string().trim()
 })
+
+export const emailPasswordSchema = z.object({
+    email: z.string().min(1, {
+        message: "Please write your email"
+    }).trim().email()
+})
+
+export const updatePasswordSchema = z.object({
+    password: z.string().min(7, {
+        message: "Password must have more than 6 characters"
+    }).trim(),
+    confirm: z.string().trim().min(1, {
+        message: "Confirm password field is required"
+    })
+}).superRefine(({ password, confirm }, ctx) => {
+
+    if (password !== confirm) {
+        ctx.addIssue({
+            code: "custom",
+            message: "The passwords do not match",
+            path: ["password"]
+        })
+    }
+
+})

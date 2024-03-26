@@ -1,6 +1,8 @@
 import { Box, Typography } from "@mui/material"
 
-const FormVisibility = ({ registerVisibility }: { registerVisibility: () => void }) => {
+import { FormVisibilityPropsType } from "../../../../types/props.types"
+
+const FormVisibility = ({ registerVisibility, handleResetPassword }: FormVisibilityPropsType) => {
     return (
         <Box width='100%' display='flex' justifyContent='space-between' alignItems='center' mt={1}>
             <Typography component='p' sx={{
@@ -12,7 +14,7 @@ const FormVisibility = ({ registerVisibility }: { registerVisibility: () => void
                 ":active": {
                     textDecoration: 'none'
                 }
-            }}>
+            }} onClick={handleResetPassword}>
                 Forgot password?
             </Typography>
             <Box display='flex' justifyContent='space-between' alignItems='center'>

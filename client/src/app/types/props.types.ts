@@ -25,6 +25,12 @@ export type ContainerAuthPropsType = {
     setIsRegister: (isRegister: boolean) => void;
     isLogin: boolean;
     isRegister: boolean;
+    setEmail: (email: string | null) => void;
+}
+
+export type EmailPasswordPropsType = {
+    setEmail: (email: string | null) => void;
+    handleResetPassword: () => void;
 }
 
 export type LoginPropsType = {
@@ -32,6 +38,7 @@ export type LoginPropsType = {
     navigate: NavigateFunction;
     dispatch: Dispatch;
     registerVisibility: () => void;
+    handleResetPassword: () => void;
 }
 
 export type RegisterPropsType = {
@@ -422,4 +429,23 @@ export type FilterUserPropsType = {
 export type OrderUserPropsType = {
     value: OrderUserTypeKey;
     handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export type FormVisibilityPropsType = {
+    registerVisibility: () => void;
+    handleResetPassword: () => void;
+}
+
+export type InputPasswordPropsType = {
+    showPassword: boolean;
+    value: string;
+    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    setPassword: () => void;
+    text: string;
+}
+
+export type UpdatePasswordPropsType = {
+    dispatch: Dispatch;
+    email: string | null;
+    navigate: NavigateFunction;
 }

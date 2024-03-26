@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from 'express'
 import { ZodError } from 'zod'
 
-import { createCommentSchema } from '../schemas/survey.schema'
+import { updatePasswordSchema } from '../schemas/user.schema'
 
-const categoryValid = async (req: Request, res: Response, next: NextFunction) => {
+const passwordValid = async (req: Request, res: Response, next: NextFunction) => {
     
     try {
 
-        createCommentSchema.parse(req.body)
+        updatePasswordSchema.parse(req.body)
         next()
 
     } catch (error) {
@@ -22,4 +22,4 @@ const categoryValid = async (req: Request, res: Response, next: NextFunction) =>
 
 }
 
-export default categoryValid
+export default passwordValid

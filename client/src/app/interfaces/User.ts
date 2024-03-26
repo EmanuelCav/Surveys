@@ -55,3 +55,12 @@ export interface ICountry {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface IEmail {
+    email: string;
+}
+
+export interface IPassword {
+    password: string;
+    confirm: string;
+}

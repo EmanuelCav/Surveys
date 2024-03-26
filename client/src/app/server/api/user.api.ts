@@ -1,11 +1,8 @@
-import axios from 'axios';
+import { api } from './api';
 
-import { ILogin, IRegister, IUpdateProfile } from '../../interfaces/User';
+import { IEmail, ILogin, IPassword, IRegister, IUpdateProfile } from '../../interfaces/User';
 import { OrderUserTypeKey } from '../../types/key.types';
 
-import { host } from '../../config/import';
-
-const api = axios.create({ baseURL: `${host}` })
 
 export const loginApi = async (userData: ILogin) => {
     return await api.post('/login', userData, {
@@ -62,4 +59,20 @@ export const updateProfileApi = async (profileData: IUpdateProfile, token: strin
 
 export const changeStatusApi = async (id: number) => {
     return await api.put(`/users/${id}/status`, null)
+}
+
+export const emailPasswordApi = async (emailData: IEmail) => {
+    return await api.post('/users/email', emailData, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
+export const updatePasswordApi = async (passwordData: IPassword, email: string | null) => {
+    return await api.put(`/users/password/${email}`, passwordData, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
 }

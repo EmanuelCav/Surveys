@@ -16,16 +16,18 @@ const Status = () => {
     const [isStatus, setIsStatus] = useState<boolean>(false)
 
     useEffect(() => {
-        dispatch(updateStatus({
-            id: user.user.user?.id!,
-            setIsStatus
-        }) as any)
+        if (user.user.user?.id && !user.isLoggedIn) {
+            dispatch(updateStatus({
+                id: user.user.user?.id,
+                setIsStatus
+            }) as any)
+        }
     }, [dispatch])
 
     return (
         <>
             {
-                isStatus || user.isLoggedIn && <Navigate to='/' />
+                isStatus || user.isLoggedIn || !user.user.user?.id && <Navigate to='/' />
             }
         </>
     )

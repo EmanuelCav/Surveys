@@ -12,7 +12,7 @@ import Search from "./components/Search";
 
 import { selector } from "../../helper/selector";
 
-const Header = () => {
+const Header = ({ setEmail }: { setEmail: (email: string | null) => void }) => {
 
   const user = useSelector((state: IReducer) => selector(state).user)
 
@@ -37,7 +37,7 @@ const Header = () => {
     <Box>
       {
         (isLogin || isRegister) && <ContainerAuth
-          isLogin={isLogin} isRegister={isRegister} navigate={navigate} setIsLogin={setIsLogin} setIsRegister={setIsRegister}
+          isLogin={isLogin} isRegister={isRegister} navigate={navigate} setIsLogin={setIsLogin} setIsRegister={setIsRegister} setEmail={setEmail}
         />
       }
       <AppBar sx={{

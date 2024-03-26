@@ -5,7 +5,7 @@ import { registerSchema } from '../schemas/user.schema'
 
 import { prisma } from '../../../helper/prisma'
 
-export const registerValid = async (req: Request, res: Response, next: NextFunction) => {
+const registerValid = async (req: Request, res: Response, next: NextFunction) => {
 
     const { email, username } = req.body
 

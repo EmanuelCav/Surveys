@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as userApi from '../api/user.api';
 import * as userFeatures from '../features/user.features';
 
-import { UserRegisterActionPropsType, UserLoginActionPropsType, UserAllActionPropsType, UserProfileActionPropsType, UpdateProfileActionPropsType, UpdateStatusActionPropsType } from "../../types/action.types";
+import { UserRegisterActionPropsType, UserLoginActionPropsType, UserAllActionPropsType, UserProfileActionPropsType, UpdateProfileActionPropsType, UpdateStatusActionPropsType, UpdatePasswordActionPropsType } from "../../types/action.types";
 
 import { dangerMessage, successMessage } from "../../helper/message";
 
@@ -97,7 +97,7 @@ export const updateProfile = createAsyncThunk('user/update', async (userData: Up
         userData.setIsEditProfile(false)
 
         dispatch(userFeatures.getUserAction(data.user))
-        
+
     } catch (error) {
         console.log(error);
     }
@@ -115,7 +115,23 @@ export const updateStatus = createAsyncThunk('user/status', async (userData: Upd
         userData.setIsStatus(true)
 
         successMessage(data.message)
-        
+
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
+export const updatePassword = createAsyncThunk('user/status', async (userData: UpdatePasswordActionPropsType, { dispatch }) => {
+
+    try {
+
+        const { data } = await userApi.updatePasswordApi(userData.passwordData, userData.email)
+
+        successMessage(data.message)
+
+        userData.navigate('/')
+
     } catch (error) {
         console.log(error);
     }

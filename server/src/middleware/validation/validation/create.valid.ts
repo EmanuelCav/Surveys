@@ -3,7 +3,7 @@ import { ZodError } from 'zod'
 
 import { createSurveySchema } from '../schemas/survey.schema'
 
-export const createValid = async (req: Request, res: Response, next: NextFunction) => {
+const createValid = async (req: Request, res: Response, next: NextFunction) => {
     
     try {
 

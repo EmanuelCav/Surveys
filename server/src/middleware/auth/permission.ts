@@ -7,13 +7,15 @@ import { IVerification } from "interface/Verification";
 
 const permission = (req: Request, res: Response, next: NextFunction) => {
 
-    const token = req.headers.authorization?.split(" ")[1]
+    let token = req.headers.authorization?.split(" ")[1]
     
-    if(token === undefined) {
-        req.permission = undefined
+    if(token === 'undefined') {
+        token = undefined
+        req.permission = token
         next()
+        return
     }
-
+    
     const verification = jwt.verify(token!, `${secret}`) as IVerification
 
     if (!verification) {
