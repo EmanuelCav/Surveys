@@ -6,7 +6,7 @@ import FormEmail from "./components/FormEmail"
 
 import { EmailPasswordPropsType } from "../../../types/props.types"
 
-const EmailPassword = ({ handleResetPassword, setEmail }: EmailPasswordPropsType) => {
+const EmailPassword = ({ handleResetPassword, dispatch }: EmailPasswordPropsType) => {
     return (
         <Box position='fixed' display="flex" justifyContent='center' alignItems='center' sx={{
             top: 0,
@@ -32,7 +32,7 @@ const EmailPassword = ({ handleResetPassword, setEmail }: EmailPasswordPropsType
             >
                 <CloseForm func={handleResetPassword} />
                 <FormTitle title="Write your email to reset your password" />
-                <FormEmail setEmail={setEmail} />
+                <FormEmail dispatch={dispatch} />
             </Box>
         </Box>
     )

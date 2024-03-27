@@ -28,7 +28,7 @@ const Category = ({ category, getCategory }: CategoryPropsType) => {
             mt={2}
           />
         </CardContent>
-        <ButtonCard id={category.id} func={getCategory} text="View" />
+        <ButtonCard id={category.id} func={() => getCategory(category.id)} text="View" />
       </Card>
     </Grid>
   )

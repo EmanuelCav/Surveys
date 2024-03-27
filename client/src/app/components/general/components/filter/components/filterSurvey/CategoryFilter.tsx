@@ -1,17 +1,18 @@
-import { Box, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from "@mui/material"
+import { Box, Button, Typography } from "@mui/material"
+import { NavigateFunction } from "react-router-dom"
 
-const CategoryFilter = () => {
+const CategoryFilter = ({ navigate }: { navigate: NavigateFunction }) => {
+
+    const redirectCategories = () => {
+        navigate('/explore/categories')
+    }
+
     return (
         <Box my={3}>
             <Typography variant="h6" color="#f64">Categories</Typography>
-            <FormControl>
-                <RadioGroup row>
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    <FormControlLabel value="other" control={<Radio />} label="Other" />
-                    <FormControlLabel value="disabled" control={<Radio />} label="other" />
-                </RadioGroup>
-            </FormControl>
+            <Button sx={{ mt: 2 }} color="warning" variant="outlined" size="small" onClick={redirectCategories}>
+                Show categories
+            </Button>
         </Box>
     )
 }

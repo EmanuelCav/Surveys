@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { Box, Button } from "@mui/material"
 
 import InputPassword from "../general/InputPassword";
@@ -8,7 +8,7 @@ import { updatePassword } from "../../server/actions/user.actions";
 import { IPassword } from "../../interfaces/User";
 import { UpdatePasswordPropsType } from "../../types/props.types";
 
-const UpdatePassword = ({ email, dispatch, navigate }: UpdatePasswordPropsType) => {
+const UpdatePassword = ({ dispatch, navigate, email }: UpdatePasswordPropsType) => {
 
     const initialState: IPassword = {
         password: "",
@@ -34,10 +34,12 @@ const UpdatePassword = ({ email, dispatch, navigate }: UpdatePasswordPropsType) 
         setUserData({ ...userData, [name]: value })
     }
 
-    const handleSumbit = () => {
+    const handleSumbit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        
         dispatch(updatePassword({
-            email,
             passwordData: userData,
+            email,
             navigate
         }) as any)
     }

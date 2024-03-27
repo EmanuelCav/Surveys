@@ -6,30 +6,33 @@ import { Box } from "@mui/material";
 import Navigation from "../components/general/Navigation";
 import ExploreCategories from "../components/categories/ExploreCategories";
 
+import { categoriesAll, surveyAll } from "../server/actions/survey.actions";
+
 import { IReducer } from '../interfaces/Reducer';
 
 import { selector } from "../helper/selector";
-import { categoriesAll } from "../server/actions/survey.actions";
 
 const Categories = () => {
 
     const surveys = useSelector((state: IReducer) => selector(state).surveys)
+    const user = useSelector((state: IReducer) => selector(state).user)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
-    const [isFilter, setIsFilter] = useState<boolean>(false)
-
-    const handleFilter = () => {
-        setIsFilter(!isFilter)
-    }
 
     const getData = async () => {
         dispatch(categoriesAll() as any)
     }
 
-    const getCategory = () => {
-        console.log("getCategory");
+    const getCategory = (id: number) => {
+        dispatch(surveyAll({
+            date: 'total',
+            order: 'random',
+            user,
+            categories: id
+        }) as any)
+
+        navigate('/explore/surveys')
     }
 
     useEffect(() => {
@@ -39,7 +42,7 @@ const Categories = () => {
     return (
         <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
             <Navigation isCategories={true} isUsers={false} isSurveys={false} navigate={navigate} />
-            <ExploreCategories categories={surveys.categories} getCategory={getCategory} handleFilter={handleFilter} />
+            <ExploreCategories categories={surveys.categories} getCategory={getCategory} />
         </Box>
     )
 }

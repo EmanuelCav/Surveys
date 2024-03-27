@@ -1,7 +1,5 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Box, Button, SelectChangeEvent, TextField } from '@mui/material';
-import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 
 import FormHeader from '../general/FormHeader';
 import FormTitle from '../general/FormTitle';
@@ -67,7 +65,6 @@ const CreateSurvey = ({ user, setIsOptions, dispatch, categories }: CreateSurvey
             width: '50%'
         }}
             onSubmit={handleSumbit}>
-            <ToastContainer />
             <FormHeader />
             <FormTitle title="Create a survey" />
             <TextField

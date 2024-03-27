@@ -4,8 +4,9 @@ import { Navigate } from "react-router-dom";
 
 import { IReducer } from "../interfaces/Reducer";
 
-import { selector } from "../helper/selector";
 import { updateStatus } from "../server/actions/user.actions";
+
+import { selector } from "../helper/selector";
 
 const Status = () => {
 
@@ -22,12 +23,12 @@ const Status = () => {
                 setIsStatus
             }) as any)
         }
-    }, [dispatch])
+    }, [])
 
     return (
         <>
             {
-                isStatus || user.isLoggedIn || !user.user.user?.id && <Navigate to='/' />
+                (isStatus || user.isLoggedIn || !user.user.user?.id) && <Navigate to='/' />
             }
         </>
     )

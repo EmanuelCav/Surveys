@@ -1,6 +1,4 @@
 import { Box } from "@mui/material";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import FormRegister from "./components/FormRegister";
 import CloseForm from "../../general/CloseForm";
@@ -25,7 +23,6 @@ const Register = ({ navigate, handleIsAuth, dispatch }: RegisterPropsType) => {
                 position: 'relative'
             }}
         >
-            <ToastContainer limit={1} />
             <CloseForm func={handleIsAuth} />
             <FormHeader />
             <FormTitle title="Sign up" />

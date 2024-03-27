@@ -5,7 +5,7 @@ import { filterDate, orderSurveys } from "../helper/filter";
 
 export const surveys = async (req: Request, res: Response): Promise<Response> => {
 
-    const { order, date } = req.query
+    const { order, date, categories } = req.query
 
     try {
 
@@ -19,7 +19,10 @@ export const surveys = async (req: Request, res: Response): Promise<Response> =>
                 },
                 createdAt: {
                     gte: dateFiltered
-                }
+                },
+                categoryId: {
+                    in: []
+                } 
             },
             include: {
                 options: {

@@ -1,6 +1,4 @@
 import { Box } from "@mui/material"
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import CloseForm from "../general/CloseForm";
 import FormHeader from "../general/FormHeader";
@@ -33,7 +31,6 @@ const EditProfile = ({ navigate, dispatch, handleEditProfile, user, setIsEditPro
                     position: 'relative'
                 }}
             >
-                <ToastContainer limit={1} />
                 <CloseForm func={handleEditProfile} />
                 <FormHeader />
                 <FormTitle title="Update profile" />

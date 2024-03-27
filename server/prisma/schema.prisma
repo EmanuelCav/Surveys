@@ -31,9 +31,10 @@ model User {
   likeComments    LikeComment[]
   votes           Vote[]
   options         Option[]
-  followers       Follow[]        @relation("follower")
-  following       Follow[]        @relation("following")
+  followers       Follow[]         @relation("follower")
+  following       Follow[]         @relation("following")
   countryId       Int?
+  UserCategory    UserCategory[]
 }
 
 model Survey {
@@ -76,13 +77,14 @@ model Option {
 }
 
 model Category {
-  id           Int      @id @default(autoincrement())
-  category     String   @unique
+  id           Int            @id @default(autoincrement())
+  category     String         @unique
   surveys      Survey[]
-  isSelect     Boolean  @default(true)
+  isSelect     Boolean        @default(true)
   iconCategory String?
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  UserCategory UserCategory[]
 }
 
 model Country {
@@ -91,6 +93,15 @@ model Country {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User[]
+}
+
+model UserCategory {
+  userId     Int
+  categoryId Int
+  User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([userId, categoryId])
 }
 
 model Recommendation {
@@ -126,8 +137,8 @@ model Follow {
   following   User @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
   followingId Int
 
-  @@unique([followerId, followingId])
   @@id([followerId, followingId])
+  @@unique([followerId, followingId])
 }
 
 enum Gender {

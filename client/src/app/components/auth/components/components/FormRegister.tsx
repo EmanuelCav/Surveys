@@ -102,8 +102,8 @@ const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) 
                 onChange={handleChange}
             />
             <SelectGenderInput array={genders} handleChange={handleSelect} text='Gender' value={gender} />
-            <InputPassword value={password} handleChange={handleChange} setPassword={setPassword} showPassword={showPassword} />
-            <InputPassword value={confirm} handleChange={handleChange} setPassword={setConfirm} showPassword={showConfirm} />
+            <InputPassword value={password} handleChange={handleChange} setPassword={setPassword} showPassword={showPassword} text='Password' />
+            <InputPassword value={confirm} handleChange={handleChange} setPassword={setConfirm} showPassword={showConfirm} text='Confirm' />
             <Box mt={2} display='flex' justifyContent='flex-start' alignItems='center'>
                 <Checkbox color='warning' name='status' value={status} checked={status} onChange={handleChecked} />
                 <Typography component='h6' color='#f64' sx={{

@@ -535,6 +535,10 @@ export const emailPassword = async (req: Request, res: Response): Promise<Respon
         const user = await prisma.user.findFirst({
             where: {
                 email
+            },
+            select: {
+                id: true,
+                email: true
             }
         })
 
@@ -545,7 +549,8 @@ export const emailPassword = async (req: Request, res: Response): Promise<Respon
         await resetPassword(email)
 
         return res.status(200).json({
-            message: "Check your email"
+            message: "Check your email",
+            user
         })
 
     } catch (error) {

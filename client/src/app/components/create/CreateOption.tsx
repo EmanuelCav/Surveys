@@ -1,8 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Box } from "@mui/material";
 import { useDispatch } from 'react-redux'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { ICreateOption } from "../../interfaces/Survey";
 import { CreateOptionPropsType } from "../../types/props.types";
@@ -79,7 +77,6 @@ const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
       width: '37.33%',
       height: '100%'
     }} noValidate onSubmit={handleSumbit}>
-      <ToastContainer />
       <ShowOptions optionData={optionData} handleChange={handleChange} options={survey.options!} />
       <ActionsOption handleOptionAction={handleOptionAction} options={survey.options!} />
     </Box>

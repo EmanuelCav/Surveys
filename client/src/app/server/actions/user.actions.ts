@@ -130,6 +130,8 @@ export const updatePassword = createAsyncThunk('user/status', async (userData: U
 
         successMessage(data.message)
 
+        dispatch(userFeatures.logoutAction())
+
         userData.navigate('/')
 
     } catch (error) {

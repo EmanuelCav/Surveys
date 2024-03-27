@@ -1,14 +1,15 @@
-import { ChangeEvent, FormEvent, HtmlHTMLAttributes, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { Box, Button, TextField } from '@mui/material'
-import { Dispatch } from "@reduxjs/toolkit";
+import { Dispatch } from '@reduxjs/toolkit';
 
 import { IEmail } from '../../../../interfaces/User'
 
 import { emailPasswordApi } from '../../../../server/api/user.api';
 
 import { successMessage } from '../../../../helper/message';
+import { userAction } from '../../../../server/features/user.features';
 
-const FormEmail = ({ setEmail }: { setEmail: (email: string | null) => void }) => {
+const FormEmail = ({ dispatch }: { dispatch: Dispatch }) => {
 
     const initialState: IEmail = {
         email: ""
@@ -24,7 +25,7 @@ const FormEmail = ({ setEmail }: { setEmail: (email: string | null) => void }) =
 
             const { data } = await emailPasswordApi(emailData)
             successMessage(data.message)
-            setEmail(email)
+            dispatch(userAction(data.user))
 
         } catch (error) {
             console.log(error);
@@ -58,6 +59,7 @@ const FormEmail = ({ setEmail }: { setEmail: (email: string | null) => void }) =
                     },
                 }}
                 onChange={handleChange}
+                autoComplete='off'
             />
             <Button
                 type="submit"

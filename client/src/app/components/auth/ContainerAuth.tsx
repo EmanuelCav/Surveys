@@ -8,7 +8,7 @@ import EmailPassword from './components/EmailPassword'
 
 import { ContainerAuthPropsType } from "../../types/props.types"
 
-const ContainerAuth = ({ navigate, setIsLogin, setIsRegister, isLogin, isRegister, setEmail }: ContainerAuthPropsType) => {
+const ContainerAuth = ({ navigate, setIsLogin, setIsRegister, isLogin, isRegister }: ContainerAuthPropsType) => {
 
   const dispatch = useDispatch()
 
@@ -39,7 +39,7 @@ const ContainerAuth = ({ navigate, setIsLogin, setIsRegister, isLogin, isRegiste
       overflow: 'hidden'
     }}>
       {
-        isResetPassword && <EmailPassword handleResetPassword={handleResetPassword} setEmail={setEmail} />
+        isResetPassword && <EmailPassword handleResetPassword={handleResetPassword} dispatch={dispatch} />
       }
       {
         isLogin && <Login navigate={navigate} handleIsAuth={handleIsAuth} dispatch={dispatch} registerVisibility={registerVisibility} handleResetPassword={handleResetPassword} />

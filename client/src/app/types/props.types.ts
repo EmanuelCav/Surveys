@@ -25,12 +25,11 @@ export type ContainerAuthPropsType = {
     setIsRegister: (isRegister: boolean) => void;
     isLogin: boolean;
     isRegister: boolean;
-    setEmail: (email: string | null) => void;
 }
 
 export type EmailPasswordPropsType = {
-    setEmail: (email: string | null) => void;
     handleResetPassword: () => void;
+    dispatch: Dispatch;
 }
 
 export type LoginPropsType = {
@@ -380,22 +379,22 @@ export type DataPropsType = {
 }
 
 export type ShowCategoriesPropsType = {
-    getCategory: () => void;
+    getCategory: (id: number) => void;
     categories: ICategory[];
 }
 
 export type ExploreCategoriesPropsType = {
-    getCategory: () => void;
+    getCategory: (id: number) => void;
     categories: ICategory[];
-    handleFilter: () => void;
 }
 
 export type CategoryPropsType = {
-    getCategory: () => void;
+    getCategory: (id: number) => void;
     category: ICategory;
 }
 
 export type FilterSurveyPropsType = {
+    navigate: NavigateFunction;
     handleFilter: () => void;
     handleOrder: (e: ChangeEvent<HTMLInputElement>) => void;
     order: OrderTypeKey;
@@ -446,6 +445,6 @@ export type InputPasswordPropsType = {
 
 export type UpdatePasswordPropsType = {
     dispatch: Dispatch;
-    email: string | null;
     navigate: NavigateFunction;
+    email: string;
 }

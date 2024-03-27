@@ -2,15 +2,16 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
+import { Box } from "@mui/material";
 
 import { IReducer } from "../interfaces/Reducer";
+
+import { surveyGet } from "../server/actions/survey.actions";
 
 import SurveyInfo from "../components/survey/SurveyInfo";
 import Comments from "../components/survey/Comments";
 
 import { selector } from "../helper/selector";
-import { surveyGet } from "../server/actions/survey.actions";
-import { Box } from "@mui/material";
 
 const Survey = () => {
 

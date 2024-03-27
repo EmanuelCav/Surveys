@@ -1,6 +1,4 @@
 import { Box } from "@mui/material";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import FormHeader from '../../general/FormHeader';
 import FormLogin from './components/FormLogin';
@@ -26,7 +24,6 @@ const Login = ({ navigate, handleIsAuth, dispatch, registerVisibility, handleRes
                 position: 'relative'
             }}
         >
-            <ToastContainer limit={1} />
             <CloseForm func={handleIsAuth} />
             <FormHeader />
             <FormTitle title="Sign in" />

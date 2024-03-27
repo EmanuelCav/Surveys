@@ -13,12 +13,12 @@ import permission from "../middleware/auth/permission";
 
 const router = Router()
 
-router.get('/users', permission, userCtrl.users)
+router.get('/users', userCtrl.users)
 router.get('/users/:id', auth, userCtrl.user)
 router.post('/register', registerValid, userCtrl.register)
 router.post('/login', loginValid, userCtrl.login)
 router.post('/users/email', emailValid, userCtrl.emailPassword)
-router.delete('/users/:id', auth, userCtrl.removeUser)
+router.delete('/users/:id',  userCtrl.removeUser)
 router.patch('/users/follow/:id', auth, userCtrl.followUser)
 router.put('/users/:id/status', userCtrl.changeStatus)
 router.put('/users/profile', profileValid, auth, userCtrl.changeProfile)

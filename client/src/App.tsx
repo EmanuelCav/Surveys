@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
@@ -8,7 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Header from "./app/components/header/Header";
-import Loading from "./app/components/message/loading";
+import Loading from "./app/components/message/Loading";
 
 import Index from "./app/routes/Index.routes";
 import Create from "./app/routes/Create.routes";
@@ -29,34 +28,26 @@ const persistor = persistStore(store)
 
 function App() {
 
-  const [email, setEmail] = useState<string | null>(null)
-
   return (
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Loading />
           <ToastContainer limit={1} />
-          <Header setEmail={setEmail} />
+          <Header />
           <Container>
             <Box mt={12}>
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="*" element={<NotFountPage />} />
-                <Route path="/passupdate" element={<Password email={email} />} />
+                <Route path="/passupdate" element={<Password />} />
                 <Route path="/status" element={<Status />} />
                 <Route path="/profile/:id" element={<Profile />} />
+                <Route path="/explore/surveys" element={<Surveys />} />
+                <Route path="/explore/users" element={<Users />} />
+                <Route path="/explore/categories" element={<Categories />} />
                 <Route path="/surveys/create" element={<PrivateRoute />}>
                   <Route path="/surveys/create" element={<Create />} />
-                </Route>
-                <Route path="/explore/surveys" element={<PrivateRoute />}>
-                  <Route path="/explore/surveys" element={<Surveys />} />
-                </Route>
-                <Route path="/explore/users" element={<PrivateRoute />}>
-                  <Route path="/explore/users" element={<Users />} />
-                </Route>
-                <Route path="/explore/categories" element={<PrivateRoute />}>
-                  <Route path="/explore/categories" element={<Categories />} />
                 </Route>
                 <Route path="/surveys/:id" element={<PrivateRoute />}>
                   <Route path="/surveys/:id" element={<Survey />} />
@@ -66,7 +57,7 @@ function App() {
           </Container>
         </PersistGate>
       </Provider>
-    </BrowserRouter>
+    </BrowserRouter >
   )
 }
 

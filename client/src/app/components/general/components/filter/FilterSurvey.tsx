@@ -7,7 +7,7 @@ import ButtonFilter from "./components/ButtonFilter"
 
 import { FilterSurveyPropsType } from "../../../../types/props.types"
 
-const FilterSurvey = ({ handleFilter, handleOrder, order, handleDate, date, handleSumbitFilter }: FilterSurveyPropsType) => {
+const FilterSurvey = ({ handleFilter, handleOrder, order, handleDate, date, handleSumbitFilter, navigate }: FilterSurveyPropsType) => {
     return (
         <Box position='fixed' display="flex" justifyContent='center' alignItems='center' sx={{
             top: 0,
@@ -34,7 +34,7 @@ const FilterSurvey = ({ handleFilter, handleOrder, order, handleDate, date, hand
             >
                 <Order handleOrder={handleOrder} value={order} />
                 <Date handleDate={handleDate} value={date} />
-                <CategoryFilter />
+                <CategoryFilter navigate={navigate} />
                 <ButtonFilter handleFilter={handleFilter} handleSumbitFilter={handleSumbitFilter} />
             </Box>
         </Box>
