@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { prisma } from "../helper/prisma";
-import { filterDate, orderSurveys } from "../helper/filter";
+import { filterDate, orderSurveys, shuffle } from "../helper/filter";
 
 export const surveys = async (req: Request, res: Response): Promise<Response> => {
 
@@ -166,6 +166,35 @@ export const survey = async (req: Request, res: Response): Promise<Response> => 
 
 }
 
+export const surveySearch = async (req: Request, res: Response): Promise<Response> => {
+
+    const { search } = req.query
+
+    try {
+
+        const surveys = await prisma.survey.findMany({
+            where: {
+                title: {
+                    contains: String(search)
+                },
+                state: 'PUBLIC',
+                userId: {
+                    not: req.permission
+                }
+            },
+            take: 10
+        })
+
+        const shuffledSearch = shuffle(surveys)
+
+        return res.status(200).json(shuffledSearch)
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
 export const createSurvey = async (req: Request, res: Response): Promise<Response> => {
 
     const { title, category, state } = req.body
@@ -184,7 +213,7 @@ export const createSurvey = async (req: Request, res: Response): Promise<Respons
 
         const newSurvey = await prisma.survey.create({
             data: {
-                title,
+                title: String(title).charAt(0).toUpperCase() + String(title).slice(1, String(title).length).toLowerCase(),
                 userId: req.user,
                 categoryId: surveyCategory.id,
                 state

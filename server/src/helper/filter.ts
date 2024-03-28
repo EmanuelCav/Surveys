@@ -104,7 +104,7 @@ export const orderUsers = (users: IUser[], order: string): IUser[] => {
 
 }
 
-function shuffle(array: any[]) {
+export function shuffle(array: any[]) {
     let currentIndex = array.length, randomIndex;
 
     while (currentIndex > 0) {

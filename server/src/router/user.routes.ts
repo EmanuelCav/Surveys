@@ -9,16 +9,17 @@ import emailValid from "../middleware/validation/validation/email.valid";
 import passwordValid from "../middleware/validation/validation/password.valid";
 
 import auth from '../middleware/auth/auth'
+import admin from '../middleware/auth/admin'
 import permission from "../middleware/auth/permission";
 
 const router = Router()
 
-router.get('/users', userCtrl.users)
+router.get('/users', permission, userCtrl.users)
 router.get('/users/:id', auth, userCtrl.user)
 router.post('/register', registerValid, userCtrl.register)
 router.post('/login', loginValid, userCtrl.login)
 router.post('/users/email', emailValid, userCtrl.emailPassword)
-router.delete('/users/:id', userCtrl.removeUser)
+router.delete('/users/:id', [auth, admin], userCtrl.removeUser)
 router.patch('/users/follow/:id', auth, userCtrl.followUser)
 router.patch('/users/:id/categories', userCtrl.addCategories)
 router.put('/users/:id/status', userCtrl.changeStatus)

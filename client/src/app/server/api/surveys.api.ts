@@ -130,3 +130,11 @@ export const categoriesSurveyApi = async (id: number, token: string) => {
         }
     })
 }
+
+export const searchSurveyApi = async (search: string, token: string) => {
+    return await api.get(`/search/surveys?search=${search}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

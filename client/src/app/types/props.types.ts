@@ -451,3 +451,18 @@ export type UpdatePasswordPropsType = {
     navigate: NavigateFunction;
     email: string;
 }
+
+export type SurveysMatchedPropsType = {
+    getSurvey: (id: number) => void;
+    surveys: ISurvey[];
+}
+
+export type SurveyMatchedPropsType = {
+    getSurvey: (id: number) => void;
+    survey: ISurvey;
+}
+
+export type SearchPropsType = {
+    navigate: NavigateFunction;
+    token: string;
+}

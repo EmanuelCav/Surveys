@@ -51,7 +51,7 @@ const Header = () => {
           alignItems: 'center'
         }}>
           <Icon navigate={navigate} location={location} />
-          <Search />
+          <Search navigate={navigate} token={user.user.token!} />
           <Auth user={user} setIsLogin={setIsLogin} navigate={navigate} />
         </Toolbar>
       </AppBar>
