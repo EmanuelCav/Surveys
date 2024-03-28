@@ -1,10 +1,10 @@
-import { Box, Card, CardContent, Grid, Typography } from '@mui/material'
-
-import ButtonCard from '../../../general/ButtonCard'
+import { Box, Card, CardContent, Grid, Switch, Typography } from '@mui/material'
 
 import { CategoryPropsType } from '../../../../types/props.types'
 
-const Category = ({ category, getCategory }: CategoryPropsType) => {
+import { isCategorySelected } from '../../../../helper/functions'
+
+const Category = ({ category, getCategory, user }: CategoryPropsType) => {
   return (
     <Grid item xs={3}>
       <Card sx={{
@@ -13,7 +13,11 @@ const Category = ({ category, getCategory }: CategoryPropsType) => {
         userSelect: 'none',
         msUserSelect: 'none',
         MozUserSelect: 'none',
-        WebkitUserSelect: 'none'
+        WebkitUserSelect: 'none',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        display: 'flex'
       }}>
         <CardContent sx={{ textAlign: 'center' }}>
           <Typography noWrap variant="h6" align="center" component="div">
@@ -28,7 +32,11 @@ const Category = ({ category, getCategory }: CategoryPropsType) => {
             mt={2}
           />
         </CardContent>
-        <ButtonCard id={category.id} func={() => getCategory(category.id)} text="View" />
+        <Switch
+          checked={isCategorySelected(user, category)}
+          onChange={() => getCategory(category.id)}
+          inputProps={{ 'aria-label': 'controlled' }}
+        />
       </Card>
     </Grid>
   )

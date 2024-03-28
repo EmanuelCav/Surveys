@@ -80,7 +80,6 @@ model Category {
   id           Int            @id @default(autoincrement())
   category     String         @unique
   surveys      Survey[]
-  isSelect     Boolean        @default(true)
   iconCategory String?
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
@@ -98,6 +97,7 @@ model Country {
 model UserCategory {
   userId     Int
   categoryId Int
+  isSelect   Boolean  @default(true)
   User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   Category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
@@ -138,7 +138,6 @@ model Follow {
   followingId Int
 
   @@id([followerId, followingId])
-  @@unique([followerId, followingId])
 }
 
 enum Gender {

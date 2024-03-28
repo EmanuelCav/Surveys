@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 import { NavigateFunction } from "react-router-dom";
 
 import { ICounterUser, ICountry, ILogin, IPassword, IRegister, IUpdateProfile, IUser } from "../interfaces/User";
-import { ICategory, ICreateOption, ICreateSurvey, ISurvey, IUpdateState } from "../interfaces/Survey";
+import { ICreateOption, ICreateSurvey, ISurvey, IUpdateState } from "../interfaces/Survey";
 import { DateTypeKey, OrderTypeKey, OrderUserTypeKey } from "./key.types";
 
 export type userType = {
@@ -46,7 +46,6 @@ export type SurveyDataActionPropsType = {
     user: ICounterUser;
     order: OrderTypeKey;
     date: DateTypeKey;
-    categories?: number;
 }
 
 export type SurveyCreateActionPropsType = {

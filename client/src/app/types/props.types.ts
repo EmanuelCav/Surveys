@@ -381,16 +381,19 @@ export type DataPropsType = {
 export type ShowCategoriesPropsType = {
     getCategory: (id: number) => void;
     categories: ICategory[];
+    user: IUser;
 }
 
 export type ExploreCategoriesPropsType = {
     getCategory: (id: number) => void;
     categories: ICategory[];
+    user: IUser;
 }
 
 export type CategoryPropsType = {
     getCategory: (id: number) => void;
     category: ICategory;
+    user: IUser;
 }
 
 export type FilterSurveyPropsType = {

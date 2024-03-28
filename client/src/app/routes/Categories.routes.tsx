@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from "@mui/material";
@@ -6,7 +6,9 @@ import { Box } from "@mui/material";
 import Navigation from "../components/general/Navigation";
 import ExploreCategories from "../components/categories/ExploreCategories";
 
-import { categoriesAll, surveyAll } from "../server/actions/survey.actions";
+import { categoriesAll } from "../server/actions/survey.actions";
+import { selectCategoriesApi } from "../server/api/user.api";
+import { userAction } from "../server/features/user.features";
 
 import { IReducer } from '../interfaces/Reducer';
 
@@ -24,15 +26,16 @@ const Categories = () => {
         dispatch(categoriesAll() as any)
     }
 
-    const getCategory = (id: number) => {
-        dispatch(surveyAll({
-            date: 'total',
-            order: 'random',
-            user,
-            categories: id
-        }) as any)
+    const getCategory = async (id: number) => {
 
-        navigate('/explore/surveys')
+        try {
+
+            const { data } = await selectCategoriesApi(id, user.user.token!)
+            dispatch(userAction(data))
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
@@ -42,7 +45,7 @@ const Categories = () => {
     return (
         <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
             <Navigation isCategories={true} isUsers={false} isSurveys={false} navigate={navigate} />
-            <ExploreCategories categories={surveys.categories} getCategory={getCategory} />
+            <ExploreCategories categories={surveys.categories} getCategory={getCategory} user={user.user.user!} />
         </Box>
     )
 }

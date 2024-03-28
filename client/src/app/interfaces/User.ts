@@ -21,7 +21,14 @@ export interface IUser {
     following?: IFollow[];
     surveys?: ISurvey[];
     description?: string;
+    UserCategory?: IUserCategory[];
     country?: ICountry;
+}
+
+export interface IUserCategory {
+    userId: number;
+    categoryId: number;
+    isSelect: boolean;
 }
 
 export interface IFollow {

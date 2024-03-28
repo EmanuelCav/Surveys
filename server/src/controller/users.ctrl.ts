@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { exclude, excludeArray, prisma } from "../helper/prisma";
+import { createCategoryUser, exclude, excludeArray, prisma } from "../helper/prisma";
 
 import { hashPassword, comparePassword } from "../helper/encrypt";
 import { generateToken } from "../helper/token";
@@ -135,8 +135,71 @@ export const register = async (req: Request, res: Response): Promise<Response> =
 
         return res.status(200).json({
             message: "Check your email",
-            user
+            id: user.id
         })
+
+    } catch (error) {
+        throw (error);
+    }
+
+}
+
+export const addCategories = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
+
+    try {
+
+        const user = await prisma.user.findFirst({
+            where: {
+                id: Number(id)
+            }
+        })
+
+        if (!user) {
+            return res.status(400).json({
+                message: "User does not exists"
+            })
+        }
+
+        const categories = await prisma.category.findMany()
+
+        for (let i = 0; i < categories.length; i++) {
+            await prisma.user.update({
+                where: {
+                    id: Number(id)
+                },
+                data: {
+                    UserCategory: {
+                        create: {
+                            categoryId: categories[i].id
+                        }
+                    }
+                }
+            })
+        }
+
+        const userUpdated = await prisma.user.findFirst({
+            include: {
+                country: true,
+                following: {
+                    select: {
+                        followingId: true
+                    }
+                },
+                UserCategory: {
+                    select: {
+                        categoryId: true,
+                        userId: true,
+                        isSelect: true
+                    }
+                }
+            }
+        })
+
+        const userRegistered = exclude(userUpdated, ['password', 'role', 'email'])
+
+        return res.status(200).json(userRegistered)
 
     } catch (error) {
         throw (error);
@@ -188,6 +251,13 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
                 following: {
                     select: {
                         followingId: true
+                    }
+                },
+                UserCategory: {
+                    select: {
+                        categoryId: true,
+                        userId: true,
+                        isSelect: true
                     }
                 }
             }
@@ -416,11 +486,18 @@ export const changeStatus = async (req: Request, res: Response): Promise<Respons
                     select: {
                         followingId: true
                     }
+                },
+                UserCategory: {
+                    select: {
+                        categoryId: true,
+                        userId: true,
+                        isSelect: true
+                    }
                 }
             }
         })
 
-        const showUserFilter = exclude(userUpdated, ['password', 'role'])
+        const showUserFilter = exclude(userUpdated, ['password', 'role', 'email'])
 
         const token = generateToken(user.id)
 

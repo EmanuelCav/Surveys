@@ -8,7 +8,7 @@ export const categories = async (req: Request, res: Response): Promise<Response>
 
         const categories = await prisma.category.findMany({
             orderBy: {
-                category: 'desc'
+                category: 'asc'
             }
         })
 
@@ -65,7 +65,7 @@ export const categoriesSurvey = async (req: Request, res: Response): Promise<Res
             }
         })
 
-        if(!category) {
+        if (!category) {
             return res.status(400).json({ message: "Category does not exists" })
         }
 
@@ -135,6 +135,72 @@ export const removeCategory = async (req: Request, res: Response): Promise<Respo
         return res.status(200).json({
             message: "Category removed successfully"
         })
+
+    } catch (error) {
+        throw error
+    }
+
+}
+
+export const selectCategory = async (req: Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params
+
+    try {
+
+        const category = await prisma.category.findFirst({
+            where: {
+                id: Number(id)
+            }
+        })
+
+        if (!category) {
+            return res.status(400).json({ message: "Category does not exists" })
+        }
+
+        const categoryUser = await prisma.userCategory.findFirst({
+            where: {
+                categoryId: Number(id),
+                userId: req.user
+            }
+        })
+
+        if (!categoryUser) {
+            return res.status(400).json({ message: "Category user does not exists" })
+        }
+
+        await prisma.userCategory.updateMany({
+            where: {
+                userId: req.user,
+                categoryId: Number(id)
+            },
+            data: {
+                isSelect: !categoryUser.isSelect
+            }
+        })
+
+        const user = await prisma.user.findFirst({
+            where: {
+                id: req.user
+            },
+            include: {
+                country: true,
+                following: {
+                    select: {
+                        followingId: true
+                    }
+                },
+                UserCategory: {
+                    select: {
+                        categoryId: true,
+                        userId: true,
+                        isSelect: true
+                    }
+                }
+            }
+        })
+
+        return res.status(200).json(user)
 
     } catch (error) {
         throw error

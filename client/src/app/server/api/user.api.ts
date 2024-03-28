@@ -76,3 +76,15 @@ export const updatePasswordApi = async (passwordData: IPassword, email: string |
         }
     })
 }
+
+export const addCategoriesApi = async (id: number) => {
+    return await api.patch(`/users/${id}/categories`, null)
+}
+
+export const selectCategoriesApi = async (id: number, token: string) => {
+    return await api.put(`/categories/${id}`, null, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}

@@ -15,6 +15,12 @@ export interface IUser {
     country: ICountry;
 }
 
+export interface ICategoryUser {
+    isSelect: boolean;
+    userId: number;
+    category: number;
+}
+
 export interface IFollow {
     followerId: number;
     followingId: number;

@@ -3,8 +3,8 @@ import { api } from './api';
 import { ICreateComment, ICreateOption, ICreateSurvey, IUpdateState } from '../../interfaces/Survey';
 import { DateTypeKey, OrderTypeKey } from '../../types/key.types';
 
-export const surveysApi = async (token: string | undefined, order: OrderTypeKey, date: DateTypeKey, categories: number | undefined) => {
-    return await api.get(`/surveys?order=${order}&date=${date}&categories=${categories}`, {
+export const surveysApi = async (token: string | undefined, order: OrderTypeKey, date: DateTypeKey) => {
+    return await api.get(`/surveys?order=${order}&date=${date}`, {
         headers: {
             'Authorization': `Bearer ${token}`
         }

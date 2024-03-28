@@ -11,7 +11,8 @@ const router = Router()
 
 router.get('/categories', categoryCtrl.categories)
 router.get('/categories/:id/surveys', auth, categoryCtrl.categoriesSurvey)
-router.post('/categories', [auth, admin], categoryValid, categoryCtrl.createCategory)
+router.post('/categories', categoryValid, categoryCtrl.createCategory)
 router.delete('/categories/:id', [auth, admin], categoryCtrl.removeCategory)
+router.put('/categories/:id', auth, categoryCtrl.selectCategory)
 
 export default router

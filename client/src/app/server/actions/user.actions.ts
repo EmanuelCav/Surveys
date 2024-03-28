@@ -31,13 +31,14 @@ export const userRegister = createAsyncThunk('user/register', async (userRegiste
 
     try {
 
-        const { data } = await userApi.registerApi(userRegisterData.userData)
+        const registerData = await userApi.registerApi(userRegisterData.userData)
+        const addCategoriesData = await userApi.addCategoriesApi(registerData.data.id)
 
-        dispatch(userFeatures.userAction(data.user))
+        dispatch(userFeatures.userAction(addCategoriesData.data))
 
         userRegisterData.handleIsAuth()
 
-        successMessage(data.message)
+        successMessage(registerData.data.message)
 
     } catch (error: any) {
         dangerMessage(error.response.data.message)
