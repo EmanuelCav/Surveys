@@ -81,6 +81,7 @@ const CreateSurvey = ({ user, setIsOptions, dispatch, categories }: CreateSurvey
                         borderColor: '#f64 !important',
                     },
                 }}
+                inputProps={{ maxLength: 50 }}
                 onChange={handleChange}
             />
             <SelectCategoryInput value={category} array={categories} text='Category' handleChange={handleSelect} />

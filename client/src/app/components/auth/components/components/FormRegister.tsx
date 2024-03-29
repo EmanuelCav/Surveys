@@ -10,6 +10,7 @@ import { FormLAuthPropsType } from '../../../../types/props.types';
 import { userRegister } from '../../../../server/actions/user.actions';
 
 import { genders } from '../../../../helper/properties';
+import { dangerMessage } from '../../../../helper/message';
 
 const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) => {
 
@@ -63,6 +64,12 @@ const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) 
 
     const handleSumbit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+
+        if(!status) {
+            dangerMessage("Accept terms and conditions to continue")
+            return
+        }
+
         getData()
     }
 
@@ -84,6 +91,7 @@ const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) 
                     }
                 }}
                 onChange={handleChange}
+                inputProps={{ maxLength: 35 }}
             />
             <TextField
                 margin="normal"

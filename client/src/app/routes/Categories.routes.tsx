@@ -45,7 +45,7 @@ const Categories = () => {
     return (
         <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
             <Navigation isCategories={true} isUsers={false} isSurveys={false} navigate={navigate} />
-            <ExploreCategories categories={surveys.categories} getCategory={getCategory} user={user.user.user!} />
+            <ExploreCategories categories={surveys.categories} getCategory={getCategory} user={user} />
         </Box>
     )
 }

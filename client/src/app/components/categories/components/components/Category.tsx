@@ -32,11 +32,14 @@ const Category = ({ category, getCategory, user }: CategoryPropsType) => {
             mt={2}
           />
         </CardContent>
-        <Switch
-          checked={isCategorySelected(user, category)}
-          onChange={() => getCategory(category.id)}
-          inputProps={{ 'aria-label': 'controlled' }}
-        />
+        {
+          user.isLoggedIn &&
+          <Switch
+            checked={isCategorySelected(user.user.user!, category)}
+            onChange={() => getCategory(category.id)}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />
+        }
       </Card>
     </Grid>
   )

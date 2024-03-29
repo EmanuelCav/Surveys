@@ -30,10 +30,10 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ToastContainer limit={1} />
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Loading />
-          <ToastContainer limit={1} />
           <Header />
           <Container>
             <Box mt={12}>
@@ -42,10 +42,12 @@ function App() {
                 <Route path="*" element={<NotFountPage />} />
                 <Route path="/passupdate" element={<Password />} />
                 <Route path="/status" element={<Status />} />
-                <Route path="/profile/:id" element={<Profile />} />
                 <Route path="/explore/surveys" element={<Surveys />} />
                 <Route path="/explore/users" element={<Users />} />
                 <Route path="/explore/categories" element={<Categories />} />
+                <Route path="/profile/:id" element={<PrivateRoute />}>
+                  <Route path="/profile/:id" element={<Profile />} />
+                </Route>
                 <Route path="/surveys/create" element={<PrivateRoute />}>
                   <Route path="/surveys/create" element={<Create />} />
                 </Route>
