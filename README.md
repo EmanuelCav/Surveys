@@ -7,7 +7,7 @@
 
 ## Production ##
 
-- https://client-tournament.onrender.com
+- https://surfrage.onrender.com
 
 ## Tools ##
   
