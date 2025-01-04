@@ -24,7 +24,7 @@ const Navigation = ({ isCategories, isSurveys, isUsers, navigate }: NavigationPr
     }
 
     return (
-        <Box position='absolute' top={0} left={0}>
+        <Box position='absolute' top={0} left={0} className="navigation-container">
             <Box position='fixed' height='100vh' width={294} p={2} sx={{
                 borderRight: "1px solid #f64"
             }}>

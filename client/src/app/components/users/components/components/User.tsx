@@ -10,7 +10,8 @@ const User = ({ user, redirectUser }: UserPropsType) => {
     <Grid item xs={4}>
       <Card sx={{
         boxShadow: "0 0 2px 1px #f76 inset",
-        p: 2
+        p: 2,
+        maxWidth: 345
       }}>
         <CardContent>
           <Typography noWrap variant="h6" align="center" component="div">

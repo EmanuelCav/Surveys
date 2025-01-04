@@ -8,7 +8,7 @@ import { ShowUsersPropsType } from '../../../types/props.types'
 const ShowUsers = ({ users, redirectUser }: ShowUsersPropsType) => {
     return (
         <Grid container mt={2} spacing={1}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} wrap='wrap'>
                 {
                     users.map((user: IUser) => {
                         return <User user={user} redirectUser={redirectUser} key={user.id} />

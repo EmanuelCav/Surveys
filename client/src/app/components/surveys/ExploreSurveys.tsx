@@ -9,7 +9,7 @@ const ExploreSurveys = ({ surveys, redirectSurvey, user, handleFilter }: Explore
   return (
     <Box width='100%' p={2} sx={{
       marginLeft: '294px'
-    }}>
+    }} className="container-explore">
       <ExploreHeader handleFilter={handleFilter} />
       <ShowSurveys surveys={surveys} redirectSurvey={redirectSurvey} user={user} />
     </Box>

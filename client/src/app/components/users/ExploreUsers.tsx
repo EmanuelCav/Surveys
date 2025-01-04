@@ -15,7 +15,7 @@ const ExploreUsers = ({ users, handlePage, page, navigate, usersLength, handleFi
   return (
     <Box width='100%' p={2} sx={{
       marginLeft: '294px'
-    }}>
+    }} className="container-explore">
       <ExploreHeader handleFilter={handleFilter} />
       <ShowUsers users={users} redirectUser={redirectUser} />
       <ChangeUsers handlePage={handlePage} page={page} usersLength={usersLength} />

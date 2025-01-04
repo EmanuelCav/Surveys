@@ -8,7 +8,7 @@ const ExploreCategories = ({ categories, getCategory, user }: ExploreCategoriesP
   return (
     <Box width='100%' p={2} sx={{
       marginLeft: '294px'
-    }}>
+    }} className="container-explore">
       <ShowCategories categories={categories} getCategory={getCategory} user={user} />
     </Box>
   )

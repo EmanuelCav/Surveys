@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom'
-import { AppBar, Box, Toolbar } from "@mui/material";
+import { AppBar, Box, Container, Toolbar } from "@mui/material";
 
 import { IReducer } from "../../interfaces/Reducer";
 
@@ -32,7 +32,6 @@ const Header = () => {
 
   }, [isLogin, isRegister])
 
-
   return (
     <Box>
       {
@@ -45,15 +44,17 @@ const Header = () => {
         padding: 1,
         zIndex: 6
       }}>
-        <Toolbar sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <Icon navigate={navigate} location={location} />
-          <Search navigate={navigate} token={user.user.token!} />
-          <Auth user={user} setIsLogin={setIsLogin} navigate={navigate} />
-        </Toolbar>
+        <Container fixed maxWidth="lg">
+          <Toolbar sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+            <Icon navigate={navigate} location={location} />
+            <Search navigate={navigate} token={user.user.token!} />
+            <Auth user={user} setIsLogin={setIsLogin} navigate={navigate} />
+          </Toolbar>
+        </Container>
       </AppBar>
     </Box>
   )

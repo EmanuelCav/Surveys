@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 
+import { IVote } from "../interface/Survey";
+
 import { prisma } from "../helper/prisma";
 
 export const createOption = async (req: Request, res: Response): Promise<Response> => {
@@ -204,7 +206,7 @@ export const vote = async (req: Request, res: Response): Promise<Response> => {
             })
         }
 
-        if (option.votes.find(v => v.userId === req.user)) {
+        if (option.votes.find((v: IVote) => v.userId === req.user)) {
             return res.status(200).json({
                 message: "You have already vote"
             })

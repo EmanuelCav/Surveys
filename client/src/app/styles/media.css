@@ -1,0 +1,8 @@
+@media screen and (max-width: 1055px) {
+    .navigation-container {
+        display: none;
+    }
+    .container-explore {
+        margin-left: 0 !important;
+    }
+}

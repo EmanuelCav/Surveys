@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 
+import { IComment, ILike } from "../interface/Survey";
+
 import { prisma } from "../helper/prisma";
 
 export const createComment = async (req: Request, res: Response): Promise<Response> => {
@@ -24,7 +26,7 @@ export const createComment = async (req: Request, res: Response): Promise<Respon
             })
         }
 
-        if (survey.comments.filter((c) => c.userId === req.user).length >= 2) {
+        if (survey.comments.filter((c: IComment) => c.userId === req.user).length >= 2) {
             return res.status(400).json({
                 message: "You cannot upload more than 2 comments"
             })
@@ -171,7 +173,8 @@ export const likeComment = async (req: Request, res: Response): Promise<Response
             include: {
                 likes: {
                     select: {
-                        userId: true
+                        userId: true,
+                        commentId: true
                     }
                 }
             }
@@ -183,7 +186,7 @@ export const likeComment = async (req: Request, res: Response): Promise<Response
             })
         }
 
-        if (comment.likes.find((u) => u.userId === req.user)) {
+        if (comment.likes.find((u: ILike) => u.userId === req.user)) {
             await prisma.comment.update({
                 where: {
                     id: Number(id)

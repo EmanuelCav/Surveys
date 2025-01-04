@@ -2,11 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
-import { Box, Container } from "@mui/material";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Header from "./app/components/header/Header";
+import Header from './app/components/header/Header'
 import Loading from "./app/components/message/Loading";
 
 import Index from "./app/routes/Index.routes";
@@ -35,28 +34,24 @@ function App() {
         <PersistGate loading={null} persistor={persistor}>
           <Loading />
           <Header />
-          <Container>
-            <Box mt={12}>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="*" element={<NotFountPage />} />
-                <Route path="/passupdate" element={<Password />} />
-                <Route path="/status" element={<Status />} />
-                <Route path="/explore/surveys" element={<Surveys />} />
-                <Route path="/explore/users" element={<Users />} />
-                <Route path="/explore/categories" element={<Categories />} />
-                <Route path="/profile/:id" element={<PrivateRoute />}>
-                  <Route path="/profile/:id" element={<Profile />} />
-                </Route>
-                <Route path="/surveys/create" element={<PrivateRoute />}>
-                  <Route path="/surveys/create" element={<Create />} />
-                </Route>
-                <Route path="/surveys/:id" element={<PrivateRoute />}>
-                  <Route path="/surveys/:id" element={<Survey />} />
-                </Route>
-              </Routes>
-            </Box>
-          </Container>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="*" element={<NotFountPage />} />
+            <Route path="/passupdate" element={<Password />} />
+            <Route path="/status" element={<Status />} />
+            <Route path="/explore/surveys" element={<Surveys />} />
+            <Route path="/explore/users" element={<Users />} />
+            <Route path="/explore/categories" element={<Categories />} />
+            <Route path="/profile/:id" element={<PrivateRoute />}>
+              <Route path="/profile/:id" element={<Profile />} />
+            </Route>
+            <Route path="/surveys/create" element={<PrivateRoute />}>
+              <Route path="/surveys/create" element={<Create />} />
+            </Route>
+            <Route path="/surveys/:id" element={<PrivateRoute />}>
+              <Route path="/surveys/:id" element={<Survey />} />
+            </Route>
+          </Routes>
         </PersistGate>
       </Provider>
     </BrowserRouter >

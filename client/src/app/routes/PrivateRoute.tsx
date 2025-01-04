@@ -1,6 +1,6 @@
+import { useEffect } from 'react';
 import { Outlet, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 
 import { IReducer } from '../interfaces/Reducer';
 
@@ -12,7 +12,7 @@ const PrivateRoute = () => {
     const user = useSelector((state: IReducer) => selector(state).user)
 
     useEffect(() => {
-        if (!user.isLoggedIn) {
+        if (!user.user.token) {
             dangerMessage("Sign in to take part")
         }
     }, [])
@@ -20,7 +20,7 @@ const PrivateRoute = () => {
     return (
         <>
             {
-                user.isLoggedIn ? <Outlet /> : <Navigate to="/" />
+                (user.user.token) ? <Outlet /> : <Navigate to="/" />
             }
         </>
     )

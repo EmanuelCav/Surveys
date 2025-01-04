@@ -1,5 +1,4 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { NavigateFunction } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { Box, FormControl, Input, InputAdornment } from "@mui/material";
 
@@ -14,6 +13,8 @@ const Search = ({ navigate, token }: SearchPropsType) => {
 
     const [search, setSearch] = useState<string>("")
     const [surveys, setSurveys] = useState<ISurvey[]>([])
+
+    const [menu, setMenu] = useState<boolean>(window.matchMedia("(max-width: 650px)").matches)
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
@@ -38,37 +39,56 @@ const Search = ({ navigate, token }: SearchPropsType) => {
     }
 
     useEffect(() => {
-        getData()
+        if (search.length > 0) {
+            getData()
+        }
     }, [search])
 
+    useEffect(() => {
+        window
+            .matchMedia("(max-width: 650px)")
+            .addEventListener('change', e => setMenu(e.matches));
+    }, [])
+
     return (
-        <Box width='33%' sx={{ '& > :not(style)': { m: 1 }, userSelect: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Box 
+        width={menu ? '100%' : '33%'} 
+        display='flex' 
+        justifyContent={menu ? 'flex-end' : 'center'} 
+        alignItems={menu ? 'flex-end' : 'center'} 
+        sx={{ '& > :not(style)': { m: 1 }, userSelect: 'none' }}>
             {
                 search.length > 0 && <SurveysMatched surveys={surveys} getSurvey={getSurvey} />
             }
-            <FormControl variant="standard">
-                <Input
-                    id="input-with-icon-adornment"
-                    color="warning"
-                    autoComplete="off"
-                    sx={{
-                        borderBottomColor: '#f64',
-                        ":hover": {
-                            color: '#f64',
-                        },
-                    }}
-                    name="search"
-                    value={search}
-                    startAdornment={
-                        <InputAdornment position="start" variant="outlined">
-                            <BsSearch color="#f64" />
-                        </InputAdornment>
-                    }
-                    placeholder="Search on Surveys"
-                    onChange={handleChange}
-                />
-            </FormControl>
-        </Box>
+            {
+                menu ? (
+                    <BsSearch color="#f64" style={{ cursor: 'pointer' }} size={24} />
+                ) : (
+                    <FormControl variant="standard">
+                        <Input
+                            id="input-with-icon-adornment"
+                            color="warning"
+                            autoComplete="off"
+                            sx={{
+                                borderBottomColor: '#f64',
+                                ":hover": {
+                                    color: '#f64',
+                                },
+                            }}
+                            name="search"
+                            value={search}
+                            startAdornment={
+                                <InputAdornment position="start" variant="outlined">
+                                    <BsSearch color="#f64" />
+                                </InputAdornment>
+                            }
+                            placeholder="Search on Surveys"
+                            onChange={handleChange}
+                        />
+                    </FormControl>
+                )
+            }
+        </Box >
     )
 }
 

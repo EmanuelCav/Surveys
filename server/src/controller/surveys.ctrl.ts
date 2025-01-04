@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 
+import { IFollow } from "../interface/User";
+import { IRecommendation } from "../interface/Survey";
+
 import { prisma } from "../helper/prisma";
 import { filterDate, orderSurveys, shuffle } from "../helper/filter";
 
@@ -82,7 +85,7 @@ export const surveysFollow = async (req: Request, res: Response): Promise<Respon
         const surveys = await prisma.survey.findMany({
             where: {
                 userId: {
-                    in: user.following.map(u => u.followerId)
+                    in: user.following.map((u: IFollow) => u.followerId)
                 },
                 state: 'PUBLIC'
             },
@@ -301,7 +304,7 @@ export const recommendSurvey = async (req: Request, res: Response): Promise<Resp
 
         let recommendedSurvey;
 
-        if (survey.recommendations.find((s) => s.userId === req.user)) {
+        if (survey.recommendations.find((s: IRecommendation) => s.userId === req.user)) {
 
             recommendedSurvey = await prisma.survey.update({
                 where: {

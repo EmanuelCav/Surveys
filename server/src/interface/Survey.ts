@@ -36,12 +36,14 @@ export interface IVote {
 }
 
 export interface IComment {
-    id: number;
-    createdAt: Date;
-    updatedAt: Date;
-    comment: string;
-    likes: ILike[];
-    user: IUser;
+    id?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+    comment?: string;
+    likes?: ILike[];
+    user?: IUser;
+    userId: number;
+    commentId?: number;
 }
 
 export interface ILike {

@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 
-import { createCategoryUser, exclude, excludeArray, prisma } from "../helper/prisma";
+import { exclude, excludeArray, prisma } from "../helper/prisma";
+
+import { IFollow } from "interface/User";
 
 import { hashPassword, comparePassword } from "../helper/encrypt";
 import { generateToken } from "../helper/token";
@@ -226,8 +228,32 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
         }
 
         if (!user.status) {
+
+            const userLoggedIn = await prisma.user.findUnique({
+                where: {
+                    email
+                },
+                include: {
+                    country: true,
+                    following: {
+                        select: {
+                            followingId: true
+                        }
+                    },
+                    UserCategory: {
+                        select: {
+                            categoryId: true,
+                            userId: true,
+                            isSelect: true
+                        }
+                    }
+                }
+            })
+
             await infoEmail(email)
-            return res.status(400).json({
+            
+            return res.status(200).json({
+                user: userLoggedIn,
                 message: "You have to verify your user. Check yuor email"
             })
         }
@@ -344,7 +370,7 @@ export const followUser = async (req: Request, res: Response): Promise<Response>
 
         let userUpdated
 
-        if (user.followers.find((follow) => follow.followingId === req.user)) {
+        if (user.followers.find((follow: IFollow) => follow.followingId === req.user)) {
 
             userUpdated = await prisma.user.update({
                 where: {

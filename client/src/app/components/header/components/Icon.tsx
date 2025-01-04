@@ -14,7 +14,7 @@ const Icon = ({ navigate, location }: IconPropsType) => {
     }
 
     return (
-        <Box width='33%' sx={{
+        <Box sx={{
             userSelect: 'none'
         }} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'row'}>
             <Logo redirectIndex={redirectIndex} />

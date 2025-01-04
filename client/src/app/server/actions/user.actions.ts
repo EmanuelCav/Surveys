@@ -14,11 +14,19 @@ export const userLogin = createAsyncThunk('user/login', async (userLoginData: Us
 
         const { data } = await userApi.loginApi(userLoginData.userData)
 
-        dispatch(userFeatures.authAction(data))
-
+        if(data.message) {
+            dispatch(userFeatures.userAction(data.user))
+        } else {
+            dispatch(userFeatures.authAction(data))
+        }
+        
         userLoginData.handleIsAuth()
-
+        
         userLoginData.navigate('/explore/surveys')
+
+        if(data.message) {
+            successMessage(data.message)
+        }
 
     } catch (error: any) {
         dangerMessage(error.response.data[0].message)
@@ -41,7 +49,7 @@ export const userRegister = createAsyncThunk('user/register', async (userRegiste
         successMessage(registerData.data.message)
 
     } catch (error: any) {
-        dangerMessage(error.response.data.message)
+        dangerMessage(error.response.data[0].message)
     }
 
 

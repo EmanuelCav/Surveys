@@ -47,6 +47,10 @@ const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) 
 
     }
 
+    const termsAndConditions = () => {
+        navigate('https://www.termsandconditionsgenerator.com/live.php?token=ZssdvaUix4xrNDy3zNXIL0euscnydVpH')
+    }
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setUserData({ ...userData, [name]: value })
@@ -114,7 +118,7 @@ const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) 
             <InputPassword value={confirm} handleChange={handleChange} setPassword={setConfirm} showPassword={showConfirm} text='Confirm' />
             <Box mt={2} display='flex' justifyContent='flex-start' alignItems='center'>
                 <Checkbox color='warning' name='status' value={status} checked={status} onChange={handleChecked} />
-                <Typography component='h6' color='#f64' sx={{
+                <Typography component='h6' color='#f64' onClick={termsAndConditions} sx={{
                     cursor: 'pointer',
                     ":hover": {
                         textDecoration: 'underline'
