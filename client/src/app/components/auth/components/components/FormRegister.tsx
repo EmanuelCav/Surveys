@@ -48,7 +48,7 @@ const FormRegister = ({ dispatch, navigate, handleIsAuth }: FormLAuthPropsType) 
     }
 
     const termsAndConditions = () => {
-        navigate('https://www.termsandconditionsgenerator.com/live.php?token=ZssdvaUix4xrNDy3zNXIL0euscnydVpH')
+        
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
