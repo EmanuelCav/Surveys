@@ -1,22 +1,25 @@
-import { Grid } from '@mui/material'
+import { Grid } from "@mui/material";
 
-import User from './components/User'
+import User from "./components/User";
 
-import { IUser } from '../../../interfaces/User'
-import { ShowUsersPropsType } from '../../../types/props.types'
+import { IUser } from "../../../interfaces/User";
+import { ShowUsersPropsType } from "../../../types/props.types";
 
 const ShowUsers = ({ users, redirectUser }: ShowUsersPropsType) => {
-    return (
-        <Grid container mt={2} spacing={1}>
-            <Grid container spacing={2} wrap='wrap'>
-                {
-                    users.map((user: IUser) => {
-                        return <User user={user} redirectUser={redirectUser} key={user.id} />
-                    })
-                }
-            </Grid>
-        </Grid>
-    )
-}
+  return (
+    <Grid 
+      container 
+      mt={2} 
+      spacing={2} 
+      justifyContent="center"
+    >
+      {
+        users.map((user: IUser) => (
+          <User user={user} redirectUser={redirectUser} key={user.id} />
+        ))
+      }
+    </Grid>
+  );
+};
 
-export default ShowUsers
+export default ShowUsers;

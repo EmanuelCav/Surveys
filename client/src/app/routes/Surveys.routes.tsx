@@ -64,9 +64,10 @@ const Surveys = () => {
   }, [isSumbitFilter])
 
   return (
-    <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
+    <Box sx={{ mt: 10 }} position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
       {
-        isFilter && <FilterSurvey handleFilter={handleFilter} handleOrder={handleOrder} order={order} handleDate={handleDate} date={date} handleSumbitFilter={handleSumbitFilter!} navigate={navigate} />
+        isFilter && <FilterSurvey handleFilter={handleFilter} handleOrder={handleOrder} order={order} 
+        handleDate={handleDate} date={date} handleSumbitFilter={handleSumbitFilter!} navigate={navigate} />
       }
       <Navigation isCategories={false} isUsers={false} isSurveys={true} navigate={navigate} />
       <ExploreSurveys surveys={surveys.surveys} redirectSurvey={redirectSurvey} user={user.user} handleFilter={handleFilter} />

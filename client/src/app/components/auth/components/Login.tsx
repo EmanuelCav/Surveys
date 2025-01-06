@@ -17,11 +17,11 @@ const Login = ({ navigate, handleIsAuth, dispatch, registerVisibility, handleRes
                 flexDirection: 'column',
                 alignItems: 'center',
                 background: '#ffffff',
-                width: '28%',
                 px: 4,
                 py: 2,
                 userSelect: 'none',
-                position: 'relative'
+                position: 'relative',
+                width: { xs: '95%', md: "33.33%" }
             }}
         >
             <CloseForm func={handleIsAuth} />

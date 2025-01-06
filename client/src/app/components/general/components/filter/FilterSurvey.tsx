@@ -16,7 +16,7 @@ const FilterSurvey = ({ handleFilter, handleOrder, order, handleDate, date, hand
             width: '100%',
             background: 'rgba(0,0,0,0.4)',
             zIndex: 12,
-            overflow: 'hidden'
+            overflowY: 'hidden'
         }}>
             <Box
                 sx={{
@@ -25,7 +25,7 @@ const FilterSurvey = ({ handleFilter, handleOrder, order, handleDate, date, hand
                     justifyContent: 'center',
                     alignItems: 'flex-start',
                     background: '#ffffff',
-                    width: '28%',
+                    width: { xs: '95%', md: '28%' },
                     px: 4,
                     py: 2,
                     userSelect: 'none',

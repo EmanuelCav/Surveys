@@ -48,7 +48,11 @@ export const surveyCreate = createAsyncThunk('survey/create', async (surveyCreat
         surveyCreateData.setIsOptions(true)
 
     } catch (error: any) {
-        dangerMessage(error.response.data.message)
+        if(error.response.data[0]) {
+            dangerMessage(error.response.data[0].message)
+        } else {
+            dangerMessage(error.response.data.message)
+        }
     }
 
 })
@@ -68,7 +72,11 @@ export const surveyOptions = createAsyncThunk('survey/option', async (surveyOpti
         surveyOptionData.navigate(`/surveys/${surveyOptionData.survey.id}`)
         
     } catch (error: any) {
-        dangerMessage(error.response.data.message)
+        if(error.response.data[0]) {
+            dangerMessage(error.response.data[0].message)
+        } else {
+            dangerMessage(error.response.data.message)
+        }
     }
 
 })

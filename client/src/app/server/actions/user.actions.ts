@@ -29,7 +29,11 @@ export const userLogin = createAsyncThunk('user/login', async (userLoginData: Us
         }
 
     } catch (error: any) {
-        dangerMessage(error.response.data[0].message)
+        if(error.response.data[0]) {
+            dangerMessage(error.response.data[0].message)
+        } else {
+            dangerMessage(error.response.data.message)
+        }
     }
 
 
@@ -49,7 +53,11 @@ export const userRegister = createAsyncThunk('user/register', async (userRegiste
         successMessage(registerData.data.message)
 
     } catch (error: any) {
-        dangerMessage(error.response.data[0].message)
+        if(error.response.data[0]) {
+            dangerMessage(error.response.data[0].message)
+        } else {
+            dangerMessage(error.response.data.message)
+        }
     }
 
 

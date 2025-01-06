@@ -81,7 +81,7 @@ const Users = () => {
     }, [page, isSumbitFilter])
 
     return (
-        <Box position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
+        <Box sx={{ mt: 10 }} position='relative' display='flex' justifyContent='flex-end' alignItems='center'>
             {
                 isFilter && <FilterUser handleFilter={handleFilter} handleSumbitFilter={handleSumbitFilter} handleOrder={handleOrder} order={order} />
             }
