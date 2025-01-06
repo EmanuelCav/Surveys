@@ -31,10 +31,10 @@ const Survey = () => {
 
   useEffect(() => {
     getData()
-  }, [dispatch, params])
+  }, [params])
 
   return (
-    <Box p={4}>
+    <Box mt={10} p={4}>
       {
         surveys.survey.id &&
         <>

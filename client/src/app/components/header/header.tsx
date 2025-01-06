@@ -9,6 +9,7 @@ import ContainerAuth from "../auth/ContainerAuth";
 import Auth from "./components/Auth"
 import Icon from "./components/Icon"
 import Search from "./components/Search";
+import MenuDrawer from "./components/MenuDrawer";
 
 import { selector } from "../../helper/selector";
 
@@ -21,6 +22,11 @@ const Header = () => {
 
   const [isLogin, setIsLogin] = useState<boolean>(false)
   const [isRegister, setIsRegister] = useState<boolean>(false)
+  const [isMenu, setIsMenu] = useState<boolean>(false)
+
+  const handleMenu = () => {
+    setIsMenu(!isMenu)
+  }
 
   useEffect(() => {
     if (isLogin || isRegister) {
@@ -52,10 +58,11 @@ const Header = () => {
           }}>
             <Icon navigate={navigate} location={location} />
             <Search navigate={navigate} token={user.user.token!} />
-            <Auth user={user} setIsLogin={setIsLogin} navigate={navigate} />
+            <Auth user={user} setIsLogin={setIsLogin} navigate={navigate} handleMenu={handleMenu} />
           </Toolbar>
         </Container>
       </AppBar>
+      <MenuDrawer handleMenu={handleMenu} isMenu={isMenu} navigate={navigate} user={user} />
     </Box>
   )
 }

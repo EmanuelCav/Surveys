@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Presentation from "../components/index/Presentation";
 import Visualization from "../components/index/Visualization";
@@ -8,9 +9,15 @@ import Resume from "../components/index/Resume";
 import Footer from "../components/index/Footer";
 import ContainerAuth from "../components/auth/ContainerAuth";
 
+import { IReducer } from "../interfaces/Reducer";
+
+import { selector } from "../helper/selector";
+
 const Index = () => {
 
   const navigate = useNavigate()
+
+  const user = useSelector((state: IReducer) => selector(state).user)
 
   const [isLogin, setIsLogin] = useState<boolean>(false)
   const [isRegister, setIsRegister] = useState<boolean>(false)
@@ -24,6 +31,12 @@ const Index = () => {
     document.body.style.overflow = "auto";
 
   }, [isLogin, isRegister])
+
+  useEffect(() => {
+    if(user.user.token) {
+      navigate("/explore/surveys")
+    }
+  }, [user.user.token])
 
   return (
     <>

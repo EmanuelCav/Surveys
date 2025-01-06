@@ -16,12 +16,7 @@ const SurveysProfile = ({ user, navigate }: SurveysProfilePropsType) => {
   }
 
   return (
-    <Box mt={2} sx={{
-      borderWidth: 1,
-      borderColor: '#f64',
-      borderStyle: 'solid',
-      padding: 3
-    }}>
+    <Box mt={2}>
       <ActionSurveyProfile user={user} redirectCreate={redirectCreate} />
       <ShowSurveys surveys={user.profile.surveys!} redirectSurvey={redirectSurvey} user={user.user} />
     </Box>

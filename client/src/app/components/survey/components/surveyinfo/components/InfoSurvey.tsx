@@ -48,7 +48,7 @@ const InfoSurvey = ({ survey, user }: InfoSurveyPropsType) => {
     }, [dispatch, survey.recommendations])
 
     return (
-        <Box display="flex" justifyContent='space-evenly' alignItems='center' width='100%' p={1} mt={1} bgcolor='#ffffff' sx={{
+        <Box display="flex" justifyContent='space-evenly' alignItems='center' flexWrap='wrap' width='100%' p={1} mt={1} bgcolor='#ffffff' sx={{
             borderRadius: '4px',
             wordWrap: 'break-word',
             outline: "2px solid var(--main-color)"

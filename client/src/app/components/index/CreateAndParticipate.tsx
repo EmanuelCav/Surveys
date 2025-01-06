@@ -21,7 +21,7 @@ const CreateAndParticipate: React.FC = () => {
           }
         }}>
           <Box sx={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <Typography variant="h3" color="#ffffff" fontWeight={500} component="h2" gutterBottom>
+            <Typography variant="h4" color="#ffffff" fontWeight={500} component="h2" gutterBottom>
               Crea y Participa
             </Typography>
             <Typography variant="h6" color="#ffffff">

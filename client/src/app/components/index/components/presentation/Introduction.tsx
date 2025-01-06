@@ -3,7 +3,7 @@ import { Box, Button, Grid, Typography } from "@mui/material"
 const Introduction = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void; }) => {
     return (
         <Grid xs={12} md={6} p={2} item>
-            <Typography variant="h3" color={"#f64"} align="center" component="h1" gutterBottom>
+            <Typography variant="h4" color={"#f64"} align="center" component="h1" gutterBottom>
                 ¡Bienvenido a Surfrage!
             </Typography>
             <Typography variant="h5" paragraph align="center">

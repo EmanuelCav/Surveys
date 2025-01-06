@@ -17,7 +17,7 @@ const Resume = ({ setIsLogin }: { setIsLogin: (isLogin: boolean) => void; }) => 
           }
         }}>
           <Box sx={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <Typography variant="h3" component="h2" color={"#f64"} gutterBottom>
+            <Typography variant="h4" component="h2" color={"#f64"} gutterBottom>
               ¡Únete Ahora Mismo!
             </Typography>
             <Typography variant="h6" color={"#f64"} paragraph>

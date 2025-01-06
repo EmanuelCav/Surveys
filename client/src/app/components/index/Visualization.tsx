@@ -20,7 +20,7 @@ const Visualization: React.FC = () => {
           }
         }}>
           <Box sx={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <Typography variant="h3" component="h2" color={"#f64"} fontWeight={500} gutterBottom>
+            <Typography variant="h4" component="h2" color={"#f64"} fontWeight={500} gutterBottom>
               Visualización que impacta
             </Typography>
             <Typography variant="h6" color={"#f64"}>

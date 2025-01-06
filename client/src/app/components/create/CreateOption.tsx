@@ -74,7 +74,7 @@ const CreateOption = ({ user, survey, navigate }: CreateOptionPropsType) => {
 
   return (
     <Box component='form' p={3} justifyContent='center' alignItems='center' flexDirection='column' display='flex' sx={{
-      width: '37.33%',
+      width: {xs: '95%', md: '37.33%'},
       height: '100%'
     }} noValidate onSubmit={handleSumbit}>
       <ShowOptions optionData={optionData} handleChange={handleChange} options={survey.options!} />

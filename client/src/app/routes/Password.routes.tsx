@@ -34,7 +34,7 @@ const Password = () => {
             sx={{
               py: 2,
               px: 4,
-              width: '37.66%'
+              width: { xs: '100%', md: '33.33%' }
             }}
           >
             <FormHeader />

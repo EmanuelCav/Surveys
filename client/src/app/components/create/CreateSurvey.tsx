@@ -61,8 +61,8 @@ const CreateSurvey = ({ user, setIsOptions, dispatch, categories }: CreateSurvey
 
     return (
         <Box component="form" noValidate sx={{
-            mt: 1,
-            width: '50%'
+            mt: { xs: 10, md: 1},
+            width: {xs: '95%', md: '50%'}
         }}
             onSubmit={handleSumbit}>
             <FormHeader />

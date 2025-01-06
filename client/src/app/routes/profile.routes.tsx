@@ -35,23 +35,26 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    getData()
-  }, [dispatch, params.id])
+    if (params.id) {
+      getData();
+    }
+  }, [params.id])
+  
 
   return (
-    <>
+    <Box sx={{ mt: 10 }}>
       {
         isEditProfile && <EditProfile navigate={navigate} dispatch={dispatch} handleEditProfile={handleEditProfile} user={user} setIsEditProfile={setIsEditProfile} />
       }
       {
         user.profile.id && (
-          <Box p={2}>
+          <Box pt={2}>
             <InfoProfile user={user.profile} loggedUser={user.user} navigate={navigate} dispatch={dispatch} handleEditProfile={handleEditProfile} />
             <SurveysProfile user={user} navigate={navigate} />
           </Box>
         )
       }
-    </>
+    </Box>
   )
 }
 

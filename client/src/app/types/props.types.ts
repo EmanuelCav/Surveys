@@ -17,6 +17,7 @@ export type AuthPropsType = {
     user: userType;
     setIsLogin: (isLogin: boolean) => void;
     navigate: NavigateFunction;
+    handleMenu: () => void;
 }
 
 export type ContainerAuthPropsType = {
@@ -465,4 +466,16 @@ export type SurveyMatchedPropsType = {
 export type SearchPropsType = {
     navigate: NavigateFunction;
     token: string;
+}
+
+export type MenuDrawerPropsType = {
+    isMenu: boolean;
+    handleMenu: () => void;
+    navigate: NavigateFunction;
+    user: userType;
+}
+
+export type ListDrawerPropsType = {
+    text: string;
+    func: () => void;
 }
