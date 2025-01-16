@@ -6,7 +6,7 @@ import { IFollow } from "interface/User";
 
 import { hashPassword, comparePassword } from "../helper/encrypt";
 import { generateToken } from "../helper/token";
-import { infoEmail, resetPassword } from "../helper/mail";
+import { infoEmail, resetPassword, welcomeMessage } from "../helper/mail";
 import { generateUsers } from "../helper/mocks";
 import { orderUsers } from "../helper/filter";
 
@@ -136,7 +136,7 @@ export const register = async (req: Request, res: Response): Promise<Response> =
         })
 
         return res.status(200).json({
-            message: "Check your email",
+            message: "Welcome! Check your email to verify",
             id: user.id
         })
 
@@ -205,6 +205,20 @@ export const addCategories = async (req: Request, res: Response): Promise<Respon
 
     } catch (error) {
         throw (error);
+    }
+
+}
+
+export const welcome = async (req: Request, res: Response): Promise<Response> => {
+
+    try {
+
+        await welcomeMessage()
+
+        return res.status(200).json({ message: "Welcome" })
+        
+    } catch (error) {
+        throw error
     }
 
 }

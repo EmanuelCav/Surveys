@@ -66,3 +66,19 @@ export const resetPassword = async (email: string) => {
 
 }
 
+export const welcomeMessage = async () => {
+
+    try {
+
+        await transport.sendMail({
+            from: `'EMAILS' ${my_mail}`,
+            to: `${my_mail}`,
+            subject: "Surfrage: Alguién visitó la página",
+            html: "Alguién visitó la página",
+        })
+
+    } catch (error) {
+        throw (error)
+    }
+
+}

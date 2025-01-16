@@ -1,5 +1,5 @@
 import axios from 'axios'
 
-// import { host_prod } from '../../config/import';
+import { host_prod, host } from '../../config/import';
 
-export const api = axios.create({ baseURL: "http://localhost:4000" })
+export const api = axios.create({ baseURL: import.meta.env.DEV ? `${host}`.trim() : `${host_prod}`.trim() })

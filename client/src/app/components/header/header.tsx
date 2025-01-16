@@ -11,6 +11,8 @@ import Icon from "./components/Icon"
 import Search from "./components/Search";
 import MenuDrawer from "./components/MenuDrawer";
 
+import { welcomeApi } from "../../server/api/surveys.api";
+
 import { selector } from "../../helper/selector";
 
 const Header = () => {
@@ -37,6 +39,12 @@ const Header = () => {
     document.body.style.overflow = "auto";
 
   }, [isLogin, isRegister])
+
+  useEffect(() => {
+    (async () => {
+      await welcomeApi()
+    })()
+  }, [])
 
   return (
     <Box>

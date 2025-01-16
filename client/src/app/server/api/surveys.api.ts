@@ -11,6 +11,10 @@ export const surveysApi = async (token: string | undefined, order: OrderTypeKey,
     })
 }
 
+export const welcomeApi = async () => {
+    return await api.get("/welcome")
+}
+
 export const surveysFollowApi = async (token: string) => {
     return await api.get('/surveys/follow', {
         headers: {

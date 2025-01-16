@@ -16,6 +16,7 @@ const router = Router()
 
 router.get('/users', permission, userCtrl.users)
 router.get('/users/:id', auth, userCtrl.user)
+router.get("/welcome", userCtrl.welcome)
 router.post('/register', registerValid, userCtrl.register)
 router.post('/login', loginValid, userCtrl.login)
 router.post('/users/email', emailValid, userCtrl.emailPassword)

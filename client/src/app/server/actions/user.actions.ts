@@ -49,6 +49,7 @@ export const userRegister = createAsyncThunk('user/register', async (userRegiste
         dispatch(userFeatures.userAction(addCategoriesData.data))
 
         userRegisterData.handleIsAuth()
+        userRegisterData.navigate("/explore/surveys")
 
         successMessage(registerData.data.message)
 
